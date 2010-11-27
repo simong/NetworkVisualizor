@@ -1,0 +1,3 @@
+var Thing = Class.extend({
+
+});
