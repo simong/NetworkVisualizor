@@ -91,7 +91,6 @@ function loadNetwork(success){
                 // to the main node label
                 var nameContainer = document.createElement('a'), style = nameContainer.style;
                 
-                
                 nameContainer.className = 'name';
                 nameContainer.innerHTML = node.name;
                 domElement.appendChild(nameContainer);
@@ -133,15 +132,21 @@ function loadNetwork(success){
                         modes: ['node-property:dim', 'edge-property:lineWidth:color'],
                         duration: 500
                     });
+
+                    // Show some details
+                    $jit.id('inner-details').style.display = "block";
+                    $jit.id('inner-details-name').innerHTML = node.name;
+                    $jit.id('inner-details-id').innerHTML = node.id;
+                    
                     // Build the right column relations list.
                     // This is done by traversing the clicked node connections.
-                    var html = "<h4>" + node.name + "</h4><b> connections:</b><ul><li>", list = [];
+                    var list = "";
                     node.eachAdjacency(function(adj){
                         if (adj.getData('alpha')) 
-                            list.push(adj.nodeTo.name);
+                            list += "<li>" + adj.nodeTo.name + "</li>";
                     });
                     //append connections information
-                    $jit.id('inner-details').innerHTML = html + list.join("</li><li>") + "</li></ul>";
+                    $jit.id('inner-details-connections').innerHTML = list;
                 };
             },
             // Change node styles when DOM labels are placed
@@ -218,15 +223,51 @@ function init(){
         
         // Draw it on the graph
         fd.graph.addNode(m.getJITRepresentation());
-        fd.computeIncremental({  
-            iter: 20,  
+        fd.computeIncremental({
+            iter: 20,
             property: ['end', 'start', 'current'],
-            onComplete: function() {    
-                fd.plot();  
-            }  
-        });  
+            onComplete: function(){
+                fd.plot();
+            }
+        });
         
         // Update the list of available machines.
         updatecombobox();
+    });
+    
+    
+    // Delete a machine
+    $("#inner-details-wipe").live("click", function(){
+        // Get the id we've stuck in the hidden span
+        var id = $("#inner-details-id").text();
+        
+        // TODO: Create subroutine.
+        var node = fd.graph.nodes[id];
+        
+        // Change the type of the machine to clean.
+        node.setData("type", "clean", "current");
+        
+        // FIXME: Refresh graph  
+        fd.refresh();
+    });
+    
+    
+    // Delete a machine
+    $("#inner-details-delete").live("click", function(){
+        // Get the id we've stuck in the hidden span
+        var id = $("#inner-details-id").text();
+        
+        // TODO: Create method for this code.
+        var node = fd.graph.nodes[id];
+        
+        // Clear the node.
+        node.setData('alpha', 0, 'end');
+        node.eachAdjacency(function(adj){
+            adj.setData('alpha', 0, 'end');
+        });
+        fd.fx.animate({
+            modes: ['node-property:alpha', 'edge-property:alpha'],
+            duration: 500
+        });
     });
 }

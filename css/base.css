@@ -116,6 +116,18 @@ label
   top:1px;
 }
 
+#inner-details acronym { font-size:1.2em;}
+#inner-details img {
+    border:0px;
+    width:16px;
+    height:16px;
+}
+
+#inner-details a {
+    color:#efefef;
+    text-decoration:none;
+}
+
 .gray
 {
   color:#e9e9e9;
