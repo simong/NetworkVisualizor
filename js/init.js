@@ -178,7 +178,7 @@ function init(){
     iter: 40,
     property: ['end', 'start', 'current'],
     onStep: function(perc){
-    },
+  },
     onComplete: function(){
       fd.animate({
         modes: ['linear'],
@@ -225,7 +225,6 @@ function init(){
     };
     config.push(data);
     
-    fd.canvas.clear();
     fd.op.morph(config, {
                         "type":"nothing",
                         "duration" : 2500,
@@ -233,17 +232,11 @@ function init(){
                         "transition":$jit.Trans.linear,
                         "hideLabels":true
                       });
+    fd.refresh();
     fd.animate({
         modes: ['linear'],
         transition: $jit.Trans.Elastic.easeOut,
         duration: 2500
       });
-    /*
-    fd.graph.addNode({
-      "id" : "graphnode" + nrOfNodes,
-      "name" : name,
-      "data" : data
-    });
-    */
   });
 }

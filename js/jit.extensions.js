@@ -1,3 +1,4 @@
+(function(){
   var img_pc_infected = new Image();
   img_pc_infected.src = "images/icons/infected.png";
   var img_pc_clean = new Image();
@@ -42,4 +43,6 @@
        return false;
      }  
    }  
- }); 
+ });
+ 
+ })();
