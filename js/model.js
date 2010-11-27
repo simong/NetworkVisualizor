@@ -79,5 +79,108 @@ var BadThing = Thing.extend({
 var Virus = BadThing.extend({
     "name" : "Virus",
     "spreadfactor" : 15,
-    "successrate" : 70,
+    "successrate" : 70
+});
+
+
+var Machine = Class.extend({
+  "setId" : function(id) {
+    this.id = id;
+  },
+  "getId" : function() {
+    return this.id;
+  },
+  
+  "setName" : function(name) {
+    this.name = name;
+  },
+  "getName" : function() {
+    return this.name;
+  },
+  
+  
+  "setType" : function(type) {
+    this.type = type;
+  },
+  "getType" : function() {
+    return this.type;
+  },
+  
+  "setAdjacencies" : function(adjacencies) {
+    this.adjacencies = adjacencies;
+  },
+  "getAdjacencies" : function() {
+    return this.adjacencies;
+  },
+  
+  
+  "getJITRepresentation" : function() {
+      return {
+      "adjacencies" : this.adjacencies,
+      "data": {
+        "$color": "#ffffff",
+        "$type": this.type
+      },
+      "id": this.id,
+      "name": this.name
+    };
+  }
+});
+
+var Config = Class.extend({
+  "getData" : function() {
+    return this.data;
+  },
+  "setData" : function(data) {
+      // Store the data.
+      this.data = data;
+      
+      // We want to be sure that our data is sorted alhapeticaly ascending.
+      this.data.sort(function(a, b) {
+          return a.name > b.name;
+      });
+  },
+  
+  "getRunningMachines" : function() {
+    return this.data.length;
+  },
+  
+  
+  "loadJSON" : function(path, callback) {
+    // Make an AJAX call to path
+    $.ajax({
+      "dataType" : "json",
+      "url" : "path",
+      "success" : function(data, textStatus, http) {
+        // Store our data.
+        config.setData(data);
+        
+        // Execute the callback so something can be done with the fetched data.
+        callback(true);
+      },
+      "error" : function(http, textStatus, error) {
+        // We erase any data we might've contained.
+        this.data = [];
+        
+        // Pass on the failure.
+        callback(false);
+      }
+    });
+    
+  },
+
+  "addMachine" : function(machine) {
+    // Create a JIT Node.
+    var m = machine.getJITRepresentation();
+    
+    // Make sure that the data array is always sorted ascending on name!
+    // Loop over the array items till we found the correct index to insert our new machine in.
+    var i = 0, j = this.data.length
+    while (i < j && this.data[i].name < machine.name) {
+      i++;   
+    }
+    
+    // Add the machine to the data set on the right position.
+    this.data.splice(i, 0, m);
+  }
 });

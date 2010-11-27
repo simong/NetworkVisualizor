@@ -1,3 +1,0 @@
-var Thing = Class.extend({
-
-});
