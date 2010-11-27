@@ -16,12 +16,32 @@ var labelType, useGradients, nativeTextSupport, animate, nrOfNodes, fd;
 })();
 
 
+/**
+ * Update the combobox with the current computers
+ * @returns {void} 
+ * @type String|Object|Array|Boolean|Number
+ */
+var updatecombobox = function(){
+  
+  // jQuery selector for the select box
+  var $selectbox = $("#machine_connected_0");
+  $selectbox.html("");
+  
+  for(var i = 0; i < config.length; i++){
+    var configelement = config[i];
+    
+    $selectbox.append("<option value='" + configelement.id + "'>" + configelement.name +"</option>")
+  }
+}
+
 
 function init(){
   // init data
   
  var json = config;
  nrOfNodes = config.length;
+ 
+ updatecombobox();
   // end
   
   
@@ -158,7 +178,7 @@ function init(){
     iter: 40,
     property: ['end', 'start', 'current'],
     onStep: function(perc){
-  },
+    },
     onComplete: function(){
       fd.animate({
         modes: ['linear'],
@@ -186,10 +206,12 @@ function init(){
     
     var name = $("#machine_name").val();
     
+    var $selectbox = $("#machine_connected_0");
+    
     var data = {
       "adjacencies" : [
         {
-          "nodeTo" : "graphnode1",
+          "nodeTo" : $selectbox.val(),
           "nodeFrom" : "graphnode" + nrOfNodes,
           "data" : {}
         }
@@ -216,7 +238,6 @@ function init(){
         transition: $jit.Trans.Elastic.easeOut,
         duration: 2500
       });
-    
     /*
     fd.graph.addNode({
       "id" : "graphnode" + nrOfNodes,
