@@ -14,7 +14,7 @@
 <script language="javascript" type="text/javascript" src="js/jit.extensions.js"></script>
 
 <!-- jQuery -->
-<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="js/jquery.js"></script>
 
 <!-- Network stuff -->
 <script language="javascript" type="text/javascript" src="config.js"></script>
@@ -25,39 +25,38 @@
 <body onload="init();">
 <div id="header"><h1>XKCD - Network Visualizor</h1></div>
 <div id="container">
-        <div id="systemmonitor">
-            <div class="menu_bar">
-                <h2><img src="images/layout/arrow.png" alt="&gt;" class="menu_arrow" /> System Monitor</h2>
-            </div>
-            <div class="panel">
-                
-                <form name="add_machine" method="POST" action"#">
-                    <fieldset>
-                        <label for="machine_name">Machine name</label>
-                        <input type="text" id="machine_name" /><br />
-                        <label for="machine_connected_0">Connected to</label>
-                        <select id="machine_connected_0">
-                            <option>Simonellite</option>
-                            <option>PC Beneden</option>
-                        </select><br />
-                        <label for="machine_connected_0"></label>
-                        <a href="#" class="button gray" id="machine_Add">Add</a>
-                    </fieldset>
-                </form>
-                
-            </div>
+    <div id="systemmonitor" class="subcontainer">
+        <div class="menu_bar">
+            <h2><img src="images/layout/arrow.png" alt="&gt;" /> System Monitor</h2>
         </div>
-              
-        <div id="network">
-            <div class="menu_bar">
-                <h2><img src="images/layout/arrow.png" alt="&gt;" class="menu_arrow" /> Network</h2>
-            </div>
-            <div class="panel">
-                <div id="network_graph"></div>
-                <div id="log"></div>
-            </div>
+        <div class="panel">
+        
+            <form name="add_machine" method="post" action="javascript:;">
+                <fieldset>
+                    <label for="machine_name">Machine name</label>
+                    <input type="text" id="machine_name" /><br />
+                    <label for="machine_connected_0">Connected to</label>
+                    <select id="machine_connected_0">
+                        <option>Simonellite</option>
+                        <option>PC Beneden</option>
+                    </select><br />
+                    <label for="machine_connected_0"></label>
+                    <a href="javascript:;" class="button gray" id="machine_Add">Add</a>
+                </fieldset>
+            </form>
+        
         </div>
-
+    </div>
+      
+    <div id="network" class="subcontainer">
+        <div class="menu_bar">
+            <h2><img src="images/layout/arrow.png" alt="&gt;" /> Network</h2>
+        </div>
+        <div class="panel">
+            <div id="network_graph"></div>
+            <div id="log"></div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
