@@ -171,9 +171,9 @@ function init(){
   
   
   // Fancy slider things
-  $(".menu_arrow").live("click", function() {
+  $(".menu_bar").bind("click", function() {
     // FIXME
-    $(this).parent().parent().parent().find().slideToggle('normal', function() {});
+    $(".panel", $(this).parents(".subcontainer")).slideToggle();
   });
   
   
