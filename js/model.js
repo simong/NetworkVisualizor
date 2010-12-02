@@ -225,12 +225,114 @@ var Config = Class.extend({
         
         // Add the machine to the data set on the right position.
         this.data.splice(i, 0, m);
+    },
+    
+    /**
+     * Get the machine with a certain id.
+     * @param {Object} id The ID of the machine.
+     * @return The machine.
+     */
+    "getMachine": function(id){
+        // Because our data set is sorted, we simply loop over them while 
+        // the id is smaller than the searched id.
+        var i = 0;
+        while (this.data[i].id < id) {
+            i++;
+        }
+        
+        // Check if we have the correct one.
+        if (this.data[i].id === id) {
+            return this.data[i];
+        }
+        
+        return null;
     }
 });
 
 
-var MonitorSystem = Class.extend({    /**
-     * @param machine An object of type Machine that needs to be added.
+var MonitorSystem = Class.extend({
+
+    /**
+     * Sets the drawer mechanisme that can be used to draw.
+     * @param {Object} fd
+     */
+    "setDrawer": function(fd){
+        this.fd = fd;
+    },
+    
+    /**
+     * Set the config
+     * @param {Object} config an object of type Config
+     */
+    "setConfig": function(config){
+        this.config = config;
+    },
+    
+    
+    
+    /**
+     * @param machine An object of type Machine that needs to be wiped.
      * @param fd The object to draw with.
      */
+    "wipeMachine": function(id){
+        // Model part
+        var machine = this.getMachine(id);
+        // TODO
+        // machine.wipe();
+        
+        // Graph part:
+        // Get the Node object.
+        var node = this.fd.graph.getNode(id);
+        
+        // Change the type of the machine to clean.
+        node.setData("color", "#00ff00", "current");
+        
+        // Replot the nodes.
+        fd.plot();
+    },
+    
+    
+    "deleteMachine": function(id){
+        // Get the node
+        var node = this.fd.graph.nodes[id];
+        
+        // Check if that node has more than 1 adjacent node.
+        var i = 0;
+        $jit.Graph.Util.eachAdjacency(node, function(adj){
+            i++;
+        });
+        
+        if (i > 1) {
+            alert("Cannot delete this node!");
+        }
+        else {
+            // Delete it.
+            //  Actually we're only hiding it here..
+            /*
+            node.setData('alpha', 0, 'end');
+            node.setData('alpha', 0, 'end');
+            node.eachAdjacency(function(adj){
+                adj.setData('alpha', 0, 'end');
+            });
+            fd.fx.animate({
+                modes: ['node-property:alpha', 'edge-property:alpha'],
+                duration: 500
+            });
+            */
+           fd.graph.removeNode(id);
+           fd.plot();
+        }
+    },
+    
+    
+    /**
+     * Returns the machine with the specified id.
+     * Basiscally a wrapper around config.getMachine.
+     * @param {Object} id
+     */
+    "getMachine": function(id){
+        return this.config.getMachine(id);
+    }
+    
+    
 });

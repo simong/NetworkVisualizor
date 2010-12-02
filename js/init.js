@@ -1,4 +1,4 @@
-var labelType, useGradients, nativeTextSupport, animate, nrOfNodes, fd;
+var labelType, useGradients, nativeTextSupport, animate, nrOfNodes, fd, monitorSystem;
 
 (function(){
     var ua = navigator.userAgent, iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i), typeOfCanvas = typeof HTMLCanvasElement, nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'), textSupport = nativeCanvasSupport &&
@@ -178,6 +178,8 @@ function loadNetwork(success){
             }
         });
         
+        // Keep the fd!
+        monitorSystem.setDrawer(fd);
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
@@ -190,6 +192,10 @@ function init(){
     config = new Config();
     //config.loadJSON("config.js", loadNetwork);
     config.setData(c);
+    
+    monitorSystem = new MonitorSystem();
+    monitorSystem.setConfig(config);
+    
     loadNetwork(true);
     
     
@@ -245,14 +251,8 @@ function init(){
         // Get the id we've stuck in the hidden span
         var id = $("#inner-details-id").text();
         
-        // TODO: Create subroutine.
-        var node = fd.graph.nodes[id];
-        
-        // Change the type of the machine to clean.
-        node.setData("color", "#00ff00", "current");
-        
-        // Replot the nodes.
-        fd.plot();
+        // Wipe it.
+        monitorSystem.wipeMachine(id);
     });
     
     
@@ -261,17 +261,7 @@ function init(){
         // Get the id we've stuck in the hidden span
         var id = $("#inner-details-id").text();
         
-        // TODO: Create method for this code.
-        var node = fd.graph.nodes[id];
-        
-        node.setData('alpha', 0, 'end');
-        node.setData('alpha', 0, 'end');
-        node.eachAdjacency(function(adj){
-            adj.setData('alpha', 0, 'end');
-        });
-        fd.fx.animate({
-            modes: ['node-property:alpha', 'edge-property:alpha'],
-            duration: 500
-        });
+        // Delete it.
+        monitorSystem.deleteMachine(id);
     });
 }
