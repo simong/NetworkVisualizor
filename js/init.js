@@ -249,10 +249,10 @@ function init(){
         var node = fd.graph.nodes[id];
         
         // Change the type of the machine to clean.
-        node.setData("type", "clean", "current");
+        node.setData("color", "#00ff00", "current");
         
-        // FIXME: Refresh graph  
-        fd.refresh();
+        // Replot the nodes.
+        fd.plot();
     });
     
     
