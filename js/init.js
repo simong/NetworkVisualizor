@@ -61,8 +61,8 @@ function loadNetwork(success){
             },
             Edge: {
                 overridable: true,
-                color: '#23A4FF',
-                lineWidth: 0.4
+                type: 'line',
+                color: '#225772'
             },
             // Add node events
             Events: {
@@ -132,7 +132,7 @@ function loadNetwork(success){
                         modes: ['node-property:dim', 'edge-property:lineWidth:color'],
                         duration: 500
                     });
-
+                    
                     // Show some details
                     $jit.id('inner-details').style.display = "block";
                     $jit.id('inner-details-name').innerHTML = node.name;
@@ -157,7 +157,7 @@ function loadNetwork(success){
                 var top = parseInt(style.top);
                 var w = domElement.offsetWidth;
                 style.left = (left - w / 2) + 'px';
-                style.top = (top + 40) + 'px';
+                style.top = (top + 10) + 'px';
                 style.display = '';
             }
         });
@@ -211,7 +211,7 @@ function init(){
         var m = new Machine();
         m.setName($("#machine_name").val());
         m.setId(m.name + config.getRunningMachines() + 1);
-        m.setType("clean");
+        m.setType("circle");
         m.setAdjacencies([{
             "nodeTo": $selectbox.val(),
             "nodeFrom": m.getId(),
@@ -221,15 +221,19 @@ function init(){
         // Add it to our config.
         config.addMachine(m);
         
-        // Draw it on the graph
+        // Create the node.
         fd.graph.addNode(m.getJITRepresentation());
-        fd.computeIncremental({
-            iter: 20,
-            property: ['end', 'start', 'current'],
-            onComplete: function(){
-                fd.plot();
-            }
-        });
+        // Get the newly created node.
+        var newNode = fd.graph.getNode(m.getId());
+        // Get the associated node.
+        var assocNode = fd.graph.getNode($selectbox.val());
+        
+        // Add the association
+        fd.graph.addAdjacence(newNode, assocNode, {});
+        
+        // Compute and plot the graph.
+        fd.compute('end');
+        fd.plot();
         
         // Update the list of available machines.
         updatecombobox();
@@ -260,7 +264,7 @@ function init(){
         // TODO: Create method for this code.
         var node = fd.graph.nodes[id];
         
-        // Clear the node.
+        node.setData('alpha', 0, 'end');
         node.setData('alpha', 0, 'end');
         node.eachAdjacency(function(adj){
             adj.setData('alpha', 0, 'end');
