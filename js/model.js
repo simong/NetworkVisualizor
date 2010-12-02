@@ -308,7 +308,7 @@ var MonitorSystem = Class.extend({
         else {
             // Delete it.
             //  Actually we're only hiding it here..
-            /*
+            
             node.setData('alpha', 0, 'end');
             node.setData('alpha', 0, 'end');
             node.eachAdjacency(function(adj){
@@ -318,9 +318,13 @@ var MonitorSystem = Class.extend({
                 modes: ['node-property:alpha', 'edge-property:alpha'],
                 duration: 500
             });
-            */
+            
+            
+            /*
+             * Alternative, but the labels are acting quirky.
            fd.graph.removeNode(id);
            fd.plot();
+           */
         }
     },
     
