@@ -167,3 +167,14 @@ a.name
   cursor:pointer;
   font-family:Arial;
 }
+
+#about .panel p {
+    font-size: 0.9em;
+    padding:0 20 0 20;
+}
+
+#about .panel a {
+    color:#646464;
+    text-decoration:none;
+    font-style:italic;
+}
