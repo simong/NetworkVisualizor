@@ -224,22 +224,8 @@ function init(){
             "data": {}
         }]);
         
-        // Add it to our config.
-        config.addMachine(m);
-        
-        // Create the node.
-        fd.graph.addNode(m.getJITRepresentation());
-        // Get the newly created node.
-        var newNode = fd.graph.getNode(m.getId());
-        // Get the associated node.
-        var assocNode = fd.graph.getNode($selectbox.val());
-        
-        // Add the association
-        fd.graph.addAdjacence(newNode, assocNode, {});
-        
-        // Compute and plot the graph.
-        fd.compute('end');
-        fd.plot();
+        // Add the machine.
+        monitorSystem.addMachine(machine);
         
         // Update the list of available machines.
         updatecombobox();

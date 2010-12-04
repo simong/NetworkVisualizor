@@ -328,6 +328,30 @@ var MonitorSystem = Class.extend({
         }
     },
     
+    "addMachine" : function(machine){
+        // Add it to our config.
+        config.addMachine(machine);
+        
+        // Create the node.
+        fd.graph.addNode(machine.getJITRepresentation());
+        // Get the newly created node.
+        var newNode = fd.graph.getNode(machine.getId());
+        // Get the associated node.
+        var assocNode = fd.graph.getNode(machine.getAdjacencies()[0].nodeTo);
+        
+        // Add the association
+        fd.graph.addAdjacence(newNode, assocNode, {});
+        
+        // Compute and plot the graph.
+        //fd.compute('end');
+        //fd.plot();
+        
+        //fd.fx.plotNode(newNode, fd.canvas, {});
+        
+        
+        $jit.ForceDirected.Plot.prototype.plotNode(newNode, fd.canvas, {});
+        
+    },
     
     /**
      * Returns the machine with the specified id.

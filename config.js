@@ -1,137 +1,137 @@
 var c = [{
     "adjacencies": [{
-        "nodeTo": "graphnode1",
-        "nodeFrom": "graphnode0",
+        "nodeTo": "id1",
+        "nodeFrom": "id0",
         "data": {}
     }],
     "data": {
         "$color": "#ff0000",
         "$type": "circle"
     },
-    "id": "graphnode0",
+    "id": "id0",
     "name": "Windows XP"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode0",
-        "nodeFrom": "graphnode1",
+        "nodeTo": "id0",
+        "nodeFrom": "id1",
         "data": {}
     },{
-        "nodeTo": "graphnode6",
-        "nodeFrom": "graphnode1",
+        "nodeTo": "id6",
+        "nodeFrom": "id1",
         "data": {}
     }],
     "data": {
         "$color": "#00FF00",
         "$type": "circle"
     },
-    "id": "graphnode1",
+    "id": "id1",
     "name": "MacBook Pro"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode0",
-        "nodeFrom": "graphnode2",
+        "nodeTo": "id0",
+        "nodeFrom": "id2",
         "data": {}
     }],
     "data": {
         "$color": "#00ff00",
         "$type": "circle"
     },
-    "id": "graphnode2",
+    "id": "id2",
     "name": "Windows 7"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode0",
-        "nodeFrom": "graphnode3",
+        "nodeTo": "id0",
+        "nodeFrom": "id3",
         "data": {}
     }],
     "data": {
         "$color": "#00ff00",
         "$type": "circle"
     },
-    "id": "graphnode3",
+    "id": "id3",
     "name": "Windows Vista - SP2"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode1",
-        "nodeFrom": "graphnode4",
+        "nodeTo": "id1",
+        "nodeFrom": "id4",
         "data": {}
     }],
     "data": {
         "$color": "#ff0000",
         "$type": "circle"
     },
-    "id": "graphnode4",
+    "id": "id4",
     "name": "Windows XP - SP1"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode1",
-        "nodeFrom": "graphnode5",
+        "nodeTo": "id1",
+        "nodeFrom": "id5",
         "data": {}
     }],
     "data": {
         "$color": "#00ff00",
         "$type": "circle"
     },
-    "id": "graphnode5",
+    "id": "id5",
     "name": "Ubuntu"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode1",
-        "nodeFrom": "graphnode6",
+        "nodeTo": "id1",
+        "nodeFrom": "id6",
         "data": {}
     }],
     "data": {
         "$color": "#00ff00",
         "$type": "circle"
     },
-    "id": "graphnode6",
+    "id": "id6",
     "name": "BSD"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode2",
-        "nodeFrom": "graphnode7",
+        "nodeTo": "id2",
+        "nodeFrom": "id7",
         "data": {}
     }],
     "data": {
         "$color": "#ff0000",
         "$type": "circle"
     },
-    "id": "graphnode7",
+    "id": "id7",
     "name": "Windows ME"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode2",
-        "nodeFrom": "graphnode8",
+        "nodeTo": "id2",
+        "nodeFrom": "id8",
         "data": {}
     }],
     "data": {
         "$color": "#ff0000",
         "$type": "circle"
     },
-    "id": "graphnode8",
+    "id": "id8",
     "name": "Windows 98"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode2",
-        "nodeFrom": "graphnode9",
+        "nodeTo": "id2",
+        "nodeFrom": "id9",
         "data": {}
     }],
     "data": {
         "$color": "#ff0000",
         "$type": "circle"
     },
-    "id": "graphnode9",
+    "id": "id9",
     "name": "Windows ME"
 }, {
     "adjacencies": [{
-        "nodeTo": "graphnode2",
-        "nodeFrom": "graphnode10",
+        "nodeTo": "id2",
+        "nodeFrom": "id10",
         "data": {}
     }],
     "data": {
         "$color": "#ff0000",
         "$type": "circle"
     },
-    "id": "graphnode10",
+    "id": "id10",
     "name": "Windows ME"
 }];
