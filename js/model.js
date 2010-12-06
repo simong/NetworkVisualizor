@@ -8,7 +8,7 @@
         xyz;
     }) ? /\b_super\b/ : /.*/;
     
-    // The base Class implementation (does nothing)
+    // The base Class implementation (does noBestand)
     this.Class = function(){
     };
     
@@ -65,10 +65,10 @@
     };
 })();
 
-var Thing = Class.extend({});
+var Bestand = Class.extend({});
 
-var BadThing = Thing.extend({
-    "name": "BadThing",
+var SlechtBestand = Bestand.extend({
+    "name": "SlechtBestand",
     "spreadfactor": 10,
     "successrate": 15,
     "invade": function(){
@@ -77,10 +77,36 @@ var BadThing = Thing.extend({
     }
 });
 
-var Virus = BadThing.extend({
-    "name": "Virus",
-    "spreadfactor": 15,
-    "successrate": 70
+var Virus = SlechtBestand.extend({
+    "init" : function(naam, verspreidingSnelheid, infectieFactor) {
+        this.setNaam(naam);
+        this.setVerspreidingSnelheid(verspreidingSnelheid);
+        this.setInfectieFactor(infectieFactor);
+    },
+    
+    
+    "setNaam": function(naam){
+        this.naam = naam;
+    },
+    "getNaam": function(){
+        return this.naam;
+    },
+    
+    
+    "setVerspreidingSnelheid": function(verspreidingSnelheid){
+        this.verspreidingSnelheid = verspreidingSnelheid;
+    },
+    "getVerspreidingSnelheid": function(){
+        return this.verspreidingSnelheid;
+    },
+    
+    
+    "setInfectieFactor": function(infectieFactor){
+        this.infectieFactor = infectieFactor;
+    },
+    "getInfectieFactor": function(){
+        return this.infectieFactor;
+    }
 });
 
 
@@ -93,7 +119,7 @@ var Virus = BadThing.extend({
 
 
 
-var Machine = Class.extend({
+var Computer = Class.extend({
     "setId": function(id){
         this.id = id;
     },
@@ -101,11 +127,11 @@ var Machine = Class.extend({
         return this.id;
     },
     
-    "setName": function(name){
-        this.name = name;
+    "setNaam": function(naam){
+        this.naam = naam;
     },
-    "getName": function(){
-        return this.name;
+    "getNaam": function(){
+        return this.naam;
     },
     
     
@@ -132,7 +158,7 @@ var Machine = Class.extend({
                 "$type": this.type
             },
             "id": this.id,
-            "name": this.name
+            "name": this.naam
         };
     }
 });
@@ -173,9 +199,9 @@ var Config = Class.extend({
     
     
     /**
-     * Returns the number of machines that are currently running.
+     * Returns the number of Computers that are currently running.
      */
-    "getRunningMachines": function(){
+    "getRunningComputers": function(){
         return this.data.length;
     },
     
@@ -193,7 +219,7 @@ var Config = Class.extend({
                 // Store our data.
                 config.setData(data);
                 
-                // Execute the callback so something can be done with the fetched data.
+                // Execute the callback so someBestand can be done with the fetched data.
                 callback(true);
             },
             "error": function(http, textStatus, error){
@@ -209,30 +235,30 @@ var Config = Class.extend({
     
     
     /**
-     * Adds a machine to the config.
-     * @param machine the Machine object that should be added.
+     * Adds a Computer to the config.
+     * @param Computer the Computer object that should be added.
      */
-    "addMachine": function(machine){
+    "addComputer": function(Computer){
         // Create a JIT Node.
-        var m = machine.getJITRepresentation();
+        var m = Computer.getJITRepresentation();
         
         // Make sure that the data array is always sorted ascending on name!
-        // Loop over the array items till we found the correct index to insert our new machine in.
+        // Loop over the array items till we found the correct index to insert our new Computer in.
         var i = 0, j = this.data.length
-        while (i < j && this.data[i].name < machine.name) {
+        while (i < j && this.data[i].name < Computer.name) {
             i++;
         }
         
-        // Add the machine to the data set on the right position.
+        // Add the Computer to the data set on the right position.
         this.data.splice(i, 0, m);
     },
     
     /**
-     * Get the machine with a certain id.
-     * @param {Object} id The ID of the machine.
-     * @return The machine.
+     * Get the Computer with a certain id.
+     * @param {Object} id The ID of the Computer.
+     * @return The Computer.
      */
-    "getMachine": function(id){
+    "getComputer": function(id){
         // Because our data set is sorted, we simply loop over them while 
         // the id is smaller than the searched id.
         var i = 0;
@@ -269,22 +295,25 @@ var MonitorSystem = Class.extend({
     },
     
     
+    "getRunningComputers" : function() {
+      return this.config.getRunningComputers();
+    },
     
     /**
-     * @param machine An object of type Machine that needs to be wiped.
+     * @param Computer An object of type Computer that needs to be wiped.
      * @param fd The object to draw with.
      */
-    "wipeMachine": function(id){
+    "wipeComputer": function(id){
         // Model part
-        var machine = this.getMachine(id);
+        var Computer = this.getComputer(id);
         // TODO
-        // machine.wipe();
+        // Computer.wipe();
         
         // Graph part:
         // Get the Node object.
         var node = this.fd.graph.getNode(id);
         
-        // Change the type of the machine to clean.
+        // Change the type of the Computer to clean.
         node.setData("color", "#00ff00", "current");
         
         // Replot the nodes.
@@ -292,7 +321,7 @@ var MonitorSystem = Class.extend({
     },
     
     
-    "deleteMachine": function(id){
+    "deleteComputer": function(id){
         // Get the node
         var node = this.fd.graph.nodes[id];
         
@@ -322,22 +351,22 @@ var MonitorSystem = Class.extend({
             
             /*
              * Alternative, but the labels are acting quirky.
-           fd.graph.removeNode(id);
-           fd.plot();
-           */
+             fd.graph.removeNode(id);
+             fd.plot();
+             */
         }
     },
     
-    "addMachine" : function(machine){
+    "addComputer": function(Computer){
         // Add it to our config.
-        config.addMachine(machine);
+        config.addComputer(Computer);
         
         // Create the node.
-        fd.graph.addNode(machine.getJITRepresentation());
+        fd.graph.addNode(Computer.getJITRepresentation());
         // Get the newly created node.
-        var newNode = fd.graph.getNode(machine.getId());
+        var newNode = fd.graph.getNode(Computer.getId());
         // Get the associated node.
-        var assocNode = fd.graph.getNode(machine.getAdjacencies()[0].nodeTo);
+        var assocNode = fd.graph.getNode(Computer.getAdjacencies()[0].nodeTo);
         
         // Add the association
         fd.graph.addAdjacence(newNode, assocNode, {});
@@ -354,12 +383,97 @@ var MonitorSystem = Class.extend({
     },
     
     /**
-     * Returns the machine with the specified id.
-     * Basiscally a wrapper around config.getMachine.
+     * Returns the Computer with the specified id.
+     * Basiscally a wrapper around config.getComputer.
      * @param {Object} id
      */
-    "getMachine": function(id){
-        return this.config.getMachine(id);
+    "getComputer": function(id){
+        return this.config.getComputer(id);
+    },
+    
+    
+    "stuurBericht" : function() {
+        // een paar "random" nodes.
+        var pcs = [];
+        var aantal = monitorSystem.getRunningComputers();
+        
+        // We kiezen ongeveer 1/3e van de pc's die een bericht zal versturen.
+        var interacties = aantal / 2;
+        for (var i = 0; i < interacties;i++) {
+          // Kies een random computer.
+          var r = Math.floor(Math.random() * aantal)
+          var fromNode = fd.graph.getNode("id" + r);
+          
+          // Kies een van de verbindingen.
+          var toNode = null;
+          fromNode.eachAdjacency(function(adj){
+                  if (adj.nodeFrom.id == fromNode.id) {
+                    toNode = adj.nodeTo;
+                  }
+                  else {
+                    toNode = adj.nodeFrom;
+                  }
+              });
+          
+          // De posities
+          var from = fromNode.getPos();
+          var to = toNode.getPos();
+          
+          // De stapjes die we moeten zetten.
+          var xStep = (to.x - from.x) / 10;
+          var yStep = (to.y - from.y) / 10;
+          
+          // TODO kies een bestand
+          // var teverzendenBestand = computer.stuurBestand();
+          
+          var data = {
+            "from" : { "x" : from.x, "y" : from.y },
+            "xStep" : xStep,
+            "yStep" : yStep
+          }
+          
+          // Sla dit alles op in een structuur.
+          pcs.push(data);
+        }
+        
+        
+        /**
+         * Tekent een cirkeltje.
+         */
+        function drawMessage(from, xStep, yStep) {
+          var pos = {
+            "x" : from.x,
+            "y" : from.y
+          }
+          
+          // Teken een cirkel
+          fd.canvas.getCtx().fillStyle = "rgb(255,0,0)"; 
+          fd.fx.nodeHelper.circle.render('fill', pos, 5, fd.canvas)
+        }
+        
+        /**
+         * Tekent al de cirkels en roept zichzelf 10x op.
+         */
+        function drawAllMessages(data, count) {
+          // We doen maar 10 stapjes
+          if (count <= 10) {
+            fd.plot();
+            
+            for (var i = 0, j = data.length; i < j;i++) {
+              drawMessage(data[i]["from"], data[i]["xStep"], data[i]["yStep"]);
+              data[i]["from"]["x"] += data[i]["xStep"];
+              data[i]["from"]["y"] += data[i]["yStep"];
+            }
+            
+            // Roep deze functie nog eens op, zodat de circkel opschuift.
+            setTimeout(function() { drawAllMessages(data, count+1); }, 80)
+          } else {
+            // Animaties zijn afgelopen.
+            fd.plot();
+          }
+        }
+        
+        drawAllMessages(pcs, 0);
     }
     
     

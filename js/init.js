@@ -20,10 +20,10 @@ var labelType, useGradients, nativeTextSupport, animate, nrOfNodes, fd, monitorS
 var updatecombobox = function(){
 
     // jQuery selector for the select box
-    var $selectbox = $("#machine_connected_0");
+    var $selectbox = $("#Computer_connected_0");
     $selectbox.html("");
     
-    for (var i = 0; i < config.getRunningMachines(); i++) {
+    for (var i = 0; i < config.getRunningComputers(); i++) {
         var configelement = config.getData()[i];
         
         $selectbox.append("<option value='" + configelement.id + "'>" + configelement.name + "</option>")
@@ -33,7 +33,7 @@ var updatecombobox = function(){
 
 function loadNetwork(success){
     if (success) {
-        // Fill the combo boxes with all the machines.
+        // Fill the combo boxes with all the Computers.
         updatecombobox();
         
         
@@ -44,7 +44,7 @@ function loadNetwork(success){
             //Enable zooming and panning
             //with scrolling and DnD
             Navigation: {
-                enable: true,
+                enable: false,
                 //Enable panning events only if we're dragging the empty
                 //canvas (and not a node).
                 panning: 'avoid nodes',
@@ -68,6 +68,10 @@ function loadNetwork(success){
             Events: {
                 enable: true,
                 type: 'Native',
+                
+                /*
+                 Uncomment to enable dragging.
+                
                 //Update node positions when dragged
                 onDragMove: function(node, eventInfo, e){
                     var pos = eventInfo.getPos();
@@ -79,6 +83,7 @@ function loadNetwork(success){
                     $jit.util.event.stop(e); //stop default touchmove event
                     this.onDragMove(node, eventInfo, e);
                 }
+                */
             },
             //Number of iterations for the FD algorithm
             iterations: 200,
@@ -170,11 +175,7 @@ function loadNetwork(success){
             onStep: function(perc){
             },
             onComplete: function(){
-                fd.animate({
-                    modes: ['linear'],
-                    transition: $jit.Trans.Elastic.easeOut,
-                    duration: 2500
-                });
+                fd.plot();
             }
         });
         
@@ -209,14 +210,14 @@ function init(){
         $(".panel", $(this).parents(".subcontainer")).slideToggle();
     });
     
-    // Add a machine.
-    $("#machine_add").live("click", function(){
-        var $selectbox = $("#machine_connected_0");
+    // Add a Computer.
+    $("#Computer_add").live("click", function(){
+        var $selectbox = $("#Computer_connected_0");
         
-        // Create a new machine.
-        var m = new Machine();
-        m.setName($("#machine_name").val());
-        m.setId(m.name + config.getRunningMachines() + 1);
+        // Create a new Computer.
+        var m = new Computer();
+        m.setName($("#Computer_name").val());
+        m.setId(m.name + config.getRunningComputers() + 1);
         m.setType("circle");
         m.setAdjacencies([{
             "nodeTo": $selectbox.val(),
@@ -224,30 +225,35 @@ function init(){
             "data": {}
         }]);
         
-        // Add the machine.
-        monitorSystem.addMachine(machine);
+        // Add the Computer.
+        monitorSystem.addComputer(Computer);
         
-        // Update the list of available machines.
+        // Update the list of available Computers.
         updatecombobox();
     });
     
     
-    // Delete a machine
+    // Delete a Computer
     $("#inner-details-wipe").live("click", function(){
         // Get the id we've stuck in the hidden span
         var id = $("#inner-details-id").text();
         
         // Wipe it.
-        monitorSystem.wipeMachine(id);
+        monitorSystem.wipeComputer(id);
     });
     
     
-    // Delete a machine
+    // Delete a Computer
     $("#inner-details-delete").live("click", function(){
         // Get the id we've stuck in the hidden span
         var id = $("#inner-details-id").text();
         
         // Delete it.
-        monitorSystem.deleteMachine(id);
+        monitorSystem.deleteComputer(id);
+    });
+    
+    $("#send_message").live("click", function() {
+        monitorSystem.stuurBericht();
+        
     });
 }

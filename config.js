@@ -6,7 +6,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id0",
     "name": "Windows XP"
@@ -22,7 +22,7 @@ var c = [{
     }],
     "data": {
         "$color": "#00FF00",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id1",
     "name": "MacBook Pro"
@@ -34,7 +34,7 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id2",
     "name": "Windows 7"
@@ -46,7 +46,7 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id3",
     "name": "Windows Vista - SP2"
@@ -58,7 +58,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id4",
     "name": "Windows XP - SP1"
@@ -70,7 +70,7 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id5",
     "name": "Ubuntu"
@@ -82,7 +82,7 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id6",
     "name": "BSD"
@@ -94,7 +94,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id7",
     "name": "Windows ME"
@@ -106,7 +106,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id8",
     "name": "Windows 98"
@@ -118,7 +118,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id9",
     "name": "Windows ME"
@@ -130,7 +130,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "circle"
+        "$type": "square"
     },
     "id": "id10",
     "name": "Windows ME"

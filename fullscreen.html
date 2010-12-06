@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Network Visualization</title>
+
+<!-- CSS Files -->
+<link type="text/css" href="css/base.css" rel="stylesheet" />
+<style type="text/css">
+html, body {
+    height: 100%;
+}
+#network_graph {
+    position: relative;
+    min-height: 93%;
+    height:auto !important; /* voor moderne browsers */
+    height:93%; /* voor IE */
+}
+</style>
+
+<!--[if IE]><script language="javascript" type="text/javascript" src="js/jit/Extras/excanvas.js"></script><![endif]-->
+
+<!-- JIT Library File -->
+<script language="javascript" type="text/javascript" src="js/jit/jit.js"></script>
+<script language="javascript" type="text/javascript" src="js/jit.extensions.js"></script>
+
+<!-- jQuery -->
+<script language="javascript" type="text/javascript" src="js/jquery.js"></script>
+
+<!-- Network stuff -->
+<script language="javascript" type="text/javascript" src="config.js"></script>
+<script language="javascript" type="text/javascript" src="js/model.js"></script>
+<script language="javascript" type="text/javascript" src="js/init.js"></script>
+</head>
+
+<body onload="init();">
+<div id="header"><h1>XKCD - Network Visualizor</h1></div>
+
+            <div id="network_graph"></div>
+
+</body>
+</html>

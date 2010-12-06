@@ -31,42 +31,4 @@
         }
     });
     
-    
-    
-    //  Edge types (lijntjes)
-    $jit.ForceDirected.Plot.EdgeTypes.implement({  
-        'pulsing': {  
-          'render': function(adj, canvas) {  
-            var ctx = canvas.getCtx();
-            // invert edge direction
-            if (swap) {
-              var tmp = from;
-              from = to;
-              to = tmp;
-            }
-            var vect = new Complex(to.x - from.x, to.y - from.y);
-            vect.$scale(dim / vect.norm());
-            var intermediatePoint = new Complex(to.x - vect.x, to.y - vect.y),
-                normal = new Complex(-vect.y / 2, vect.x / 2),
-                v1 = intermediatePoint.add(normal), 
-                v2 = intermediatePoint.$add(normal.$scale(-1));
-            
-            ctx.beginPath();
-            ctx.moveTo(from.x, from.y);
-            ctx.lineTo(to.x, to.y);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(v1.x, v1.y);
-            ctx.lineTo(v2.x, v2.y);
-            ctx.lineTo(to.x, to.y);
-            ctx.closePath();
-            ctx.fill();
-          },  
-          //optional  
-          'contains': function(adj, pos) {  
-            //return true if pos is inside the arc or false otherwise  
-          }  
-        }  
-      });
-    
 })();
