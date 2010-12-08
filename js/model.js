@@ -276,7 +276,7 @@ var Config = Class.extend({
 });
 
 
-var MonitorSystem = Class.extend({
+var BeheerSysteem = Class.extend({
 
     /**
      * Sets the drawer mechanisme that can be used to draw.
@@ -395,7 +395,7 @@ var MonitorSystem = Class.extend({
     "stuurBericht" : function() {
         // een paar "random" nodes.
         var pcs = [];
-        var aantal = monitorSystem.getRunningComputers();
+        var aantal = beheerSysteem.getRunningComputers();
         
         // We kiezen ongeveer 1/3e van de pc's die een bericht zal versturen.
         var interacties = aantal / 2;

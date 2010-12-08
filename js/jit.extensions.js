@@ -4,9 +4,7 @@
     var img_pc_clean = new Image();
     img_pc_clean.src = "images/icons/clean.png";
     
-    
     //  NodeTypes
-    
     $jit.ForceDirected.Plot.NodeTypes.implement({
         'infected': {
             'render': function(node, canvas){

@@ -1,4 +1,4 @@
-var labelType, useGradients, nativeTextSupport, animate, nrOfNodes, fd, monitorSystem;
+var labelType, useGradients, nativeTextSupport, animate, nrOfNodes, fd, beheerSysteem;
 
 (function(){
     var ua = navigator.userAgent, iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i), typeOfCanvas = typeof HTMLCanvasElement, nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'), textSupport = nativeCanvasSupport &&
@@ -180,10 +180,10 @@ function loadNetwork(success){
         });
         
         // Keep the fd!
-        monitorSystem.setDrawer(fd);
+        beheerSysteem.setDrawer(fd);
 
         // Toon informatie over een willekeurige computer
-        monitorSystem.showRandomInfo();
+        beheerSysteem.showRandomInfo();
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
@@ -197,8 +197,8 @@ function init(){
     //config.loadJSON("config.js", loadNetwork);
     config.setData(c);
     
-    monitorSystem = new MonitorSystem();
-    monitorSystem.setConfig(config);
+    beheerSysteem = new BeheerSysteem();
+    beheerSysteem.setConfig(config);
     
     loadNetwork(true);
     
@@ -229,7 +229,7 @@ function init(){
         }]);
         
         // Add the Computer.
-        monitorSystem.addComputer(Computer);
+        beheerSysteem.addComputer(Computer);
         
         // Update the list of available Computers.
         updatecombobox();
@@ -242,7 +242,7 @@ function init(){
         var id = $("#inner-details-id").text();
         
         // Wipe it.
-        monitorSystem.wipeComputer(id);
+        beheerSysteem.wipeComputer(id);
     });
     
     
@@ -252,11 +252,11 @@ function init(){
         var id = $("#inner-details-id").text();
         
         // Delete it.
-        monitorSystem.deleteComputer(id);
+        beheerSysteem.deleteComputer(id);
     });
     
     $("#send_message").live("click", function() {
-        monitorSystem.stuurBericht();
+        beheerSysteem.stuurBericht();
         
     });
 }
