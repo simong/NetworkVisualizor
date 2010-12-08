@@ -43,6 +43,10 @@ var c = [{
         "nodeTo": "id0",
         "nodeFrom": "id3",
         "data": {}
+    },{
+        "nodeTo": "id5",
+        "nodeFrom": "id3",
+        "data": {}
     }],
     "data": {
         "$color": "#00ff00",
@@ -66,6 +70,11 @@ var c = [{
     "adjacencies": [{
         "nodeTo": "id1",
         "nodeFrom": "id5",
+        "data": {}
+    },
+    {
+        "nodeTo": "id5",
+        "nodeFrom": "id3",
         "data": {}
     }],
     "data": {
