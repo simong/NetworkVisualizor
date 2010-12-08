@@ -178,3 +178,18 @@ a.name
     text-decoration:none;
     font-style:italic;
 }
+
+#inner-details {
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+    width: 280px;
+    height: 130px;
+    background: #000;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    padding: 10px;
+    font-size: 12px;
+}

@@ -474,7 +474,29 @@ var MonitorSystem = Class.extend({
         }
         
         drawAllMessages(pcs, 0);
+    },
+
+    /**
+     * Toon informatie over een willekeurige computer
+     */
+    "showRandomInfo": function(){
+
+        var randomNodeId; // Een willekeurige id van een node
+        var currentNodeId; // De id van de huidig geselecteerde node
+
+        // De setinverval functie zal op een vast ingesteld aantal seconden uitgevoerd worden
+        setInterval(function() {
+
+            // Zorg ervoor dat we enkel een nodenummer selecteren dat bestaat
+            randomNodeId = c[Math.floor(Math.random()*c.length)].id;
+
+            if(randomNodeId !== currentNodeId) {
+                $("#" + randomNodeId + " .name").trigger("click");
+                currentNodeId = randomNodeId;
+            }
+
+        }, 3000);
+
     }
-    
-    
+
 });

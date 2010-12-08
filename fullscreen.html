@@ -9,6 +9,7 @@
 <style type="text/css">
 html, body {
     height: 100%;
+    position: relative;
 }
 #network_graph {
     position: relative;
@@ -34,9 +35,20 @@ html, body {
 </head>
 
 <body onload="init();">
-<div id="header"><h1>XKCD - Network Visualizor</h1></div>
 
-            <div id="network_graph"></div>
+    <div id="header">
+        <h1>XKCD - Network Visualizor</h1>
+    </div>
+
+    <div id="network_graph"></div>
+
+    <div id="inner-details" style="display:none;">
+        <acronym id="inner-details-name">Machine Name</acronym><br />
+        Id:
+        <span id="inner-details-id"></span><br />
+        Connections:
+        <ul id="inner-details-connections"></ul>
+    </div>
 
 </body>
 </html>

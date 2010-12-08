@@ -181,6 +181,9 @@ function loadNetwork(success){
         
         // Keep the fd!
         monitorSystem.setDrawer(fd);
+
+        // Toon informatie over een willekeurige computer
+        monitorSystem.showRandomInfo();
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
