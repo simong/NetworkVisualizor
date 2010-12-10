@@ -6,7 +6,8 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "square"
+        "$type": "clean",
+        "virussen" : []
     },
     "id": "id0",
     "name": "Windows XP"
@@ -22,7 +23,8 @@ var c = [{
     }],
     "data": {
         "$color": "#00FF00",
-        "$type": "square"
+        "$type": "clean",
+        "virussen" : []
     },
     "id": "id1",
     "name": "MacBook Pro"
@@ -34,7 +36,8 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "square"
+        "$type": "clean",
+        "virussen" : []
     },
     "id": "id2",
     "name": "Windows 7"
@@ -50,7 +53,8 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "square"
+        "$type": "clean",
+        "virussen" : []
     },
     "id": "id3",
     "name": "Windows Vista - SP2"
@@ -62,7 +66,8 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "square"
+        "$type": "clean",
+        "virussen" : []
     },
     "id": "id4",
     "name": "Windows XP - SP1"
@@ -79,7 +84,8 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "square"
+        "$type": "clean",
+        "virussen" : []
     },
     "id": "id5",
     "name": "Ubuntu"
@@ -91,7 +97,8 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "square"
+        "$type": "infected",
+        "virussen" : ["trojan"]
     },
     "id": "id6",
     "name": "BSD"
@@ -100,10 +107,15 @@ var c = [{
         "nodeTo": "id2",
         "nodeFrom": "id7",
         "data": {}
+    },{
+        "nodeTo": "id3",
+        "nodeFrom": "id7",
+        "data": {}
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "square"
+        "$type": "clean",
+        "virussen" : []
     },
     "id": "id7",
     "name": "Windows ME"
@@ -115,7 +127,8 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "square"
+        "$type": "clean",
+        "virussen" : []
     },
     "id": "id8",
     "name": "Windows 98"
@@ -127,7 +140,8 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "square"
+        "$type": "infected",
+        "virussen" : ["spyware"]
     },
     "id": "id9",
     "name": "Windows ME"
@@ -139,8 +153,33 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "square"
+        "$type": "infected",
+        "virussen" : ["iloveyou"]
     },
     "id": "id10",
     "name": "Windows ME"
 }];
+
+var virussen = [
+{
+  "id" : "iloveyou",
+  "naam" : "I<3Virus",
+  "verspreidingssnelheid" : 20,
+  "infectiefactor" : 30,
+  "image" : "images/icons/virus/oranje.png"
+},
+{
+  "id" : "trojan",
+  "naam" : "Trojan",
+  "verspreidingssnelheid" : 20,
+  "infectiefactor" : 30,
+  "image" : "images/icons/virus/paars.png"
+},
+{
+  "id" : "spyware",
+  "naam" : "Sppyware",
+  "verspreidingssnelheid" : 20,
+  "infectiefactor" : 30,
+  "image" : "images/icons/virus/rood.png"
+}
+];

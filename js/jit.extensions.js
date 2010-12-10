@@ -8,11 +8,13 @@
     $jit.ForceDirected.Plot.NodeTypes.implement({
         'infected': {
             'render': function(node, canvas){
-                canvas.getCtx().drawImage(img_pc_infected, node.endPos.x - 15, node.endPos.y - 30);
+                //canvas.getCtx().drawImage(img_pc_clean, node.endPos.x - 16, node.endPos.y - 16);
+                var pos = node.pos.getc(true);
+                canvas.getCtx().drawImage(img_pc_infected, pos.x - 16, pos.y - 16);
             },
             'contains': function(node, pos){
-                return ((pos.x >= node.endPos.x && pos.x <= node.endPos.x + 55) &&
-                (pos.y >= node.endPos.y && pos.y <= node.endPos.y + 80));
+                return ((pos.x >= node.endPos.x && pos.x <= node.endPos.x + 32) &&
+                (pos.y >= node.endPos.y && pos.y <= node.endPos.y + 32));
             }
         }
     });
@@ -20,11 +22,13 @@
     $jit.ForceDirected.Plot.NodeTypes.implement({
         'clean': {
             'render': function(node, canvas){
-                canvas.getCtx().drawImage(img_pc_clean, node.endPos.x - 15, node.endPos.y - 30);
+                //canvas.getCtx().drawImage(img_pc_clean, node.endPos.x - 16, node.endPos.y - 16);
+                var pos = node.pos.getc(true);
+                canvas.getCtx().drawImage(img_pc_clean, pos.x - 8, pos.y - 15);
             },
             'contains': function(node, pos){
-                return ((pos.x >= node.endPos.x && pos.x <= node.endPos.x + 33) &&
-                (pos.y >= node.endPos.y && pos.y <= node.endPos.y + 61));
+                return ((pos.x >= node.endPos.x && pos.x <= node.endPos.x + 16) &&
+                (pos.y >= node.endPos.y && pos.y <= node.endPos.y + 30));
             }
         }
     });

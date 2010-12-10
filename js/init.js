@@ -98,6 +98,7 @@ function loadNetwork(success){
                 
                 nameContainer.className = 'name';
                 nameContainer.innerHTML = node.name;
+                nameContainer.style.display = "none";
                 domElement.appendChild(nameContainer);
                 style.fontSize = "0.8em";
                 style.color = "#ddd";
@@ -135,7 +136,7 @@ function loadNetwork(success){
                     //trigger animation to final styles
                     fd.fx.animate({
                         modes: ['node-property:dim', 'edge-property:lineWidth:color'],
-                        duration: 500
+                        duration: 5
                     });
                     
                     // Show some details
@@ -152,6 +153,8 @@ function loadNetwork(success){
                     });
                     //append connections information
                     $jit.id('inner-details-connections').innerHTML = list;
+                    
+                    var computer = config.getComputer(node.id);
                 };
             },
             // Change node styles when DOM labels are placed
@@ -184,6 +187,10 @@ function loadNetwork(success){
 
         // Toon informatie over een willekeurige computer
         beheerSysteem.showRandomInfo();
+        
+        // Start het versturen van berichten.
+        // Dit wordt iedere 30 seconden opgeroepen.
+        setInterval(function() { beheerSysteem.stuurBericht(); }, 3000);
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
@@ -195,6 +202,7 @@ function init(){
     // Load all the data.
     config = new Config();
     //config.loadJSON("config.js", loadNetwork);
+    config.setVirussen(virussen);
     config.setData(c);
     
     beheerSysteem = new BeheerSysteem();

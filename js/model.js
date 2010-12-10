@@ -65,25 +65,65 @@
     };
 })();
 
-var Bestand = Class.extend({});
+var Bestand = Class.extend({
+    "image" : "images/icons/virus/groen.png",
+    "id" : "",
+    
+    "init" : function() {
+        this.setImage(this.image);
+    },
+    
+    
+    "setId" : function(id) {
+      this.id = id;
+    },
+    "getId" : function() {
+      return this.id;
+    },
+    
+    "setImage": function(image){
+        this.image = image;
+        this.icon = new Image();
+        this.icon.src = image;
+    },
+    "getImage": function(){
+        return this.image;
+    },
+    "getIcon" : function() {
+      return this.icon;
+    }
+  
+});
+
+var GoedBestand = Bestand.extend({});
 
 var SlechtBestand = Bestand.extend({
+    // Properties
     "name": "SlechtBestand",
     "spreadfactor": 10,
     "successrate": 15,
-    "invade": function(){
-        var rand = Math.floor(Math.random() * 101)
-        return rand > this.successrate;
-    }
-});
-
-var Virus = SlechtBestand.extend({
-    "init" : function(naam, verspreidingSnelheid, infectieFactor) {
+    
+    // Constructor
+    "init" : function(id, naam, verspreidingSnelheid, infectieFactor, image) {
+        this.setId(id);
         this.setNaam(naam);
         this.setVerspreidingSnelheid(verspreidingSnelheid);
         this.setInfectieFactor(infectieFactor);
+        this.setImage(image);
     },
     
+    
+    "invade": function(){
+        var rand = Math.floor(Math.random() * 101)
+        return rand > this.successrate;
+    },
+    
+    "setId": function(id){
+        this.id = id;
+    },
+    "getId": function(){
+        return this.id;
+    },
     
     "setNaam": function(naam){
         this.naam = naam;
@@ -120,6 +160,26 @@ var Virus = SlechtBestand.extend({
 
 
 var Computer = Class.extend({
+    // Ctor
+    // id = De id van de computer
+    // naam = De naam
+    // type = Het type
+    // adjacencies = De connecties naar andere
+    // virussen = een array van strings met de ids van de virussen op deze computer.
+    "init" : function(id, naam, type, adjacencies, virussen) {
+      this.setId(id);
+      this.setNaam(naam);
+      this.setType(type);
+      this.setAdjacencies(adjacencies);
+      
+      this.bestanden = [];
+      for (var i = 0, j = virussen.length;i < j;i++) {
+        var virus = config.getVirus(virussen[i]);
+        this.bestanden.push(virus);
+      }
+    },
+  
+  
     "setId": function(id){
         this.id = id;
     },
@@ -160,6 +220,16 @@ var Computer = Class.extend({
             "id": this.id,
             "name": this.naam
         };
+    },
+    
+    // Geeft een bestand terug.
+    // Dit kan zowel goed als slecht zijn
+    "getBestand" : function() {
+      if (this.bestanden.length > 0) {
+        // TODO implementeer algoritme
+        return this.bestanden[0];
+      }
+      return new GoedBestand();
     }
 });
 
@@ -193,8 +263,40 @@ var Config = Class.extend({
         
         // We want to be sure that our data is sorted alhapeticaly ascending.
         this.data.sort(function(a, b){
-            return a.name > b.name;
+            return a.id > b.id;
         });
+        
+        // Convert the data to an array of computers.
+        this.computers = [];
+        for (var i = 0, j = data.length; i < j; i++) {
+          var computer = new Computer(data[i].id, data[i].name, data[i].data["$type"], data[i].adjacencies, data[i].data["virussen"]);
+          this.computers.push(computer);
+        }
+        
+        // We want to be sure that our computers are sorted alhapeticaly ascending on id..
+        this.computers.sort(function(a, b){
+            return a.id > b.id;
+        });
+    },
+    
+    
+    /**
+     * Laad de virus lijst. Dit is een array van JSON objecten! (uit de config)
+     */
+    "setVirussen" : function(virussen) {
+      // Converteer de data naar onze objecten.
+        this.virussen = [];
+        if (virussen && virussen.length > 0) {
+          for (var i = 0, j = virussen.length; i < j; i++) {
+            var virus = new SlechtBestand(virussen[i].id, virussen[i].naam, virussen[i].verspreidingssnelheid, virussen[i].infectiefactor, virussen[i].image);
+            this.virussen.push(virus);
+          }
+          
+          // Zorg dat de virussen gesorteerd zijn zodat we er gemakkelijk iets in kunnen zoeken.
+          this.virussen.sort(function(a, b){
+              return a.id > b.id;
+          });
+        }
     },
     
     
@@ -205,31 +307,20 @@ var Config = Class.extend({
         return this.data.length;
     },
     
-    /**
-     * Load a config from a remote location.
-     * @param path The relative path where the config file is located.
-     * @param callback A callback function that will be executed when the HTTP request is done. It will be called with the following parameters: data, HTTP status code, http object
-     */
-    "loadJSON": function(path, callback){
-        // Make an AJAX call to path
-        $.ajax({
-            "dataType": "json",
-            "url": "path",
-            "success": function(data, textStatus, http){
-                // Store our data.
-                config.setData(data);
-                
-                // Execute the callback so someBestand can be done with the fetched data.
-                callback(true);
-            },
-            "error": function(http, textStatus, error){
-                // We erase any data we might've contained.
-                this.data = [];
-                
-                // Pass on the failure.
-                callback(false);
-            }
-        });
+    "getVirus" : function(id) {
+        if (this.virussen && this.virussen.length > 0) {
+          var i = 0;
+          while (this.virussen[i].getId() < id) {
+              i++;
+          }
+          
+          // Check if we have the correct one.
+          if (this.virussen[i].getId() === id) {
+              return this.virussen[i];
+          }
+        }
+        
+        return null;
     },
     
     
@@ -262,13 +353,13 @@ var Config = Class.extend({
         // Because our data set is sorted, we simply loop over them while 
         // the id is smaller than the searched id.
         var i = 0;
-        while (this.data[i].id < id) {
+        while (this.computers[i].getId() < id) {
             i++;
         }
         
         // Check if we have the correct one.
-        if (this.data[i].id === id) {
-            return this.data[i];
+        if (this.computers[i].getId() === id) {
+            return this.computers[i];
         }
         
         return null;
@@ -424,31 +515,34 @@ var BeheerSysteem = Class.extend({
           var yStep = (to.y - from.y) / 10;
           
           // TODO kies een bestand
-          // var teverzendenBestand = computer.stuurBestand();
+          //var teverzendenBestand = computer.stuurBestand();
+          var computer = this.getComputer(fromNode.id);
+          var teverzendenBestand = computer.getBestand();
           
           var data = {
-            "from" : { "x" : from.x, "y" : from.y },
+            "from" : { "x" : from.x + 8, "y" : from.y + 23 },
             "xStep" : xStep,
-            "yStep" : yStep
+            "yStep" : yStep,
+            "bestand" : teverzendenBestand
           }
           
           // Sla dit alles op in een structuur.
           pcs.push(data);
         }
         
-        
         /**
-         * Tekent een cirkeltje.
+         * Tekent het bericht.
          */
-        function drawMessage(from, xStep, yStep) {
+        function drawMessage(from, xStep, yStep, file) {
           var pos = {
             "x" : from.x,
             "y" : from.y
           }
           
           // Teken een cirkel
-          fd.canvas.getCtx().fillStyle = "rgb(255,0,0)"; 
-          fd.fx.nodeHelper.circle.render('fill', pos, 5, fd.canvas)
+          //fd.canvas.getCtx().fillStyle = "rgb(255,0,0)"; 
+          //fd.fx.nodeHelper.circle.render('fill', pos, 5, fd.canvas)
+          fd.canvas.getCtx().drawImage(file.getIcon(), pos.x - 15, pos.y - 30);
         }
         
         /**
@@ -460,7 +554,7 @@ var BeheerSysteem = Class.extend({
             fd.plot();
             
             for (var i = 0, j = data.length; i < j;i++) {
-              drawMessage(data[i]["from"], data[i]["xStep"], data[i]["yStep"]);
+              drawMessage(data[i]["from"], data[i]["xStep"], data[i]["yStep"], data[i]["bestand"]);
               data[i]["from"]["x"] += data[i]["xStep"];
               data[i]["from"]["y"] += data[i]["yStep"];
             }
