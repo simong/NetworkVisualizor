@@ -147,8 +147,60 @@ var c = [{
     "name": "Windows ME"
 }, {
     "adjacencies": [{
+        "nodeTo": "id0",
+        "nodeFrom": "id11",
+        "data": {}
+    }],
+    "data": {
+        "$color": "#ff0000",
+        "$type": "clean",
+        "virussen" : []
+    },
+    "id": "id11",
+    "name": "Fedora"
+}, {
+    "adjacencies": [{
         "nodeTo": "id2",
-        "nodeFrom": "id10",
+        "nodeFrom": "id12",
+        "data": {}
+    }],
+    "data": {
+        "$color": "#ff0000",
+        "$type": "clean",
+        "virussen" : []
+    },
+    "id": "id12",
+    "name": "BSD"
+}, {
+    "adjacencies": [{
+        "nodeTo": "id2",
+        "nodeFrom": "id13",
+        "data": {}
+    }],
+    "data": {
+        "$color": "#ff0000",
+        "$type": "clean",
+        "virussen" : []
+    },
+    "id": "id13",
+    "name": "Windows ME"
+}, {
+    "adjacencies": [{
+        "nodeTo": "id8",
+        "nodeFrom": "id14",
+        "data": {}
+    }],
+    "data": {
+        "$color": "#ff0000",
+        "$type": "clean",
+        "virussen" : []
+    },
+    "id": "id14",
+    "name": "Windows ME"
+}, {
+    "adjacencies": [{
+        "nodeTo": "id2",
+        "nodeFrom": "id15",
         "data": {}
     }],
     "data": {
@@ -156,7 +208,7 @@ var c = [{
         "$type": "infected",
         "virussen" : ["iloveyou"]
     },
-    "id": "id10",
+    "id": "id15",
     "name": "Windows ME"
 }];
 
