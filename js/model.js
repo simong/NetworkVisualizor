@@ -225,11 +225,25 @@ var Computer = Class.extend({
     // Geeft een bestand terug.
     // Dit kan zowel goed als slecht zijn
     "getBestand" : function() {
-      if (this.bestanden.length > 0) {
-        // TODO implementeer algoritme
-        return this.bestanden[0];
-      }
-      return new GoedBestand();
+		var r = Math.random();
+    	if ( r > 0.7 || this.bestanden.length < 1) {
+            return new GoedBestand();
+            
+    	}
+    	else {
+	    var max = 0;
+	    var indexMax = 0;
+	    for ( var i = 0; i<this.bestanden.length;i++){
+		//nogal een dwaas algoritme
+		var tmpmax = (Math.random() * this.bestanden[i].getVerspreidingSnelheid());
+		if (tmpmax > max) {
+		    max = tmpmax;
+		    maxIndex = i;
+		}
+	    }
+    	    return this.bestanden[maxIndex];
+    	}
+	
     }
 });
 
