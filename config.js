@@ -210,6 +210,25 @@ var c = [{
     },
     "id": "id15",
     "name": "Windows ME"
+}, {
+      "adjacencies": [{
+        "nodeTo": "id4",
+        "nodeFrom": "id1",
+        "data": {}
+      }, {
+        "nodeTo": "id15",
+        "nodeFrom": "id10",
+        "data": {}
+      }],
+    "data": {
+        "$color": "#ff0000",
+        "$type": "infected",
+        "virussen" : ["trojan","spyware"]
+    },
+    "id": "id10",
+    "name": "Windows ME"
+
+
 }];
 
 var virussen = [

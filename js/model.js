@@ -171,7 +171,7 @@ var Computer = Class.extend({
       this.setNaam(naam);
       this.setType(type);
       this.setAdjacencies(adjacencies);
-      
+ 
       this.bestanden = [];
       for (var i = 0, j = virussen.length;i < j;i++) {
         var virus = config.getVirus(virussen[i]);
@@ -225,7 +225,7 @@ var Computer = Class.extend({
     // Geeft een bestand terug.
     // Dit kan zowel goed als slecht zijn
     "getBestand" : function() {
-		var r = Math.random();
+	var r = Math.random();
     	if ( r > 0.7 || this.bestanden.length < 1) {
             return new GoedBestand();
             
@@ -318,7 +318,7 @@ var Config = Class.extend({
      * Returns the number of Computers that are currently running.
      */
     "getRunningComputers": function(){
-        return this.data.length;
+        return this.computers.length;
     },
     
     "getVirus" : function(id) {
@@ -349,13 +349,14 @@ var Config = Class.extend({
         
         // Make sure that the data array is always sorted ascending on name!
         // Loop over the array items till we found the correct index to insert our new Computer in.
-        var i = 0, j = this.data.length
-        while (i < j && this.data[i].name < Computer.name) {
+        var i = 0, j = this.computers.length
+        while (i < j && this.computers[i].getId() < Computer.getId() ) {
             i++;
         }
         
         // Add the Computer to the data set on the right position.
-        this.data.splice(i, 0, m);
+        this.computers.splice(i, 0, Computer);
+	this.data.push(m); //is blijkbaar nog nodig voor showrandominfo??
     },
     
     /**
@@ -372,10 +373,10 @@ var Config = Class.extend({
         }
         
         // Check if we have the correct one.
-        if (this.computers[i].getId() === id) {
+        if (this.computers[i].getId() == id) {
             return this.computers[i];
         }
-        
+	//alert("This is not supposed to happen ... ");   
         return null;
     }
 });
@@ -462,29 +463,40 @@ var BeheerSysteem = Class.extend({
         }
     },
     
-    "addComputer": function(Computer){
-        // Add it to our config.
-        config.addComputer(Computer);
-        
+    "addComputer": function(){
+
+	//Nieuwe computer
+	var m = new Computer("id" + (config.getRunningComputers() ), "zever", "circle", [] , [] );
+
         // Create the node.
-        fd.graph.addNode(Computer.getJITRepresentation());
+        fd.graph.addNode(m.getJITRepresentation());
         // Get the newly created node.
-        var newNode = fd.graph.getNode(Computer.getId());
-        // Get the associated node.
-        var assocNode = fd.graph.getNode(Computer.getAdjacencies()[0].nodeTo);
-        
-        // Add the association
-        fd.graph.addAdjacence(newNode, assocNode, {});
-        
+        var newNode = fd.graph.getNode(m.getId());
+
+	var adj = [];
+
+	//adjacencies maken wel nog adjacencies toevoegen aan de klasse Computer zelf
+	var aantal = beheerSysteem.getRunningComputers();
+	//voorlopig 3 nieuwe verbindingen
+	for (var i=0;i<3;i++){
+            var r = Math.floor(Math.random() * aantal);
+            var target = fd.graph.getNode("id" + r);
+	    adj.push({ "nodeTo": target.id , "nodeFrom": m.getId() , "data": {} });
+	    fd.graph.addAdjacence(newNode, target, {});
+	}
+
+	m.setAdjacencies(adj);
+
+        //Add it to our config.
+        config.addComputer(m);
+
         // Compute and plot the graph.
-        //fd.compute('end');
-        //fd.plot();
-        
+        fd.compute('end');
+        fd.plot();
+
         //fd.fx.plotNode(newNode, fd.canvas, {});
-        
-        
-        $jit.ForceDirected.Plot.prototype.plotNode(newNode, fd.canvas, {});
-        
+        //$jit.ForceDirected.Plot.prototype.plotNode(newNode, fd.canvas, {});
+ 
     },
     
     /**
@@ -501,48 +513,49 @@ var BeheerSysteem = Class.extend({
         // een paar "random" nodes.
         var pcs = [];
         var aantal = beheerSysteem.getRunningComputers();
-        
+ 
         // We kiezen ongeveer 1/3e van de pc's die een bericht zal versturen.
-        var interacties = aantal / 2;
+	var interacties = aantal / 2;
+        //var interacties = 1;
         for (var i = 0; i < interacties;i++) {
-          // Kies een random computer.
-            var r = Math.floor(Math.random() * (aantal + 1))
-          var fromNode = fd.graph.getNode("id" + r);
-          
-          // Kies een van de verbindingen.
-          var toNode = null;
-          fromNode.eachAdjacency(function(adj){
-                  if (adj.nodeFrom.id == fromNode.id) {
+            // Kies een random computer.
+            var r = Math.floor(Math.random() * aantal)
+            var fromNode = fd.graph.getNode("id" + r);
+	    // Kies een van de verbindingen.
+	    var toNode = null;
+            fromNode.eachAdjacency(function(adj){
+                if (adj.nodeFrom.id == fromNode.id) {
                     toNode = adj.nodeTo;
-                  }
-                  else {
+                }
+                else {
                     toNode = adj.nodeFrom;
-                  }
-              });
-          
-          // De posities
-          var from = fromNode.getPos();
-          var to = toNode.getPos();
-          
-          // De stapjes die we moeten zetten.
-          var xStep = (to.x - from.x) / 10;
-          var yStep = (to.y - from.y) / 10;
-          
-          // TODO kies een bestand
-          //var teverzendenBestand = computer.stuurBestand();
-          var computer = this.getComputer(fromNode.id);
-          var teverzendenBestand = computer.getBestand();
-          
-          var data = {
-            "from" : { "x" : from.x + 8, "y" : from.y + 23 },
-            "xStep" : xStep,
-            "yStep" : yStep,
-            "bestand" : teverzendenBestand
-          }
-          
-          // Sla dit alles op in een structuur.
-          pcs.push(data);
+                }
+            });
+
+            // De posities
+            var from = fromNode.getPos();
+            var to = toNode.getPos();
+
+            // De stapjes die we moeten zetten.
+            var xStep = (to.x - from.x) / 10;
+            var yStep = (to.y - from.y) / 10;
+            
+            // TODO kies een bestand
+            //var teverzendenBestand = computer.stuurBestand();
+            var computer = this.getComputer(fromNode.id);
+            var teverzendenBestand = computer.getBestand();
+ 
+            var data = {
+		"from" : { "x" : from.x + 8, "y" : from.y + 23 },
+		"xStep" : xStep,
+		"yStep" : yStep,
+		"bestand" : teverzendenBestand
+            }
+            
+            // Sla dit alles op in een structuur.
+            pcs.push(data);
         }
+	
         
         /**
          * Tekent het bericht.

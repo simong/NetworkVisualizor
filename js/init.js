@@ -226,18 +226,7 @@ function init(){
         var $selectbox = $("#Computer_connected_0");
         
         // Create a new Computer.
-        var m = new Computer();
-        m.setName($("#Computer_name").val());
-        m.setId(m.name + config.getRunningComputers() + 1);
-        m.setType("circle");
-        m.setAdjacencies([{
-            "nodeTo": $selectbox.val(),
-            "nodeFrom": m.getId(),
-            "data": {}
-        }]);
         
-        // Add the Computer.
-        beheerSysteem.addComputer(Computer);
         
         // Update the list of available Computers.
         updatecombobox();
@@ -264,7 +253,8 @@ function init(){
     });
     
     $("#send_message").live("click", function() {
-        beheerSysteem.stuurBericht();
-        
+
+        //beheerSysteem.stuurBericht();
+        beheerSysteem.addComputer();
     });
 }
