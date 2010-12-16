@@ -206,7 +206,7 @@ var c = [{
     "data": {
         "$color": "#ff0000",
         "$type": "infected",
-        "virussen" : ["iloveyou"]
+        "virussen" : ["iloveyou","trojan","spyware"]
     },
     "id": "id15",
     "name": "Windows ME"

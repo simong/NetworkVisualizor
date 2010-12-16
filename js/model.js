@@ -506,7 +506,7 @@ var BeheerSysteem = Class.extend({
         var interacties = aantal / 2;
         for (var i = 0; i < interacties;i++) {
           // Kies een random computer.
-          var r = Math.floor(Math.random() * aantal)
+            var r = Math.floor(Math.random() * (aantal + 1))
           var fromNode = fd.graph.getNode("id" + r);
           
           // Kies een van de verbindingen.
