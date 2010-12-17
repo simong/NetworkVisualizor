@@ -114,7 +114,7 @@ var SlechtBestand = Bestand.extend({
     
     
     "invade": function(){
-        var rand = Math.floor(Math.random() * 101)
+        var rand = Math.floor(Math.random() * 101);
         return rand > this.successrate;
     },
     
@@ -356,12 +356,14 @@ var Config = Class.extend({
         
         // Add the Computer to the data set on the right position.
         this.computers.splice(i, 0, Computer);
-	this.data.push(m); //is blijkbaar nog nodig voor showrandominfo??
+        // Jan - is blijkbaar nog nodig voor showrandominfo??
+        // Simon - Niet echt, het is hoe de data voor de graaf wordt bijgehouden.
+        this.data.push(m);
     },
     
     /**
      * Get the Computer with a certain id.
-     * @param {Object} id The ID of the Computer.
+     * @param {String} id The ID of the Computer.
      * @return The Computer.
      */
     "getComputer": function(id){
@@ -375,9 +377,24 @@ var Config = Class.extend({
         // Check if we have the correct one.
         if (this.computers[i].getId() == id) {
             return this.computers[i];
-        }
-	//alert("This is not supposed to happen ... ");   
+        }   
         return null;
+    },
+    
+    "getRandomComputer" : function() {
+        var r = Math.floor(Math.random() * this.getRunningComputers());
+        return this.computers[r];
+    },
+    
+    /**
+     * Verwijdert een computer met een id uit de configs.
+     * @param {String} id
+     */
+    "verwijderComputer" : function(id) {
+        // Grep door de array en verwijder computer met id "id"
+        this.computers = jQuery.grep(this.computers, function(c) {
+            return c.getId() != id;
+        });
     }
 });
 
@@ -410,92 +427,123 @@ var BeheerSysteem = Class.extend({
      * @param fd The object to draw with.
      */
     "wipeComputer": function(id){
-        // Model part
-        var Computer = this.getComputer(id);
-        // TODO
-        // Computer.wipe();
-        
-        // Graph part:
-        // Get the Node object.
-        var node = this.fd.graph.getNode(id);
-        
-        // Change the type of the Computer to clean.
-        node.setData("color", "#00ff00", "current");
-        
-        // Replot the nodes.
-        fd.plot();
+        if (!this.isAnimerend) {
+            this.isAnimerend = true;
+            // Model part
+            var Computer = this.getComputer(id);
+            // TODO
+            // Computer.wipe();
+            
+            // Graph part:
+            // Get the Node object.
+            var node = this.fd.graph.getNode(id);
+            
+            // Change the type of the Computer to clean.
+            node.setData("color", "#00ff00", "current");
+            
+            // Replot the nodes.
+            fd.plot();
+            this.isAnimerend = false;
+        }
     },
     
     
-    "deleteComputer": function(id){
-        // Get the node
-        var node = this.fd.graph.nodes[id];
+    "deleteComputer": function(){
         
-        // Check if that node has more than 1 adjacent node.
-        var i = 0;
-        $jit.Graph.Util.eachAdjacency(node, function(adj){
-            i++;
-        });
+        // Als we geen animatie aan het doen zijn of berichten aan het sturen zijn..
+        if (!this.isAnimerend) {
+            this.isAnimerend = true;
         
-        if (i > 1) {
-            alert("Cannot delete this node!");
-        }
-        else {
-            // Delete it.
-            //  Actually we're only hiding it here..
+        
+            // Zoek een random computer.
+            //  TODO
+            //      Geen computer selecteren dat aan het internet hangt!
+            //      WHILE (c == null || c.isInternet) { .. }
+            var c = config.getRandomComputer();
+            var id = c.getId();
             
-            node.setData('alpha', 0, 'end');
-            node.setData('alpha', 0, 'end');
-            node.eachAdjacency(function(adj){
-                adj.setData('alpha', 0, 'end');
-            });
-            fd.fx.animate({
-                modes: ['node-property:alpha', 'edge-property:alpha'],
-                duration: 500
-            });
+            // Get the node
+            var node = this.fd.graph.nodes[id];
+            // TODO
+            //  Verwijder deze check, dit levert soms null.
+            //  Lijkt mij maar voos.
+            if (typeof node !== "undefined") {
+                // Kijk of we verbindingen hebben met deze node.
+                var verbindingen = [];
+                $jit.Graph.Util.eachAdjacency(node, function(adj){
+                    verbindingen.push(adj);
+                });
+                
+                // Herpositioneer de verbindingen.
+                if (verbindingen.length > 0) {
+                    // Kies een willekeurige node.
+                    //  Met deze node zullen we al de adjacencies verbinden.
+                    //  Verwijder eerst deze verbinding.
+                    var naar = (verbindingen[0].nodeFrom.id == id) ? verbindingen[0].nodeTo : verbindingen[0].nodeFrom;
+                    for (var i = 1; i < verbindingen.length; i++) {
+                        var adj = verbindingen[i];
+                        // Dit is een verbinding tussen de te verwijderen computer en een andere computer.
+                        // Maak een nieuwe zodat deze naar ons wijst.
+                        var van = (adj.nodeFrom.id === id) ? adj.nodeTo : adj.nodeFrom;
+                        fd.graph.addAdjacence(van, naar);
+                    }
+                }
+                
+                
+                // Verwijder de computer uit onze lijst.
+                config.verwijderComputer(id);
+                
+                // Delete de node uit de graaf.
+                fd.graph.removeNode(id, {
+                    "type": "nothing"
+                });
+                fd.plot();
+            }
             
-            
-            /*
-             * Alternative, but the labels are acting quirky.
-             fd.graph.removeNode(id);
-             fd.plot();
-             */
+            console.log("Computer verwijderd!");
+            this.isAnimerend = false;
         }
     },
     
     "addComputer": function(){
-
-	//Nieuwe computer
-	var m = new Computer("id" + (config.getRunningComputers() ), "zever", "circle", [] , [] );
-
-        // Create the node.
-        fd.graph.addNode(m.getJITRepresentation());
-        // Get the newly created node.
-        var newNode = fd.graph.getNode(m.getId());
-
-	var adj = [];
-
-	//adjacencies maken wel nog adjacencies toevoegen aan de klasse Computer zelf
-	var aantal = beheerSysteem.getRunningComputers();
-	//voorlopig 3 nieuwe verbindingen
-	for (var i=0;i<3;i++){
-            var r = Math.floor(Math.random() * aantal);
-            var target = fd.graph.getNode("id" + r);
-	    adj.push({ "nodeTo": target.id , "nodeFrom": m.getId() , "data": {} });
-	    fd.graph.addAdjacence(newNode, target, {});
-	}
-
-	m.setAdjacencies(adj);
-
-        //Add it to our config.
-        config.addComputer(m);
-
-        // Compute and plot the graph.
-        fd.compute('end');
-        fd.plot();
-
-        //fd.fx.plotNode(newNode, fd.canvas, {});
-        //$jit.ForceDirected.Plot.prototype.plotNode(newNode, fd.canvas, {});
+        if (!this.isAnimerend) {
+            this.isAnimerend = true;
+            //Nieuwe computer
+            var m = new Computer("id" + (config.getRunningComputers()), "zever", "clean", [], []);
+            
+            // Create the node.
+            fd.graph.addNode(m.getJITRepresentation());
+            // Get the newly created node.
+            var newNode = fd.graph.getNode(m.getId());
+            
+            var adj = [];
+            
+            //adjacencies maken wel nog adjacencies toevoegen aan de klasse Computer zelf
+            var aantal = beheerSysteem.getRunningComputers();
+            //voorlopig 3 nieuwe verbindingen
+            for (var i = 0; i < 3; i++) {
+                var c = config.getRandomComputer();
+                var target = fd.graph.getNode(c.getId());
+                adj.push({
+                    "nodeTo": target.id,
+                    "nodeFrom": m.getId(),
+                    "data": {}
+                });
+                fd.graph.addAdjacence(newNode, target, {});
+            }
+            
+            m.setAdjacencies(adj);
+            
+            //Add it to our config.
+            config.addComputer(m);
+            
+            // Compute and plot the graph.
+            newNode.endPos.x = Math.random() * (jQuery("#network_graph-canvas").attr("width") - 100);
+            newNode.endPos.y = Math.random() * (jQuery("#network_graph-canvas").attr("height") - 100);
+            fd.plot();
+            this.isAnimerend = false;
+            console.log("Computer toegevoegd!");
+        }
  
     },
     
@@ -510,91 +558,105 @@ var BeheerSysteem = Class.extend({
     
     
     "stuurBericht" : function() {
-        // een paar "random" nodes.
-        var pcs = [];
-        var aantal = beheerSysteem.getRunningComputers();
- 
-        // We kiezen ongeveer 1/3e van de pc's die een bericht zal versturen.
-	var interacties = aantal / 2;
-        //var interacties = 1;
-        for (var i = 0; i < interacties;i++) {
-            // Kies een random computer.
-            var r = Math.floor(Math.random() * aantal)
-            var fromNode = fd.graph.getNode("id" + r);
-	    // Kies een van de verbindingen.
-	    var toNode = null;
-            fromNode.eachAdjacency(function(adj){
-                if (adj.nodeFrom.id == fromNode.id) {
-                    toNode = adj.nodeTo;
+        if (!this.isAnimerend) {
+            this.isAnimerend = true;
+            // een paar "random" nodes.
+            var pcs = [];
+            var aantal = beheerSysteem.getRunningComputers();
+            
+            // We kiezen ongeveer 1/3e van de pc's die een bericht zal versturen.
+            var interacties = aantal / 2;
+            //var interacties = 1;
+            for (var i = 0; i < interacties; i++) {
+                // Kies een random computer.
+                var r = config.getRandomComputer();
+                var fromNode = fd.graph.getNode(r.getId());
+                // Kies een van de verbindingen.
+                var toNode = null;
+                fromNode.eachAdjacency(function(adj){
+                    if (adj.nodeFrom.id == fromNode.id) {
+                        toNode = adj.nodeTo;
+                    }
+                    else {
+                        toNode = adj.nodeFrom;
+                    }
+                });
+                
+                // De posities
+                var from = fromNode.getPos();
+                var to = toNode.getPos();
+                
+                // De stapjes die we moeten zetten.
+                var xStep = (to.x - from.x) / 10;
+                var yStep = (to.y - from.y) / 10;
+                
+                // TODO kies een bestand
+                //var teverzendenBestand = computer.stuurBestand();
+                var computer = this.getComputer(fromNode.id);
+                var teverzendenBestand = computer.getBestand();
+                
+                var data = {
+                    "from": {
+                        "x": from.x + 8,
+                        "y": from.y + 23
+                    },
+                    "xStep": xStep,
+                    "yStep": yStep,
+                    "bestand": teverzendenBestand
+                };
+                
+                // Sla dit alles op in een structuur.
+                pcs.push(data);
+            };
+            
+            
+            /**
+             * Tekent het bericht.
+             */
+            function drawMessage(from, xStep, yStep, file){
+                var pos = {
+                    "x": from.x,
+                    "y": from.y
+                }
+                
+                // Teken een cirkel
+                //fd.canvas.getCtx().fillStyle = "rgb(255,0,0)"; 
+                //fd.fx.nodeHelper.circle.render('fill', pos, 5, fd.canvas)
+                fd.canvas.getCtx().drawImage(file.getIcon(), pos.x - 15, pos.y - 30);
+            };
+            
+            /**
+             * Tekent al de cirkels en roept zichzelf 10x op.
+             */
+            function drawAllMessages(data, count){
+                // We doen maar 10 stapjes
+                if (count <= 10) {
+                    fd.plot();
+                    
+                    for (var i = 0, j = data.length; i < j; i++) {
+                        drawMessage(data[i]["from"], data[i]["xStep"], data[i]["yStep"], data[i]["bestand"]);
+                        data[i]["from"]["x"] += data[i]["xStep"];
+                        data[i]["from"]["y"] += data[i]["yStep"];
+                    }
+                    
+                    // Roep deze functie nog eens op, zodat de circkel opschuift.
+                    setTimeout(function(){
+                        drawAllMessages(data, count + 1);
+                    }, 80)
                 }
                 else {
-                    toNode = adj.nodeFrom;
+                    // Animaties zijn afgelopen.
+                    
+                    // TODO
+                    // Check virusen en verander computer
+                    
+                    fd.plot();
                 }
-            });
-
-            // De posities
-            var from = fromNode.getPos();
-            var to = toNode.getPos();
-
-            // De stapjes die we moeten zetten.
-            var xStep = (to.x - from.x) / 10;
-            var yStep = (to.y - from.y) / 10;
+            };
             
-            // TODO kies een bestand
-            //var teverzendenBestand = computer.stuurBestand();
-            var computer = this.getComputer(fromNode.id);
-            var teverzendenBestand = computer.getBestand();
- 
-            var data = {
-		"from" : { "x" : from.x + 8, "y" : from.y + 23 },
-		"xStep" : xStep,
-		"yStep" : yStep,
-		"bestand" : teverzendenBestand
-            }
-            
-            // Sla dit alles op in een structuur.
-            pcs.push(data);
+            drawAllMessages(pcs, 0);
+            this.isAnimerend = false;
         }
-	
-        
-        /**
-         * Tekent het bericht.
-         */
-        function drawMessage(from, xStep, yStep, file) {
-          var pos = {
-            "x" : from.x,
-            "y" : from.y
-          }
-          
-          // Teken een cirkel
-          //fd.canvas.getCtx().fillStyle = "rgb(255,0,0)"; 
-          //fd.fx.nodeHelper.circle.render('fill', pos, 5, fd.canvas)
-          fd.canvas.getCtx().drawImage(file.getIcon(), pos.x - 15, pos.y - 30);
-        }
-        
-        /**
-         * Tekent al de cirkels en roept zichzelf 10x op.
-         */
-        function drawAllMessages(data, count) {
-          // We doen maar 10 stapjes
-          if (count <= 10) {
-            fd.plot();
-            
-            for (var i = 0, j = data.length; i < j;i++) {
-              drawMessage(data[i]["from"], data[i]["xStep"], data[i]["yStep"], data[i]["bestand"]);
-              data[i]["from"]["x"] += data[i]["xStep"];
-              data[i]["from"]["y"] += data[i]["yStep"];
-            }
-            
-            // Roep deze functie nog eens op, zodat de circkel opschuift.
-            setTimeout(function() { drawAllMessages(data, count+1); }, 80)
-          } else {
-            // Animaties zijn afgelopen.
-            fd.plot();
-          }
-        }
-        
-        drawAllMessages(pcs, 0);
     },
 
     /**
@@ -609,7 +671,8 @@ var BeheerSysteem = Class.extend({
         setInterval(function() {
 
             // Zorg ervoor dat we enkel een nodenummer selecteren dat bestaat
-            randomNodeId = c[Math.floor(Math.random()*c.length)].id;
+            var aantalComputers = config.getRunningComputers();
+            randomNodeId = "id" + Math.floor( Math.random() * aantalComputers);
 
             if(randomNodeId !== currentNodeId) {
                 $("#" + randomNodeId + " .name").trigger("click");

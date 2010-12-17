@@ -67,23 +67,7 @@ function loadNetwork(success){
             // Add node events
             Events: {
                 enable: true,
-                type: 'Native',
-                
-                /*
-                 Uncomment to enable dragging.
-                
-                //Update node positions when dragged
-                onDragMove: function(node, eventInfo, e){
-                    var pos = eventInfo.getPos();
-                    node.pos.setc(pos.x, pos.y);
-                    fd.plot();
-                },
-                //Implement the same handler for touchscreens
-                onTouchMove: function(node, eventInfo, e){
-                    $jit.util.event.stop(e); //stop default touchmove event
-                    this.onDragMove(node, eventInfo, e);
-                }
-                */
+                type: 'Native'
             },
             //Number of iterations for the FD algorithm
             iterations: 200,
@@ -189,8 +173,16 @@ function loadNetwork(success){
         beheerSysteem.showRandomInfo();
         
         // Start het versturen van berichten.
-        // Dit wordt iedere 30 seconden opgeroepen.
-        setInterval(function() { beheerSysteem.stuurBericht(); }, 3000);
+        // Dit wordt iedere 5 seconden opgeroepen.
+        // TODO verzet naar iets langer voor demo.
+        setInterval(function() { beheerSysteem.stuurBericht(); }, 20000);
+        
+        // Voeg iedere 15 seconden een computer toe.
+        setInterval(function() { beheerSysteem.addComputer(); }, 15000);
+        
+        // Verwijder iedere 15 seconden een computer (maar wacht eerst 1x 6 seconden zodat we niet tegelijk
+        // een toevoegen en dan een verwijderen.)
+        setTimeout(function() { setInterval(function() { beheerSysteem.deleteComputer(); }, 15000); }, 6000 );
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
@@ -250,11 +242,5 @@ function init(){
         
         // Delete it.
         beheerSysteem.deleteComputer(id);
-    });
-    
-    $("#send_message").live("click", function() {
-
-        //beheerSysteem.stuurBericht();
-        beheerSysteem.addComputer();
     });
 }
