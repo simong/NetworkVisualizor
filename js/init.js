@@ -124,20 +124,22 @@ function loadNetwork(success){
                     });
 
                     // Show some details
-                    $("#inner-details").show();
-                    $("#inner-details-name").text(node.name);
-                    $("#inner-details-id").text(node.id);
+                    $("#inner-details").fadeTo(250, 0.0, function(){
+                        $("#inner-details-name").text(node.name);
+                        $("#inner-details-id").text(node.id);
 
-                    // Build the right column relations list.
-                    // This is done by traversing the clicked node connections.
-                    var list = "";
-                    node.eachAdjacency(function(adj){
-                        if (adj.getData('alpha'))
-                            list += "<li>" + adj.nodeTo.name + "</li>";
+                        // Build the right column relations list.
+                        // This is done by traversing the clicked node connections.
+                        var list = "";
+                        node.eachAdjacency(function(adj){
+                            if (adj.getData('alpha'))
+                                list += "<li>" + adj.nodeTo.name + "</li>";
+                        });
+                        //append connections information
+                        $('#inner-details-connections').html(list);
+                        $('#inner-details').height(80 + $("#inner-details-connections").height());
+                        $('#inner-details').fadeTo(250, 0.5);
                     });
-                    //append connections information
-                    $('#inner-details-connections').html(list);
-                    $('#inner-details').height(80 + $("#inner-details-connections").height());
                 };
             },
             // Change node styles when DOM labels are placed
