@@ -538,8 +538,12 @@ var BeheerSysteem = Class.extend({
             config.addComputer(m);
             
             // Compute and plot the graph.
-            newNode.endPos.x = Math.random() * (jQuery("#network_graph-canvas").attr("width") - 100);
-            newNode.endPos.y = Math.random() * (jQuery("#network_graph-canvas").attr("height") - 100);
+            var x = Math.floor(Math.random() * ((jQuery("#network_graph-canvas").attr("width") - 100) /2));
+            var y = Math.floor(Math.random() * ((jQuery("#network_graph-canvas").attr("height") - 100) /2));
+            newNode.endPos.x = x;
+            newNode.endPos.y = y;
+            newNode.pos.x = x;
+            newNode.pos.y = y;
             fd.plot();
             this.isAnimerend = false;
             console.log("Computer toegevoegd!");
