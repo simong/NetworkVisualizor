@@ -137,6 +137,7 @@ function loadNetwork(success){
                     });
                     //append connections information
                     $jit.id('inner-details-connections').innerHTML = list;
+                    $('#inner-details').height(80 + $("#inner-details-connections").height());
                     
                     var computer = config.getComputer(node.id);
                 };
