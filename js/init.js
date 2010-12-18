@@ -22,10 +22,10 @@ var updatecombobox = function(){
     // jQuery selector for the select box
     var $selectbox = $("#Computer_connected_0");
     $selectbox.html("");
-    
+
     for (var i = 0; i < config.getRunningComputers(); i++) {
         var configelement = config.getData()[i];
-        
+
         $selectbox.append("<option value='" + configelement.id + "'>" + configelement.name + "</option>")
     }
 }
@@ -35,8 +35,8 @@ function loadNetwork(success){
     if (success) {
         // Fill the combo boxes with all the Computers.
         updatecombobox();
-        
-        
+
+
         // init ForceDirected
         fd = new $jit.ForceDirected({
             //id of the visualization container
@@ -79,14 +79,14 @@ function loadNetwork(success){
                 // Create a 'name' and 'close' buttons and add them
                 // to the main node label
                 var nameContainer = document.createElement('a'), style = nameContainer.style;
-                
+
                 nameContainer.className = 'name';
                 nameContainer.innerHTML = node.name;
                 nameContainer.style.display = "none";
                 domElement.appendChild(nameContainer);
                 style.fontSize = "0.8em";
                 style.color = "#ddd";
-                
+
                 //Toggle a node selection when clicking
                 //its name. This is done by animating some
                 //node styles like its dimension and the color
@@ -94,7 +94,7 @@ function loadNetwork(success){
                 nameContainer.onclick = function(){
                     //set final styles
                     fd.graph.eachNode(function(n){
-                        if (n.id != node.id) 
+                        if (n.id != node.id)
                             delete n.selected;
                         n.setData('dim', 7, 'end');
                         n.eachAdjacency(function(adj){
@@ -122,24 +122,22 @@ function loadNetwork(success){
                         modes: ['node-property:dim', 'edge-property:lineWidth:color'],
                         duration: 5
                     });
-                    
+
                     // Show some details
-                    $jit.id('inner-details').style.display = "block";
-                    $jit.id('inner-details-name').innerHTML = node.name;
-                    $jit.id('inner-details-id').innerHTML = node.id;
-                    
+                    $("#inner-details").show();
+                    $("#inner-details-name").text(node.name);
+                    $("#inner-details-id").text(node.id);
+
                     // Build the right column relations list.
                     // This is done by traversing the clicked node connections.
                     var list = "";
                     node.eachAdjacency(function(adj){
-                        if (adj.getData('alpha')) 
+                        if (adj.getData('alpha'))
                             list += "<li>" + adj.nodeTo.name + "</li>";
                     });
                     //append connections information
-                    $jit.id('inner-details-connections').innerHTML = list;
+                    $('#inner-details-connections').html(list);
                     $('#inner-details').height(80 + $("#inner-details-connections").height());
-                    
-                    var computer = config.getComputer(node.id);
                 };
             },
             // Change node styles when DOM labels are placed
@@ -166,21 +164,21 @@ function loadNetwork(success){
                 fd.plot();
             }
         });
-        
+
         // Keep the fd!
         beheerSysteem.setDrawer(fd);
 
         // Toon informatie over een willekeurige computer
         beheerSysteem.showRandomInfo();
-        
+
         // Start het versturen van berichten.
         // Dit wordt iedere 5 seconden opgeroepen.
         // TODO verzet naar iets langer voor demo.
         setInterval(function() { beheerSysteem.stuurBericht(); }, 20000);
-        
+
         // Voeg iedere 15 seconden een computer toe.
         setInterval(function() { beheerSysteem.addComputer(); }, 15000);
-        
+
         // Verwijder iedere 15 seconden een computer (maar wacht eerst 1x 6 seconden zodat we niet tegelijk
         // een toevoegen en dan een verwijderen.)
         setTimeout(function() { setInterval(function() { beheerSysteem.deleteComputer(); }, 15000); }, 6000 );
@@ -197,50 +195,50 @@ function init(){
     //config.loadJSON("config.js", loadNetwork);
     config.setVirussen(virussen);
     config.setData(c);
-    
+
     beheerSysteem = new BeheerSysteem();
     beheerSysteem.setConfig(config);
-    
+
     loadNetwork(true);
-    
-    
+
+
     // ###############
     // The UI events #
     // ###############
-    
+
     // Fancy slider things
     $(".menu_bar").bind("click", function(){
         // FIXME
         $(".panel", $(this).parents(".subcontainer")).slideToggle();
     });
-    
+
     // Add a Computer.
     $("#Computer_add").live("click", function(){
         var $selectbox = $("#Computer_connected_0");
-        
+
         // Create a new Computer.
-        
-        
+
+
         // Update the list of available Computers.
         updatecombobox();
     });
-    
-    
+
+
     // Delete a Computer
     $("#inner-details-wipe").live("click", function(){
         // Get the id we've stuck in the hidden span
         var id = $("#inner-details-id").text();
-        
+
         // Wipe it.
         beheerSysteem.wipeComputer(id);
     });
-    
-    
+
+
     // Delete a Computer
     $("#inner-details-delete").live("click", function(){
         // Get the id we've stuck in the hidden span
         var id = $("#inner-details-id").text();
-        
+
         // Delete it.
         beheerSysteem.deleteComputer(id);
     });
