@@ -499,8 +499,7 @@ var BeheerSysteem = Class.extend({
                 });
                 fd.plot();
             }
-            
-            console.log("Computer verwijderd!");
+
             this.isAnimerend = false;
         }
     },
@@ -546,7 +545,6 @@ var BeheerSysteem = Class.extend({
             newNode.pos.y = y;
             fd.plot();
             this.isAnimerend = false;
-            console.log("Computer toegevoegd!");
         }
  
     },
