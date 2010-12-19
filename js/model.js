@@ -431,9 +431,6 @@ var Config = Class.extend({
         this.computers = jQuery.grep(this.computers, function(c) {
             return c.getId() != id;
         });
-	/*this.data = jQuery.grep(this.data, function(c) {
-            return c.getId() != id;
-        });*/
     }
 });
 
@@ -472,7 +469,6 @@ var BeheerSysteem = Class.extend({
             // Model part
             var Computer = config.getRandomComputer();
 	    Computer.wipe();
-	   // alert("oi");
             this.isAnimerend = false;
 
         }
@@ -591,8 +587,8 @@ var BeheerSysteem = Class.extend({
 
 
     "stuurBericht" : function() {
-        // if (!this.isAnimerend) {
-        //     this.isAnimerend = true;
+         if (!this.isAnimerend) {
+             this.isAnimerend = true;
             // een paar "random" nodes.
             var pcs = [];
             var aantal = beheerSysteem.getRunningComputers();
@@ -692,8 +688,8 @@ var BeheerSysteem = Class.extend({
             };
 
             drawAllMessages(pcs, 0);
-        //    this.isAnimerend = false;
-        //}
+            this.isAnimerend = false;
+        }
     },
 
     /**
