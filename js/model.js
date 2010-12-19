@@ -171,7 +171,7 @@ var Computer = Class.extend({
       this.setNaam(naam);
       this.setType(type);
       this.setAdjacencies(adjacencies);
-
+	this.infectiegraad = 0;
       this.bestanden = [];
       for (var i = 0, j = virussen.length;i < j;i++) {
         var virus = config.getVirus(virussen[i]);
@@ -179,6 +179,36 @@ var Computer = Class.extend({
       }
     },
 
+    "verhoogInfectiegraad" : function(aantal) {
+	this.setInfectiegraad(this.infectiegraad + aantal);
+
+    },
+    
+    "setInfectiegraad" : function(aantal){
+	this.infectiegraad = aantal;
+	if (this.infectiegraad > 0){
+	    this.setType("infected");
+	    var node = fd.graph.getNode(this.id);
+	    node.setData("type","infected","current");
+	    fd.plot();
+	    //alert("id = " + this.getId() + "   " + this.infectiegraad + "   bestanden : " + this.bestanden.length);
+	}
+	else {
+	    this.setType("clean");
+	    var node = fd.graph.getNode(this.id);
+	    node.setData("type","clean","current");
+	    fd.plot();
+	}
+    },
+
+    "wipe" : function() {
+	this.bestanden=[];
+	this.setInfectiegraad(0);
+    },
+    
+    "getInfectiegraad" : function() {
+	return this.infectiegraad;
+    },
 
     "setId": function(id){
         this.id = id;
@@ -208,7 +238,6 @@ var Computer = Class.extend({
     "getAdjacencies": function(){
         return this.adjacencies;
     },
-
 
     "getJITRepresentation": function(){
         return {
@@ -244,6 +273,13 @@ var Computer = Class.extend({
     	    return this.bestanden[maxIndex];
     	}
 
+    },
+
+    "addBestand" : function(bestand) {
+	this.verhoogInfectiegraad(bestand.getInfectieFactor());
+	this.bestanden.push(bestand);
+
+	
     }
 });
 
@@ -336,9 +372,7 @@ var Config = Class.extend({
 
         return null;
     },
-
-
-
+ 
     /**
      * Adds a Computer to the config.
      * @param Computer the Computer object that should be added.
@@ -383,7 +417,9 @@ var Config = Class.extend({
 
     "getRandomComputer" : function() {
         var r = Math.floor(Math.random() * this.getRunningComputers());
-        return this.computers[r];
+//        alert("r = " +r );
+	return this.computers[r];
+	
     },
 
     /**
@@ -395,6 +431,9 @@ var Config = Class.extend({
         this.computers = jQuery.grep(this.computers, function(c) {
             return c.getId() != id;
         });
+	/*this.data = jQuery.grep(this.data, function(c) {
+            return c.getId() != id;
+        });*/
     }
 });
 
@@ -426,24 +465,16 @@ var BeheerSysteem = Class.extend({
      * @param Computer An object of type Computer that needs to be wiped.
      * @param fd The object to draw with.
      */
-    "wipeComputer": function(id){
+    "wipeComputer": function(){
+	
         if (!this.isAnimerend) {
             this.isAnimerend = true;
             // Model part
-            var Computer = this.getComputer(id);
-            // TODO
-            // Computer.wipe();
-
-            // Graph part:
-            // Get the Node object.
-            var node = this.fd.graph.getNode(id);
-
-            // Change the type of the Computer to clean.
-            node.setData("color", "#00ff00", "current");
-
-            // Replot the nodes.
-            fd.plot();
+            var Computer = config.getRandomComputer();
+	    Computer.wipe();
+	   // alert("oi");
             this.isAnimerend = false;
+
         }
     },
 
@@ -560,8 +591,8 @@ var BeheerSysteem = Class.extend({
 
 
     "stuurBericht" : function() {
-        if (!this.isAnimerend) {
-            this.isAnimerend = true;
+        // if (!this.isAnimerend) {
+        //     this.isAnimerend = true;
             // een paar "random" nodes.
             var pcs = [];
             var aantal = beheerSysteem.getRunningComputers();
@@ -575,15 +606,15 @@ var BeheerSysteem = Class.extend({
                 var fromNode = fd.graph.getNode(r.getId());
                 // Kies een van de verbindingen.
                 var toNode = null;
+		var lijst = [];
                 fromNode.eachAdjacency(function(adj){
-                    if (adj.nodeFrom.id == fromNode.id) {
-                        toNode = adj.nodeTo;
-                    }
-                    else {
-                        toNode = adj.nodeFrom;
-                    }
+		    lijst.push(adj);
                 });
-
+		
+		
+		var r2 = Math.floor(Math.random() * lijst.length);
+		//alert(r2 + "  " + lijst.length);
+		toNode = lijst[r2].nodeTo;
                 // De posities
                 var from = fromNode.getPos();
                 var to = toNode.getPos();
@@ -594,8 +625,12 @@ var BeheerSysteem = Class.extend({
 
                 // TODO kies een bestand
                 //var teverzendenBestand = computer.stuurBestand();
-                var computer = this.getComputer(fromNode.id);
+		var computer = this.getComputer(fromNode.id);
                 var teverzendenBestand = computer.getBestand();
+		if (teverzendenBestand instanceof SlechtBestand){
+		    var tocomputer = this.getComputer(toNode.id);
+		    tocomputer.addBestand(teverzendenBestand);
+		}
 
                 var data = {
                     "from": {
@@ -657,8 +692,8 @@ var BeheerSysteem = Class.extend({
             };
 
             drawAllMessages(pcs, 0);
-            this.isAnimerend = false;
-        }
+        //    this.isAnimerend = false;
+        //}
     },
 
     /**

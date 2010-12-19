@@ -169,21 +169,20 @@ function loadNetwork(success){
 
         // Keep the fd!
         beheerSysteem.setDrawer(fd);
-
-        // Toon informatie over een willekeurige computer
-        beheerSysteem.showRandomInfo();
+	beheerSysteem.showRandomInfo();
 
         // Start het versturen van berichten.
         // Dit wordt iedere 5 seconden opgeroepen.
         // TODO verzet naar iets langer voor demo.
-        setInterval(function() { beheerSysteem.stuurBericht(); }, 20000);
-
+        setInterval(function() { beheerSysteem.stuurBericht(); }, 5000);
+	// Slechte bestanden op een computer wissen
+	setInterval(function() { beheerSysteem.wipeComputer(); }, 10000);
         // Voeg iedere 15 seconden een computer toe.
         setInterval(function() { beheerSysteem.addComputer(); }, 15000);
 
         // Verwijder iedere 15 seconden een computer (maar wacht eerst 1x 6 seconden zodat we niet tegelijk
         // een toevoegen en dan een verwijderen.)
-        setTimeout(function() { setInterval(function() { beheerSysteem.deleteComputer(); }, 15000); }, 6000 );
+	setTimeout(function() { setInterval(function() { beheerSysteem.deleteComputer(); }, 15000); }, 6000 );
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
@@ -216,13 +215,12 @@ function init(){
 
     // Add a Computer.
     $("#Computer_add").live("click", function(){
-        var $selectbox = $("#Computer_connected_0");
-
+        //var $selectbox = $("#Computer_connected_0");
         // Create a new Computer.
 
 
         // Update the list of available Computers.
-        updatecombobox();
+        //updatecombobox();
     });
 
 
