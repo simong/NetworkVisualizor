@@ -548,7 +548,7 @@ var BeheerSysteem = Class.extend({
         if (!this.isAnimerend) {
             this.isAnimerend = true;
             //Nieuwe computer
-            var m = new Computer("id" + (config.getRunningComputers()), "zever", "clean", [], []);
+            var m = new Computer("id" + (config.getRunningComputers()), "zever", "clean", false, [], []);
 
             // Create the node.
             fd.graph.addNode(m.getJITRepresentation());
