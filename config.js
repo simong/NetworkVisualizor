@@ -166,7 +166,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "clean",
+        "$type": "internet_clean",
         "virussen" : []
     },
     "id": "id12",
@@ -192,7 +192,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "clean",
+        "$type": "internet_clean",
         "virussen" : []
     },
     "id": "id14",

@@ -164,12 +164,14 @@ var Computer = Class.extend({
     // id = De id van de computer
     // naam = De naam
     // type = Het type
+    // internet = Boolean dat aanduidt of deze computer met het internet verbonden is.
     // adjacencies = De connecties naar andere
     // virussen = een array van strings met de ids van de virussen op deze computer.
-    "init" : function(id, naam, type, adjacencies, virussen) {
+    "init" : function(id, naam, type, internet, adjacencies, virussen) {
       this.setId(id);
       this.setNaam(naam);
       this.setType(type);
+      this.setInternet(internet);
       this.setAdjacencies(adjacencies);
 	this.infectiegraad = 0;
       this.bestanden = [];
@@ -232,6 +234,12 @@ var Computer = Class.extend({
         return this.type;
     },
 
+    "setInternet": function(internet){
+        this.internet = internet;
+    },
+    "isInternet": function(){
+        return this.internet;
+    },
     "setAdjacencies": function(adjacencies){
         this.adjacencies = adjacencies;
     },
@@ -319,7 +327,12 @@ var Config = Class.extend({
         // Convert the data to an array of computers.
         this.computers = [];
         for (var i = 0, j = data.length; i < j; i++) {
-          var computer = new Computer(data[i].id, data[i].name, data[i].data["$type"], data[i].adjacencies, data[i].data["virussen"]);
+	  var internet = false;
+	  var type = data[i].data["$type"];
+	  if (type === "internet_infected" || type === "internet_clean") {
+	    internet = true;
+	  }
+          var computer = new Computer(data[i].id, data[i].name, type, internet, data[i].adjacencies, data[i].data["virussen"]);
           this.computers.push(computer);
         }
 
