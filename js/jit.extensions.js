@@ -42,7 +42,7 @@
         'internet_infected': {
             'render': function(node, canvas){
                 var pos = node.pos.getc(true);
-                canvas.getCtx().drawImage(img_internet_pc_clean, pos.x - 18, pos.y - 18);
+                canvas.getCtx().drawImage(img_internet_pc_infected, pos.x - 18, pos.y - 18);
             },
             'contains': function(node, pos){
                 return ((pos.x >= node.endPos.x && pos.x <= node.endPos.x + 36) &&

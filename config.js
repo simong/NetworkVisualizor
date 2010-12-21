@@ -97,7 +97,7 @@ var c = [{
     }],
     "data": {
         "$color": "#00ff00",
-        "$type": "infected",
+        "$type": "clean",
         "virussen" : ["trojan"]
     },
     "id": "id6",
@@ -140,7 +140,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "infected",
+        "$type": "clean",
         "virussen" : ["spyware"]
     },
     "id": "id9",
@@ -166,7 +166,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "internet_clean",
+        "$type": "internet_infected",
         "virussen" : []
     },
     "id": "id12",
@@ -192,7 +192,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "internet_clean",
+        "$type": "internet_infected",
         "virussen" : []
     },
     "id": "id14",
@@ -205,7 +205,7 @@ var c = [{
     }],
     "data": {
         "$color": "#ff0000",
-        "$type": "infected",
+        "$type": "clean",
         "virussen" : ["iloveyou","trojan","spyware"]
     },
     "id": "id15",
@@ -222,7 +222,7 @@ var c = [{
       }],
     "data": {
         "$color": "#ff0000",
-        "$type": "infected",
+        "$type": "clean",
         "virussen" : ["trojan","spyware"]
     },
     "id": "id10",
