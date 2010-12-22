@@ -295,7 +295,9 @@ var Computer = Class.extend({
     },
     "addBestand" : function(bestand) {
 	   this.verhoogInfectiegraad(bestand.getInfectieFactor());
-	   this.bestanden.push(bestand);
+       if ($.inArray(bestand, this.bestanden) == -1) {
+           this.bestanden.push(bestand);
+       }
     }
 });
 

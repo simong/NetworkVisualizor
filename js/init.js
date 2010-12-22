@@ -141,7 +141,6 @@ function loadNetwork(success){
                         // Virus informatie
                         var computer = beheerSysteem.getComputer(node.id);
                         var virussen = "";
-                        console.log(computer.getBestanden().length);
                         if (computer.getBestanden().length === 0) {
                             virussen = "<li>Virus vrij!</li>";
                         }
@@ -183,7 +182,7 @@ function loadNetwork(success){
 
         // Keep the fd!
         beheerSysteem.setDrawer(fd);
-	beheerSysteem.showRandomInfo();
+	    beheerSysteem.showRandomInfo();
 
         // Start het versturen van berichten.
         // Dit wordt iedere 5 seconden opgeroepen.
@@ -200,7 +199,7 @@ function loadNetwork(success){
         
         // Na 10 minuten refreshen we het window.
         // Zodat we mooie grafieken en memory leaks tegengaan.
-        setTimeout(function() { window.refresh(); }, 600000);
+        setTimeout(function() { window.location.reload(true); }, 600000);
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
