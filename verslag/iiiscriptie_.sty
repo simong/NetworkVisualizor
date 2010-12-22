@@ -117,12 +117,18 @@ Promotoren:
 %
 \newcounter{studentuur}
 \newcounter{studentminuut}
+\newlength{\uurbreedte}
+\settowidth{\uurbreedte}{44}
+\def\uurformaat#1#2{\makebox[\uurbreedte][r]{#1}u\makebox[\uurbreedte][r]{#2}}
 \def\logingang#1#2#3#4#5#6{%
 \addtocounter{studentuur}{#4}%
 \addtocounter{studentuur}{-#2}%
+\ifnum#2>#4%
+\addtocounter{studentuur}{24}%
+\fi%
 \addtocounter{studentminuut}{#5}%
 \addtocounter{studentminuut}{-#3}%
-#1\hspace*{\fill}#2u#3-#4u#5&#6\\%
+\hspace{\fill}#1&\hspace*{\fill}\uurformaat{#2}{#3}\,\,-\,\uurformaat{#4}{#5}&#6\\%
 }
 \def\berekentotaal{
 \loop
@@ -136,29 +142,41 @@ Promotoren:
         \addtocounter{studentminuut}{-60}
 \repeat
 }
+\def\subtotaal#1{
+\berekentotaal
+&\\
+&\hspace*{\fill}{\bf subtotaal}&#1 \thestudentuur{\ } uur \thestudentminuut{\ } minuten\\
+&\\}
 \newenvironment{studentlog}[1]{
 %begin studentlogomgeving
 \setcounter{studentuur}0
 \setcounter{studentminuut}0
 {\ }\newline
-\begin{longtable}{p{0.35\textwidth}p{0.65\textwidth}}
+\newlength{\datumbreedte}
+\settowidth{\datumbreedte}{25/12/2020}
+\newlength{\intervalbreedte}
+\settowidth{\intervalbreedte}{22u55\,\,-\,23u55}
+\newlength{\taakbreedte}
+\setlength{\taakbreedte}{\textwidth}
+\addtolength{\taakbreedte}{-\datumbreedte}
+\addtolength{\taakbreedte}{-\intervalbreedte}
+\begin{longtable}{p{\datumbreedte}p{\intervalbreedte}p{\taakbreedte}}
 \hline
-%\multicolumn{2}{c}{}\\
-\multicolumn{2}{c}{Log van {\bf #1}}\\
-%\multicolumn{2}{c}{}\\
+\multicolumn{3}{c}{}\\
+\multicolumn{3}{c}{Log van {\bf #1}}\\
+\multicolumn{3}{c}{}\\
 \hline
 &\\
 \endfirsthead
 \hline
-\multicolumn{2}{c}{}\\
 \multicolumn{2}{c}{Voortzetting log van {\bf #1}}\\
-\multicolumn{2}{c}{}\\
 \hline
 &\\
 \endhead
+%Uitschrijven subtotaal kan niet: de eindebladvoeting wordt
+%gezet bij begin longtable (logisch, want de hoogte moet gekend zijn).
 &\\
-& {\bf (voortgezet op volgende pagina)}\\
-&\\
+&&{\bf voortgezet op volgende pagina}\\
 \hline
 \endfoot
 % added to the very bottom of the table
@@ -169,7 +187,7 @@ Promotoren:
 \berekentotaal
 %&\\\hline
 &\\
-{\bf totaal}&\thestudentuur{\ } uur \thestudentminuut{\ } minuten\\
+&\hspace*{\fill}{\bf totaal}&\thestudentuur{\ } uur \thestudentminuut{\ } minuten\\
 %&\\
 \hline
 \end{longtable}
