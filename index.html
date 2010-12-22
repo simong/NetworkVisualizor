@@ -6,6 +6,18 @@
 
 <!-- CSS Files -->
 <link type="text/css" href="css/base.css" rel="stylesheet" />
+<style type="text/css">
+html, body {
+    height: 100%;
+    position: relative;
+}
+#network_graph {
+    position: relative;
+    min-height: 93%;
+    height:auto !important; /* voor moderne browsers */
+    height:93%; /* voor IE */
+}
+</style>
 
 <!--[if IE]><script language="javascript" type="text/javascript" src="js/jit/Extras/excanvas.js"></script><![endif]-->
 
@@ -23,70 +35,22 @@
 </head>
 
 <body onload="init();">
-<div id="header"><h1>XKCD - Network Visualizor</h1></div>
-<div id="container">
-    <div id="systemmonitor" class="subcontainer">
-        <div class="menu_bar">
-            <h2><img src="images/layout/arrow.png" alt="&gt;" /> System Monitor</h2>
-        </div>
-        <div class="panel">
-        
-            <form name="add_machine" method="post" action="javascript:;">
-                <fieldset>
-                    <label for="machine_name">Machine name</label>
-                    <input type="text" id="machine_name" /><br />
-                    <label for="machine_connected_0">Connected to</label>
-                    <select id="machine_connected_0">
-                        <option>-- List of Machines --</option>
-                    </select><br />
-                    <label for="machine_connected_0"></label>
-                    <a href="javascript:;" class="button gray" id="machine_add">Add</a>
-                </fieldset>
-            </form>
-            <a href="javascript:;" class="button gray" id="send_message">Send random message.</a>
-        
-            <div id="inner-details" style="display:none;">
-                <span style="display:none;" id="inner-details-id"></span>
-                <acronym id="inner-details-name">Machine Name</acronym>
-                <a href="javascript:;" id="inner-details-wipe"><img src="images/layout/wipe.png" title="Wipe" /></a>
-                <a href="javascript:;" id="inner-details-delete"><img src="images/layout/trash.png" title="Delete" /></a><br />
-                Verbindingen:
-                <ul id="inner-details-connections"></ul>
-                Virussen
-                <ul id="inner-details-virussen"></ul>
-            </div>
 
-        </div>
-    </div>
-      
-    <div id="network" class="subcontainer">
-        <div class="menu_bar">
-            <h2><img src="images/layout/arrow.png" alt="&gt;" /> Network</h2>
-        </div>
-        <div class="panel">
-            <div id="network_graph"></div>
-            <div id="log"></div>
-        </div>
+    <div id="header">
+        <h1>XKCD - Network Visualizor</h1>
     </div>
 
+    <div id="network_graph"></div>
 
-    <div id="about" class="subcontainer">
-        <div class="menu_bar">
-            <h2><img src="images/layout/arrow.png" alt="&gt;" /> About</h2>
-        </div>
-        <div class="panel" style="display:none;">
-            <p>This was made as a project for the course <i>Systems analysis</i>.</p>
-            <p>The project is based on the popular online comic <a href="http://www.xkcd.com/350/">XKCD</a>.</p>
-            <p>Made by:
-                <ul>
-                    <li>Acke Jan</li>
-                    <li>Gaeremynck Simon</li>
-                    <li>Loose Davy</li>
-                    <li>Vuerings Christian</li>
-                </ul>
-            </p>
-        </div>
+    <div id="inner-details" style="display:none;">
+        <acronym id="inner-details-name">Machine Name</acronym><br />
+        Id:
+        <span id="inner-details-id"></span><br />
+        Connections:
+        <ul id="inner-details-connections"></ul>
+        Virussen:
+        <ul id="inner-details-virussen"></ul>
     </div>
-</div>
+
 </body>
 </html>

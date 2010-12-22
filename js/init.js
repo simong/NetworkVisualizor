@@ -192,19 +192,15 @@ function loadNetwork(success){
 	    // Slechte bestanden op een computer wissen
 	    setInterval(function() { beheerSysteem.wipeComputer(); }, 10000);
         // Voeg iedere 15 seconden een computer toe.
-        setInterval(function() {
-            try {
-                beheerSysteem.addComputer();
-            } catch (x) {
-                console.log(x);
-            } 
-        }, 3000);
+        setInterval(function() { try { beheerSysteem.addComputer(); } catch (x) { } }, 15000);
 
         // Verwijder iedere 15 seconden een computer (maar wacht eerst 1x 6 seconden zodat we niet tegelijk
         // een toevoegen en dan een verwijderen.)
-	setTimeout(function() { setInterval(function() { 
-        try {  beheerSysteem.deleteComputer(); } catch (x) { console.log(x); } 
-     }, 3000); }, 2000 );
+    	setTimeout(function() { setInterval(function() { try {  beheerSysteem.deleteComputer(); } catch (x) { } }, 15000); }, 2000 );
+        
+        // Na 10 minuten refreshen we het window.
+        // Zodat we mooie grafieken en memory leaks tegengaan.
+        setTimeout(function() { window.refresh(); }, 600000);
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
