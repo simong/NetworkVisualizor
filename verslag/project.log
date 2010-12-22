@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.11.30)  22 DEC 2010 17:22
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.11.30)  22 DEC 2010 18:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -108,7 +108,6 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@diagramintern=\count96
 \c@studentuur=\count97
 \c@studentminuut=\count98
-\uurbreedte=\skip47
 )
 (/usr/local/texlive/2010/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip10
@@ -360,12 +359,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 82--84
  []
 
 [5 <./crc_kaarten-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 87--89
+Underfull \hbox (badness 10000) in paragraph at lines 87--88
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--92
+Underfull \hbox (badness 10000) in paragraph at lines 89--91
 
  []
 
@@ -380,24 +379,24 @@ Package epstopdf Info: Source file: <seq_maak_computer_aan.eps>
 (epstopdf)                    size: 7316 bytes
 (epstopdf)             Command: <repstopdf --outfile=seq_maak_computer_aan-eps-
 converted-to.pdf seq_maak_computer_aan.eps>
-(epstopdf)             \includegraphics on input line 94.
+(epstopdf)             \includegraphics on input line 93.
 Package epstopdf Info: Output file is already uptodate.
 
 <seq_maak_computer_aan-eps-converted-to.pdf, id=60, 326.21875pt x 147.55125pt>
 File: seq_maak_computer_aan-eps-converted-to.pdf Graphic file (type pdf)
 
 <use seq_maak_computer_aan-eps-converted-to.pdf>
-Underfull \hbox (badness 10000) in paragraph at lines 93--95
+Underfull \hbox (badness 10000) in paragraph at lines 92--94
 
  []
 
 [7 <./seq_maak_computer_aan-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 98--100
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--103
+Underfull \hbox (badness 10000) in paragraph at lines 99--101
 
  []
 
@@ -410,18 +409,18 @@ f>
 (epstopdf)                    size: 7480 bytes
 (epstopdf)             Command: <repstopdf --outfile=seq_verwijder_computer-eps
 -converted-to.pdf seq_verwijder_computer.eps>
-(epstopdf)             \includegraphics on input line 105.
+(epstopdf)             \includegraphics on input line 103.
 Package epstopdf Info: Output file is already uptodate.
 
 <seq_verwijder_computer-eps-converted-to.pdf, id=69, 292.09125pt x 141.52875pt>
 File: seq_verwijder_computer-eps-converted-to.pdf Graphic file (type pdf)
 <use seq_verwijder_computer-eps-converted-to.pdf>
-Underfull \hbox (badness 10000) in paragraph at lines 104--106
+Underfull \hbox (badness 10000) in paragraph at lines 102--104
 
  []
 
 [8 <./seq_verwijder_computer-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 109--111
+Underfull \hbox (badness 10000) in paragraph at lines 107--109
 
  []
 
@@ -432,7 +431,7 @@ Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--114
+Underfull \hbox (badness 10000) in paragraph at lines 110--112
 
  []
 
@@ -444,23 +443,23 @@ Package epstopdf Info: Source file: <seq_kuis_computer.eps>
 (epstopdf)                    size: 6918 bytes
 (epstopdf)             Command: <repstopdf --outfile=seq_kuis_computer-eps-conv
 erted-to.pdf seq_kuis_computer.eps>
-(epstopdf)             \includegraphics on input line 116.
+(epstopdf)             \includegraphics on input line 114.
 Package epstopdf Info: Output file is already uptodate.
 <seq_kuis_computer-eps-converted-to.pdf, id=78, 292.09125pt x 118.4425pt>
 File: seq_kuis_computer-eps-converted-to.pdf Graphic file (type pdf)
 
 <use seq_kuis_computer-eps-converted-to.pdf>
-Underfull \hbox (badness 10000) in paragraph at lines 115--117
+Underfull \hbox (badness 10000) in paragraph at lines 113--115
 
  []
 
 [9 <./seq_kuis_computer-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 120--122
+Underfull \hbox (badness 10000) in paragraph at lines 118--120
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--125
+Underfull \hbox (badness 10000) in paragraph at lines 121--123
 
  []
 
@@ -472,55 +471,55 @@ Package epstopdf Info: Source file: <seq_stuur_bericht.eps>
 (epstopdf)                    size: 7360 bytes
 (epstopdf)             Command: <repstopdf --outfile=seq_stuur_bericht-eps-conv
 erted-to.pdf seq_stuur_bericht.eps>
-(epstopdf)             \includegraphics on input line 127.
+(epstopdf)             \includegraphics on input line 125.
 Package epstopdf Info: Output file is already uptodate.
 <seq_stuur_bericht-eps-converted-to.pdf, id=87, 386.44376pt x 124.465pt>
 File: seq_stuur_bericht-eps-converted-to.pdf Graphic file (type pdf)
 
 <use seq_stuur_bericht-eps-converted-to.pdf>
-Overfull \hbox (41.44281pt too wide) in paragraph at lines 127--127
+Overfull \hbox (41.44281pt too wide) in paragraph at lines 125--125
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 126--128
+Underfull \hbox (badness 10000) in paragraph at lines 124--126
 
  []
 
 [10 <./seq_stuur_bericht-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 132--135
+Underfull \hbox (badness 10000) in paragraph at lines 130--133
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--135
+Underfull \hbox (badness 10000) in paragraph at lines 130--133
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--135
+Underfull \hbox (badness 10000) in paragraph at lines 130--133
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 136.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 134.
 
 (/usr/local/texlive/2010/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 134.
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--140
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 138--140
+Underfull \hbox (badness 10000) in paragraph at lines 136--138
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 143--144
+Underfull \hbox (badness 10000) in paragraph at lines 136--138
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
 
  []
 
@@ -531,12 +530,12 @@ Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--151
+Underfull \hbox (badness 10000) in paragraph at lines 147--149
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--151
+Underfull \hbox (badness 10000) in paragraph at lines 147--149
 
  []
 
@@ -548,32 +547,32 @@ Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--159
+Underfull \hbox (badness 10000) in paragraph at lines 154--157
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--159
+Underfull \hbox (badness 10000) in paragraph at lines 154--157
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--159
+Underfull \hbox (badness 10000) in paragraph at lines 154--157
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--163
+Underfull \hbox (badness 10000) in paragraph at lines 158--161
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--163
+Underfull \hbox (badness 10000) in paragraph at lines 158--161
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--163
+Underfull \hbox (badness 10000) in paragraph at lines 158--161
 
  []
 
@@ -584,32 +583,32 @@ Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--170
+Underfull \hbox (badness 10000) in paragraph at lines 162--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--170
+Underfull \hbox (badness 10000) in paragraph at lines 162--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--170
+Underfull \hbox (badness 10000) in paragraph at lines 162--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--170
+Underfull \hbox (badness 10000) in paragraph at lines 162--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--170
+Underfull \hbox (badness 10000) in paragraph at lines 162--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--170
+Underfull \hbox (badness 10000) in paragraph at lines 162--168
 
  []
 
@@ -620,80 +619,174 @@ Hoofdstuk 3.
 ]
 Hoofdstuk 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 190.
+(Font)              <14.4> on input line 188.
+
+LaTeX Warning: Citation `Mmils' on page 15 undefined on input line 216.
+
 [15
 
 ]
-Overfull \hbox (61.10886pt too wide) in paragraph at lines 220--222
+Overfull \hbox (61.10886pt too wide) in paragraph at lines 218--220
 []\OT1/cmr/m/n/10 URL's wor-den, zo-als op $\OT1/cmtt/m/n/10 http : / / www . m
 ath . uiuc . edu / []hildebr / tex / bibliographies .
  []
 
 [16]
 Hoofdstuk 5.
-\datumbreedte=\skip48
-\intervalbreedte=\skip49
-\taakbreedte=\skip50
 
-Underfull \hbox (badness 10000) in paragraph at lines 229--230
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
 
  []
 
 
-Overfull \hbox (60.48692pt too wide) in alignment at lines 230--230
- [] [] [] 
+Overfull \hbox (24.0pt too wide) in alignment at lines 228--228
+ [] [] 
  []
 
 
-Overfull \hbox (60.48692pt too wide) in alignment at lines 230--230
- [] [] [] 
+Overfull \hbox (24.0pt too wide) in alignment at lines 228--228
+ [] [] 
  []
 
 
-Overfull \hbox (60.48692pt too wide) in alignment at lines 230--230
- [] [] [] 
+Overfull \hbox (24.0pt too wide) in alignment at lines 228--228
+ [] [] 
  []
 
 
-Overfull \hbox (60.48692pt too wide) in alignment at lines 230--230
- [] [] [] 
+Overfull \hbox (24.0pt too wide) in alignment at lines 228--228
+ [] [] 
  []
 
 
-Overfull \hbox (60.48692pt too wide) in alignment at lines 230--240
- [] [] [] 
+Overfull \hbox (24.0pt too wide) in alignment at lines 228--241
+ [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 243--243
+
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 243--243
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 243--243
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 243--243
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 243--243
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 243--252
+ [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 254--254
+
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 254--254
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 254--254
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 254--254
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 254--254
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 254--261
+ [] [] 
  []
 
 [17
 
-] [18
+]
+Underfull \hbox (badness 10000) in paragraph at lines 263--263
 
-] (./project.aux) ) 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 263--263
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 263--263
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 263--263
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 263--263
+ [] [] 
+ []
+
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ´ in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ´ in font cmr10!
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 263--279
+ [] [] 
+ []
+
+[18] (./project.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 2034 strings out of 493747
- 28455 string characters out of 3143545
- 91272 words of memory out of 3000000
- 5283 multiletter control sequences out of 15000+200000
- 11515 words of font info for 40 fonts, out of 3000000 for 9000
+ 2028 strings out of 493747
+ 28377 string characters out of 3143545
+ 97157 words of memory out of 3000000
+ 5278 multiletter control sequences out of 15000+200000
+ 11169 words of font info for 39 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  37i,8n,25p,586b,248s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx10.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx12.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmcsc10.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr10.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr12.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr7.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ss10.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-s12.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmss
-17.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10
-.pfb></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
-pfb>
-Output written on project.pdf (19 pages, 207925 bytes).
+</usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
+</usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
+r/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/l
+ocal/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/lo
+cal/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/loc
+al/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/loca
+l/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
+/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on project.pdf (19 pages, 192246 bytes).
 PDF statistics:
- 166 PDF objects out of 1000 (max. 8388607)
- 114 compressed objects within 2 object streams
+ 162 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

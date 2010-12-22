@@ -23,4 +23,3 @@
 \contentsline {section}{\numberline {4.3}Opmerkingen}{15}
 \contentsline {section}{\numberline {4.4}Niet-$\mathrm {L\mskip -\thinmuskip \mskip -\thinmuskip ^{{}_{\scriptstyle A}} \mskip -\thinmuskip \mskip -\thinmuskip \mskip -\thinmuskip \mskip -\thinmuskip \mskip -\thinmuskip \mskip \thickmuskip \mskip \thickmuskip T\mskip -\thinmuskip _{\displaystyle E} \mskip -\thinmuskip X}$-gebruikers}{16}
 \contentsline {chapter}{\numberline {5}Logboek}{17}
-\contentsline {chapter}{Literatuurlijst}{18}
