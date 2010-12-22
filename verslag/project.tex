@@ -74,7 +74,7 @@ We geven hieronder een lijst van alle taken.
 \newpage
 \subsection{Start simulatie}
 \lemma{Actor}
-\latex-deGebruiker.
+deGebruiker.
 
 \lemma{Beschrijving}
 Via deze taak kan de gebruiker de demo mode activeren en zal het beheersysteem op basis van de klok de verschillende taken automatisch uitvoeren.
@@ -84,8 +84,7 @@ Via deze taak kan de gebruiker de demo mode activeren en zal het beheersysteem o
 
 \newpage
 \subsection{Maak computer aan}
-\lemma{Actor}
-\latex-klok.
+\lemma{Actor}deKlok.
 
 \lemma{Beschrijving}
 De klok stuurt een bericht naar het BeheerSysteem dat er een computer mag aangemaakt worden. Er moet niet gewacht worden op een antwoord van de computer om verder te doen met het systeem. De computer zal wel een asynchroon antwoord sturen indien hij aangemaakt is.
@@ -95,8 +94,7 @@ De klok stuurt een bericht naar het BeheerSysteem dat er een computer mag aangem
 
 \newpage
 \subsection{Verwijder computer}
-\lemma{Actor}
-\latex-deKlok.
+\lemma{Actor}deKlok.
 
 \lemma{Beschrijving}
 De klok stuurt een signaal naar het BeheerSysteem dat er een computer verwijderd mag worden. Het beheersysteem maakt dan een keuze uit alle computers en beslist welke computer er verwijderd mag worden. Hij stuurt dan een bericht naar deze computer, deze computer zal dan een antwoord terugsturen naar het beheersysteem dat deze verwijderd zal worden, zodat we deze ook uit de lijst van computers kunnen halen.
@@ -107,7 +105,7 @@ De klok stuurt een signaal naar het BeheerSysteem dat er een computer verwijderd
 \newpage
 \subsection{Kuis computer}
 \lemma{Actor}
-\latex-deKlok.
+deKlok.
 
 \lemma{Beschrijving}
 De klok stuurt een bericht naar het BeheerSysteem dat er computer mag gekuist worden, dit wil zeggen alle virussen verwijderen. Het beheersysteem zal dan willekeurig een computer kiezen, die hij kan kiezen uit de visualisatiebibliotheek, en een bericht sturen naar deze computer dat de virussen mogen verwijderd worden en zijn status van ‘IsBesmet’ op false mag zetten.
@@ -118,7 +116,7 @@ De klok stuurt een bericht naar het BeheerSysteem dat er computer mag gekuist wo
 \newpage
 \subsection{Stuur bericht}
 \lemma{Actor}
-\latex-deKlok.
+deKlok.
 
 \lemma{Beschrijving}
 De klok stuurt een bericht naar het beheersysteem dat er bestanden mogen doorgestuurd worden van een computer naar andere computers. Het beheersysteem roept de methode stuurBestand op van een willekeurig geselecteerde computer, deze zal dan een keuze maken welk soort bestand er verstuurd zal worden, dit kan een goed bestand zijn of een slecht bestand. Hierna roept de computer van al zijn buren de methode ontvangbestand op en stuurt dit bestand dan door. Dit alles gebeurt asynchroon zodat de computer niet hoeft te wachten op een antwoord van de te ontvangen computer.
@@ -258,4 +256,3 @@ Harper, 2004.
 1975.
 \end{thebibliography}
 \end{document}
-
