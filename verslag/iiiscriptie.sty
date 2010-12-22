@@ -1,0 +1,195 @@
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{iiithesis}
+           [2009/06/17. Auteur: Jan Cnops]
+\global\let\@graphex\@empty
+\DeclareOption{dvips}{\def\graphex{.eps}}
+\DeclareOption{pdftex}{\def\graphex{.pdf}}
+\ProcessOptions
+%
+% longtable: voor logtabellen, die kunnen gesplitst worden over meerdere pagina's
+%
+\usepackage{longtable}
+\usepackage{float}
+\global\let\@promotor\@empty
+\global\let\@promotoren\@empty
+\global\let\@departement\@empty
+\global\let\@deptadres\@empty
+\global\let\@studiejaar\@empty
+\global\let\@soortrapport\@empty
+\newcommand\@bedrijfslogo{\ }
+\newcommand\departement[1]{\renewcommand\@departement{#1}}
+\newcommand\deptadres[1]{\renewcommand\@deptadres{#1}}
+\newcommand\studiejaar[1]{\renewcommand\@studiejaar{#1}}
+\newcommand\soortrapport[1]{\renewcommand\@soortrapport{#1}}
+\newcommand\bedrijfslogo[1]{\renewcommand\@bedrijfslogo{#1}}
+\newcommand\promotor[1]{\renewcommand\@promotor{Promotor: #1}}
+\newcommand\promotoren[1]{\renewcommand\@promotor{%
+Promotoren:
+%\begin{minipage}[t]{100mm}
+%\begin{center}
+\begin{tabular}[t]{ll}
+#1
+\end{tabular}
+%\end{center}
+%\end{minipage}
+}
+}
+\def\academiejaar{
+\countdef\volg=255
+\volg \number\year
+\ifnum\month>9
+    \advance\volg+1
+    Academiejaar \number\year-\number\volg
+\else
+    \advance\volg-1
+    Academiejaar \number\volg-\number\year
+\fi
+}
+\renewcommand\maketitle{%
+\begin{titlepage}%
+  \let\footnotesize\small
+  \let\footnoterule\relax
+  \let \footnote \thanks
+\hspace*{-2cm}
+\parbox[t][\textheight][t]{16cm}{
+\begin{minipage}{65mm}
+{\sf \@bedrijfslogo
+}
+\end{minipage}
+\hspace*{\fill}
+\begin{minipage}{55mm}\sf
+\includegraphics[height=14mm]{logohogent\@graphex}\linebreak
+\end{minipage}\\
+{\sf\normalsize \@studiejaar}
+\hspace*{\fill}
+{\sf\normalsize \@departement}\\
+{\sf\normalsize\academiejaar}
+\hspace*{\fill}
+{\sf\normalsize \@deptadres}\\
+\par
+  \null\vfil
+  \vskip 120\p@
+  \begin{center}%
+    {\sf \Huge \@title \par}%
+  \end{center}\par
+\par
+  \null\vfil
+  \vskip 120\p@
+{\sf\normalsize \@soortrapport}\\
+\ \\
+\sf\large\@author\\
+{\sf\emph\@promotor}
+}%einde parbox
+ \end{titlepage}%
+  \setcounter{footnote}{0}%
+}
+%
+% specifiek voor projectverslagen: een diagramomgeving en een lemma
+%
+%the preamble, and not within the document.
+%
+%   1. Add \usepackage{float} to the preamble of your document
+%   2. Declare your new float using: \newfloat{type}{placement}{ext}[outer counter], where:
+%          * type - the new name you wish to call your float, in this instance, 'program'.
+%          * placement - t, b, p, or h (as previously described in Placement), where letters enumerate permitted placements.
+%          * ext - the file name extension of an auxiliary file for the list of figures (or whatever). Latex writes the captions to this file.
+%          * outer counter - the presence of this parameter indicates that the counter associated with this new float should depend on outer counter, for example 'chapter'.
+%   3. The default name that appears at the start of the caption is the type. If you wish to alter this use, \floatname{type}{floatname}
+%   4. Changing float style can be issued with \floatstyle{style} (Works on all subsequent \newfloat commands, therefore, must be inserted before \newfloat to be effective).
+%          * plain - the normal style for Latex floats, i.e., nothing!
+%          * boxed - a box is drawn that surrounds the float, and the caption is printed below.
+%          * ruled - the caption appears above the float, with rules immediately above and below. Then the float contents, followed by a final horizontal rule.
+
+
+\newfloat{diagramintern}{!htb}{lod}[chapter]
+\floatname{diagramintern}{Diagram}
+ 
+\def\diagram#1#2{%
+\begin{diagramintern}%
+\begin{center}\includegraphics{#1}%
+\caption{#2}%
+\end{center}%
+\end{diagramintern}%
+}%
+
+\def\lemma#1{{\ }\newline\penalty-10000\noindent{\bf #1:}}
+\def\eindlemma{{\ }\newline\noindent}
+%
+\newcounter{studentuur}
+\newcounter{studentminuut}
+\newlength{\uurbreedte}
+\settowidth{\uurbreedte}{44}
+\def\uurformaat#1#2{\makebox[\uurbreedte][r]{#1}u\makebox[\uurbreedte][r]{#2}}
+\def\logingang#1#2#3#4#5#6{%
+\addtocounter{studentuur}{#4}%
+\addtocounter{studentuur}{-#2}%
+\ifnum#2>#4%
+\addtocounter{studentuur}{24}%
+\fi%
+\addtocounter{studentminuut}{#5}%
+\addtocounter{studentminuut}{-#3}%
+\hspace{\fill}#1&\hspace*{\fill}\uurformaat{#2}{#3}\,\,-\,\uurformaat{#4}{#5}&#6\\%
+}
+\def\berekentotaal{
+\loop
+    \ifnum\value{studentminuut} < 0
+        \addtocounter{studentuur}{-1}
+        \addtocounter{studentminuut}{60}
+\repeat
+\loop
+    \ifnum\value{studentminuut} > 59
+        \addtocounter{studentuur}{1}
+        \addtocounter{studentminuut}{-60}
+\repeat
+}
+\def\subtotaal#1{
+\berekentotaal
+&\\
+&\hspace*{\fill}{\bf subtotaal}&#1 \thestudentuur{\ } uur \thestudentminuut{\ } minuten\\
+&\\}
+\newenvironment{studentlog}[1]{
+%begin studentlogomgeving
+\setcounter{studentuur}0
+\setcounter{studentminuut}0
+{\ }\newline
+\newlength{\datumbreedte}
+\settowidth{\datumbreedte}{25/12/2020}
+\newlength{\intervalbreedte}
+\settowidth{\intervalbreedte}{22u55\,\,-\,23u55}
+\newlength{\taakbreedte}
+\setlength{\taakbreedte}{\textwidth}
+\addtolength{\taakbreedte}{-\datumbreedte}
+\addtolength{\taakbreedte}{-\intervalbreedte}
+\begin{longtable}{p{\datumbreedte}p{\intervalbreedte}p{\taakbreedte}}
+\hline
+\multicolumn{3}{c}{}\\
+\multicolumn{3}{c}{Log van {\bf #1}}\\
+\multicolumn{3}{c}{}\\
+\hline
+&\\
+\endfirsthead
+\hline
+\multicolumn{2}{c}{Voortzetting log van {\bf #1}}\\
+\hline
+&\\
+\endhead
+%Uitschrijven subtotaal kan niet: de eindebladvoeting wordt
+%gezet bij begin longtable (logisch, want de hoogte moet gekend zijn).
+&\\
+&&{\bf voortgezet op volgende pagina}\\
+\hline
+\endfoot
+% added to the very bottom of the table
+\endlastfoot
+% standard tabular environment content
+}{
+%einde studentlogomgeving
+\berekentotaal
+%&\\\hline
+&\\
+&\hspace*{\fill}{\bf totaal}&\thestudentuur{\ } uur \thestudentminuut{\ } minuten\\
+%&\\
+\hline
+\end{longtable}
+}
+

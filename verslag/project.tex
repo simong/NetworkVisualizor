@@ -1,0 +1,261 @@
+%Preambule met standaardinstellingen
+\documentclass[a4paper,oneside]{report}
+%Noot: zorg ervoor dat Nederlandse woordsplitsing geactiveerd is.
+\usepackage[dutch]{babel}
+% Noot: je kan het graphicxpakket een optie dvips of pdftex doorgeven
+% in dat geval oet je ze ook aan iiiscriptie doorgeven, dus bijvoorbeeld
+% \usepackage[dvips]{graphicx}
+% \usepackage[dvips]{iiiscriptie}
+\usepackage{graphicx}
+\usepackage{iiiscriptie}
+%Nuttig pakket voor URL's
+\usepackage{url}
+\def\latex{$\mathrm{L\!\!^{{}_{\scriptstyle A}} \!\!\!\!\!\;\; T\!_{\displaystyle E} \!
+X}$}
+%
+%Invullen velden voor titelpagina.
+%
+\departement{Departement Toegepaste Ingenieurswetenschappen}
+\deptadres{Schoonmeersstraat 52 - 9000 Gent}
+\studiejaar{3e Bachelor Informatica}
+\soortrapport{
+Visualisatie van xkcd
+}
+\title{Richtlijnen voor projectverslagen}
+\author{
+\begin{tabular}{ll}
+Groep 6 & Jan Acke\\
+&Davy Loose\\
+&Simon Gaeremynck\\
+&Christian Vuerings\\
+\end{tabular}
+}
+\begin{document}
+\maketitle
+\pagenumbering{roman}
+\tableofcontents
+\addcontentsline{toc}{chapter}{Inhoudsopgave}
+\pagenumbering{arabic}
+\chapter{Overzicht}
+Bedoeling van dit project is om studenten een standaardsjabloon aan te bieden bij het
+maken van projectverslagen. Dit sjabloon kan bijvoorbeeld gebruikt worden bij het
+vakoverschrijdend project, of bij het labo systeemanalyse.
+
+Er zijn twee mogelijke groepen van gebruikers:
+\begin{enumerate}
+\item \latex-gebruikers. Deze kunnen een ziparchief met de nodige bestanden downloaden en
+installeren. Daarna kunnen ze het {\tt project.tex}-bestand gebruiken als sjabloon.
+\item Niet-\latex-gebruikers. Deze dienen op eigen kracht de opmaak en de indeling van
+het voorbeeld naar hun tekstverwerker over te brengen. Hiertoe dienen ze het bestand {\tt 
+project.pdf} uit het ziparchief te raadplegen.
+\end{enumerate}
+\chapter{Model}
+\section{Statisch model}
+\subsection{Klassenmodel}
+We beschrijven voor iedere klasse wat hij precies doet.
+\lemma{Bestand}: Dit is het object die wordt doorgestuurd tussen de verschillende computers. Het bestand kan opgesplitst worden in 2 sub onderverdelingen.
+\lemma{GoedBestand}: Dit is een bestand die geef nare gevolgen heeft voor de computer die het ontvangt, men kan dit vergelijken met een email met alleen tekst.
+\lemma{SlechtBestand}: Dit is een bestand die een virus, trojan of worm bevat. Via de gegevens  van het bestand kunnen we zo het risico berekenen dat de computer besmet wordt.
+\lemma{Computer}: Zoals men kan verwachten is dit een object die bestanden kan ontvangen en versturen. Het is altijd verbonden met tenminste één andere computer. Aan de hand van een lijst van virussen dat de computer bevat kan hij virussen doorsturen naar buurcomputers.
+\lemma{Beheersysteem}: Dit is het object die het scherm beïnvloed. Deze zorgt voor de demo modus van het systeem. Het beheersysteem zal de keuze maken welke computers er nieuwe buren krijgen, welke computers bestanden versturen en gekuist worden van virussen, en welke computers verwijderd zullen worden.
+\lemma{VisualisatieBibliotheek}: Dit is een bibliotheek dat we gebruiken voor het tekenen van de graaf. Via deze bibliotheek kunnen we gemakkelijk zien welke computers er met elkaar verbonden zijn en kunnen we dit ook tekenen.
+
+\eindlemma
+\diagram{klassen_diagram}{Het klassendiagram}
+\newpage
+\diagram{crc_kaarten}{De CRC kaarten}
+\newpage
+\section{Dynamisch model}
+We geven hieronder een lijst van alle taken.
+%
+\diagram{taken_diagram2}{Takendiagram}
+%
+
+\newpage
+\subsection{Start simulatie}
+\lemma{Actor}
+\latex-deGebruiker.
+
+\lemma{Beschrijving}
+Via deze taak kan de gebruiker de demo mode activeren en zal het beheersysteem op basis van de klok de verschillende taken automatisch uitvoeren.
+
+\lemma{Sequentiediagram}
+\diagram{seq_start_simulatie}{Start simulatie}
+
+\newpage
+\subsection{Maak computer aan}
+\lemma{Actor}
+\latex-klok.
+
+\lemma{Beschrijving}
+De klok stuurt een bericht naar het BeheerSysteem dat er een computer mag aangemaakt worden. Er moet niet gewacht worden op een antwoord van de computer om verder te doen met het systeem. De computer zal wel een asynchroon antwoord sturen indien hij aangemaakt is.
+
+\lemma{Sequentiediagram}
+\diagram{seq_maak_computer_aan}{Maak computer aan}
+
+\newpage
+\subsection{Verwijder computer}
+\lemma{Actor}
+\latex-deKlok.
+
+\lemma{Beschrijving}
+De klok stuurt een signaal naar het BeheerSysteem dat er een computer verwijderd mag worden. Het beheersysteem maakt dan een keuze uit alle computers en beslist welke computer er verwijderd mag worden. Hij stuurt dan een bericht naar deze computer, deze computer zal dan een antwoord terugsturen naar het beheersysteem dat deze verwijderd zal worden, zodat we deze ook uit de lijst van computers kunnen halen.
+
+\lemma{Sequentiediagram}
+\diagram{seq_verwijder_computer}{Verwijder computer}
+
+\newpage
+\subsection{Kuis computer}
+\lemma{Actor}
+\latex-deKlok.
+
+\lemma{Beschrijving}
+De klok stuurt een bericht naar het BeheerSysteem dat er computer mag gekuist worden, dit wil zeggen alle virussen verwijderen. Het beheersysteem zal dan willekeurig een computer kiezen, die hij kan kiezen uit de visualisatiebibliotheek, en een bericht sturen naar deze computer dat de virussen mogen verwijderd worden en zijn status van ‘IsBesmet’ op false mag zetten.
+
+\lemma{Sequentiediagram}
+\diagram{seq_kuis_computer}{Kuis computer}
+
+\newpage
+\subsection{Stuur bericht}
+\lemma{Actor}
+\latex-deKlok.
+
+\lemma{Beschrijving}
+De klok stuurt een bericht naar het beheersysteem dat er bestanden mogen doorgestuurd worden van een computer naar andere computers. Het beheersysteem roept de methode stuurBestand op van een willekeurig geselecteerde computer, deze zal dan een keuze maken welk soort bestand er verstuurd zal worden, dit kan een goed bestand zijn of een slecht bestand. Hierna roept de computer van al zijn buren de methode ontvangbestand op en stuurt dit bestand dan door. Dit alles gebeurt asynchroon zodat de computer niet hoeft te wachten op een antwoord van de te ontvangen computer.
+
+\lemma{Sequentiediagram}
+\diagram{seq_stuur_bericht}{Stuur bericht}
+
+\newpage
+\section{Woordenboek}
+\subsection{Beheersysteem}
+\lemma{leesConfig()} Leest het config bestand, config.js in en construeert de nodige objecten.
+\lemma{startDemo()} De demo mode van het programma wordt nu gestart. Dit wil zeggen dat vanaf nu er automatisch computers aangemaakt zullen worden, virussen verspreid zullen worden, computers schoongemaakt kunnen worden en ook computers kunnen verwijderd worden.
+\lemma{kuisComputer()} Het beheersysteem zal willekeurig een computer kiezen uit de lijst van aangemaakte computers en zal er 1 van verwijderen. Bij het verwijderen legt het beheersysteem de verbindingen tussen de buurcomputers. Om dit te realiseren zal het beheersysteem gebruik maken van de volgende lidfuncties:
+\begin{itemize}
+    \item Computer:verwijderVirussen()
+\end{itemize}
+\lemma{maakComputerAan()} Zoals gezegd zal deze functie een nieuwe computer aanmaken en zelf beslissen met wie hij verbonden zal worden.
+\lemma{stuurBericht()} Het beheersysteem zal beslissen uit de lijst van computers welke computers er een bestand mogen sturen naar hun buren. Deze functie maakt gebruik van de volgende lidfuncties:
+\begin{itemize}
+    \item Computer:stuurBestand()
+\end{itemize}
+\lemma{verwijderComputer()} Het beheersysteem zal willekeurig een computer kiezen uit de lijst welke computer er verwijderd zal worden. Hiervoor maakt hij gebruik van de volgende lidfuncties:
+\begin{itemize}
+    \item Computer:geefVerbondenComputers()
+    \item Computer:kanVerwijderdworden()
+\end{itemize}
+\subsection{Computer}
+\lemma{kanVerwijderdWorden()} Deze methode geeft terug of de computer kan verwijderd worden. Dit wordt bepaald door zijn staat ‘isInternet’. Dit wil zeggen dat deze computer een lijst bevat met alle virussen en zodoende niet kan verwijderd worden indien we willen dat alle virussen nog doorgegeven kunnen worden.
+\lemma{ontvangBestand(Bestand)} Het beheersysteem zal willekeurig een computer kiezen uit de lijst welke computer er verwijderd zal worden. Hiervoor maakt hij gebruik van de volgende lidfuncties:
+\begin{itemize}
+    \item Bestand:geefVerspreidingssnelheid()
+    \item Bestand:geefType()
+    \item Bestand:geefNaam()
+\end{itemize}
+\lemma{stuurBestand(Computer)} Via deze methode wordt een buur gekozen uit de lijst van verbonden computers. Naar deze computer zullen we dan een bestand sturen die bijvoorbeeld een virus kan bevatten.
+\lemma{verwijderBestanden()} Hierin wordt de computer gekuist van alle virussen die hij heeft en wordt de staat ‘isBesmet’ op false gezet.
+\lemma{geefVerbondenComputers()} Via deze methode kunnen we een lijst verbonden buren van de computer terugkrijgen.
+\subsection{Bestand}
+\lemma{geefVerspreidingsSnelheid()} Hierin kunnen we de verspreidingssnelheid van een virus terugkrijgen.
+\lemma{geefType()} Via deze methode krijgen we het type bestand terug.
+\lemma{geefNaam()} Zoals de methode al zegt krijgen we hier de naam van het bestand terug.
+\subsection{VisualisatieBibliotheek}
+\lemma{forceDirected()} De Visualisatie bibliotheek ondersteunt meerdere types van grafieken. Degene die hier gebruikt moet worden is het “ForceDirected” type.
+\lemma{loadJSON()} Laad de config in met de data van het netwerk. Dit moet in het correcte formaat zijn.
+\lemma{compute()} Zal de posities van de computers berekenen en de verbindingen ertussen. Dit levert telkens andere posities op. Dit mag enkel in het begin van de simulatie gebruikt worden.
+\lemma{computeIncremental()} Voert de bovenstaande functie uit, maar in zo een manier dat de resources optimaal gebruikt worden.
+\lemma{plot()} Tekent de berekende posities van de computers. Als er iets hertekent moet worden, zal deze functie gebruikt moeten worden.
+\eindlemma
+
+\newpage
+\section{Aanvullingen}
+Deze paragraaf is optioneel, en kan gebruikt worden om elementen van het model in
+onder te brengen die niet bij elk project voorkomen, zoals
+\begin{itemize}
+\item Functioneel model, met eventuele gegevensstroomdiagrammen en formules/algoritmes.
+\item Statendiagrammen.
+\item Databankontwerp in de vorm van EPR-diagrammen, tabeldefinities en dergelijke.
+\end{itemize}
+In deze paragraaf worden ook bijkomende technische elementen vermeld. Zo dient
+bijvoorbeeld, bij het gebruik van het MVC-paradigma, hier vermeld worden welke elementen
+de view en de controller uitmaken.
+\chapter{Realisatie}
+Dit hoofdstuk is optioneel. Het wordt gebruikt om een aantal ontwerpbeslissingen aan te
+geven die bij realisatie belangrijk zijn. Voorbeelden van dergelijke beslissingen zijn de
+keuze van de programmeertaal en/of de ontwikkelingsomgeving en het gebruik van bepaalde
+pakketten en technieken.
+\chapter{Gebruik}
+In dit hoofdstuk wordt het gebruik en de installatie beschreven.
+\section{\latex-gebruikers}
+Het is zeker niet de bedoeling dat deze tekst uitgroeit tot een handleiding LaTeX. Enkel
+een paar punten specifiek voor de Hogeschool of voor informaticastudenten worden hier
+vermeld. Interessante info over LaTeX zoals gebruikt door Gentse scriptiestudenten,
+inclusief een handleiding:
+\url{\http://latex.ugent.be}.
+\section{installatie}
+Eenvoudige installatie: dump volgende bestanden in de directory waar je wil werken:
+\begin{enumerate}
+\item[-]\texttt{logohogent.eps}
+\item[-]\texttt{logohogent.pdf}
+\item[-]\texttt{iiiscriptie.sty}
+\item[-]\texttt{project.tex}
+\end{enumerate}
+Gebruik \texttt{project.tex} als sjabloon om te beginnen. Voor een beschrijving van de
+macro's verwijzen we naar de lijst in het woordenboek. \texttt{project.tex} bevat
+voorbeelden van het gebruik van alle macro's.
+
+Nette installatie: je kan ook de elementen van het pakket op de ge"eigende plaatsen van
+je \TeX-installatie onderbrengen. Raadpleeg hiervoor de handleiding.
+\section{Opmerkingen}
+\begin{enumerate}
+\item Het pakket gaat ervan uit dat de afmetingen van marges niet veranderd werden.
+\item Het pakket veronderstelt dat het {\tt graphicx}pakket gebruikt wordt, met ofwel de
+optie {\tt pdftex}, ofwel de optie {\tt dvips}, of zonder optie. Dezelfde optie moet doorgegeven worden
+aan het {\tt iiiscriptie}pakket.
+\item Verwijzingen.
+De gemakkelijkste manier is om de standaardstijl van Latex te gebruiken. Dit geeft 
+verwijzingen van de vorm \cite{Mmils}.
+Het gebruik van \textsc{Bib}\TeX vergroot natuurlijk de mo(g)e(i)lijkheden.
+\item URL's worden, zoals op \url{http://www.math.uiuc.edu/~hildebr/tex/bibliographies.html}
+wordt uitgelegd, gezet met het \verb@\url{}@-commando.
+\end{enumerate}
+Succes ermee.
+\section{Niet-\latex-gebruikers}
+Niet-\latex-gebruikers volgen raadplegen het {\tt project.pdf}-bestand. Ze
+dienen nauwkeurig de indeling en de lay-out van dit bestand te volgen.
+
+\chapter{Logboek}
+het logboek wordt ingedeeld per student.
+\begin{studentlog}{Jan Cnops}
+\logingang{7/3/10}{7}{30}{8}{14}
+{beschrijven woordenboek}
+\logingang{10/3/2010}{8}{15}{12}{30}
+{beschrijven macro's in woordenboek}
+\logingang{10/3/2010}{19}{15}{0}{30}
+{Nalezen tekst}
+\subtotaal{voor maart}
+\logingang{30/12/2010}{22}{22}{23}{44}
+{Aanpassen formattering logboek}
+\end{studentlog}
+
+\noindent
+%
+% Bibliografie: titel veranderd in literatuurlijst
+%
+\def\bibname{Literatuurlijst}
+%
+% Het argument na \begin{thebibliography} moet (als tekst) even lang zijn als het
+% langste label.
+\begin{thebibliography}{9}
+%
+% Standaard laat de bookstijl \chapter* uit de inhoudsopgave
+%
+\addcontentsline{toc}{chapter}{\bibname}
+\bibitem{Mmils} {\sc Mills, Magnus,} {\it The scheme for full Employment},
+Harper, 2004.
+\bibitem{Boll} {\sc B\"oll, Heinrich,} {\it Und sagte kein einziges Wort}, ein Ulstein Buch,
+1975.
+\end{thebibliography}
+\end{document}
+

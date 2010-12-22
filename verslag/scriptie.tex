@@ -1,0 +1,125 @@
+%Preambule met standaardinstellingen
+\documentclass[a4paper,oneside]{book}
+%Noot: zorg ervoor dat Nederlandse woordsplitsing geactiveerd is.
+\usepackage[dutch]{babel}
+% Noot: je kan het graphicxpakket een optie dvips of pdftex doorgeven
+% in dat geval oet je ze ook aan iiiscriptie doorgeven, dus bijvoorbeeld
+% \usepackage[dvips]{graphicx}
+% \usepackage[dvips]{iiiscriptie}
+\usepackage{graphicx}
+\usepackage{iiiscriptie}
+%Nuttig pakket voor URL's
+\usepackage{url}
+%
+%Invullen velden voor titelpagina.
+%
+%eventueel bedrijfslogo voor een scriptie buiten de Hogeschool:
+% Voorbeeld:
+%\bedrijfslogo{%
+%\includegraphics[totalheight=15mm]{logohogent}\\
+%Naam Van Een Ander Bedrijf
+%}
+\departement{Departement Toegepaste Ingenieurswetenschappen}
+\deptadres{Schoonmeersstraat 52 - 9000 Gent}
+%\studiejaar{}
+\soortrapport{
+Masterproef voorgedragen tot het behalen van het diploma van\\
+MASTER IN DE INDUSTRI\"ELE WETENSCHAPPEN: INFORMATICA\\
+}
+\title{Handleiding voor het gebruik van het III-scriptiepakket}
+\author{Jan CNOPS}
+\promotor{Iemand Anders}
+%Noot: het argument van \promotoren wordt automatisch in een tabel gestoken.
+\promotoren{
+Intern:& De Ene\\
+Extern:& De Andere\\
+       & Nog Iemand
+}
+\begin{document}
+\maketitle
+\pagenumbering{roman}
+\tableofcontents
+\addcontentsline{toc}{chapter}{Inhoudsopgave}
+\chapter*{Voorwoord}
+%
+% Standaard laat de bookstijl \chapter* uit de inhoudsopgave
+%
+\addcontentsline{toc}{chapter}{Voorwoord}
+De huidige stijl wijkt op verschillende punten enigszins af van de richtlijnen uit het
+Rode Boekje (o.a. in de titel van dit Voorwoord). De verschillen kunnen verantwoord
+worden door vergelijking met de algemene praktijk. Zo hebben we ervoor gekozen om de
+standaardinstellingen van Latex voor bibliografische verwijzingen te gebruiken, in
+afwijking van het Rode Boekje.
+
+Het is zeker niet de bedoeling dat deze tekst uitgroeit tot een handleiding LaTeX. Enkel
+een paar punten specifiek voor de Hogeschool of voor informaticastudenten worden hier
+vermeld. Interessante info over LaTeX zoals gebruikt door Gentse masterstudenten,
+inclusief een handleiding:
+\url{\http://latex.ugent.be}.
+\chapter{Gebruik}
+\pagenumbering{arabic}
+\section{installatie}
+Eenvoudige installatie: dump volgende bestanden in de directory waar je wil werken:
+\begin{enumerate}
+\item[-]\texttt{logohogent.eps}
+\item[-]\texttt{logohogent.pdf}
+\item[-]\texttt{iiiscriptie.sty}
+\item[-]\texttt{scriptie.tex}
+\end{enumerate}
+Gebruik \texttt{scriptie.tex} als sjabloon om te beginnen.
+
+Nette installatie: je kan ook de elementen van het pakket op de ge"eigende plaatsen van
+je \TeX-installatie onderbrengen. Raadpleeg hiervoor de handleiding.
+\section{Opmerkingen}
+\begin{enumerate}
+\item Het pakket gaat ervan uit dat de afmetingen van marges niet veranderd werden.
+\item Het pakket veronderstelt dat het {\tt graphicx}pakket gebruikt wordt, met ofwel de
+optie {\tt pdftex}, ofwel de optie {\tt dvips}, ofwel zonder optie. Dezelfde optie moet 
+doorgegeven worden aan het {\tt iiiscriptie}pakket. 
+De gemakkelijkste manier is om de standaardstijl van Latex te gebruiken. Dit geeft 
+verwijzingen van de vorm \cite{Mmils}.
+Het gebruik van \textsc{Bib}\TeX vergroot natuurlijk de mo(g)e(i)lijkheden.
+\item Ongenummerde hoofdstukken, zoals de bibliografie en de inhoudstabel, worden door
+LaTeX niet in de inhoudstabel opgenomen. Vandaar dat je het commando
+\verb@\addcontentsline@ gebruikt.
+\end{enumerate}
+Succes ermee.
+\appendix
+\chapter{Nuttige pakketten}
+Er zijn honderde, zoniet duizende pakketten in LaTeX om vanalles en nog wat te doen.
+Enkele zijn in de preambule opgenomen:
+\begin{enumerate}
+\item {\tt babel}: zorgt voor taalspecifieke eigenschappen. Belangrijk is dat de meeste
+standaardinstallaties niet weten hoe ze Nederlandse woorden moeten splitsen (kijk in je
+log: als er staat {\tt ``hyphenation patterns for ... dutch... loaded''} is het OK,
+anders niet). In teTex kan je de splitsingspatronen aanpassen met het {\tt texconfig}
+lijncommando. In MikTeX: via het menu {\tt start -> programma's} kan je een aantal
+instellingen veranderen.
+\item {\tt graphicx}: voor afbeeldingen. Als je zelf tekeningen maakt: nooit naar
+JPEG-bestanden converteren, dit levert onduidelijke afdrukken (=dezelfde kwaliteit als
+MS-Word). Acceptabel is pdf of PostScript. Let op: wie omzet van dvi naar ps met dvips
+kan geen pdf-bestanden gebruiken, en wie omzet naar pdf met pdflatex geen PostScript
+(aleerhande omwegen leveren wel oplossingen).
+\item  {\tt url}: URL's worden, zoals op \url{http://www.math.uiuc.edu/~hildebr/tex/bibliographies.html}
+wordt uitgelegd, gezet met het \verb@\url{}@-com\-man\-do.
+\end{enumerate}
+
+%
+% Bibliografie: titel veranderd in literatuurlijst
+%
+\def\bibname{Literatuurlijst}
+%
+% Het argument na \begin{thebibliography} moet (als tekst) even lang zijn als het
+% langste label.
+\begin{thebibliography}{Mills 1975}
+%
+% Standaard laat de bookstijl \chapter* uit de inhoudsopgave
+%
+\addcontentsline{toc}{chapter}{\bibname}
+\bibitem{Mmils} {\sc Mills, Magnus,} {\it The scheme for full Employment},
+Harper, 2004.
+\bibitem{Boll} {\sc B\"oll, Heinrich,} {\it Und sagte kein einziges Wort}, ein Ulstein Buch,
+1975.
+\end{thebibliography}
+\end{document}
+
