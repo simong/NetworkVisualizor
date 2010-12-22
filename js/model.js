@@ -187,20 +187,28 @@ var Computer = Class.extend({
     },
     
     "setInfectiegraad" : function(aantal){
-	this.infectiegraad = aantal;
-	if (this.infectiegraad > 0){
-	    this.setType("infected");
-	    var node = fd.graph.getNode(this.id);
-	    node.setData("type","infected","current");
-	    fd.plot();
-	    //alert("id = " + this.getId() + "   " + this.infectiegraad + "   bestanden : " + this.bestanden.length);
-	}
-	else {
-	    this.setType("clean");
-	    var node = fd.graph.getNode(this.id);
-	    node.setData("type","clean","current");
-	    fd.plot();
-	}
+    	this.infectiegraad = aantal;
+    	if (this.infectiegraad > 0){
+    	    var node = fd.graph.getNode(this.id);
+            var t = "infected";
+            if (this.isInternet()) {
+                t = "internet_infected";
+            }
+            this.setType(t);
+    	    node.setData("type",t,"current");
+    	    fd.plot();
+    	    //alert("id = " + this.getId() + "   " + this.infectiegraad + "   bestanden : " + this.bestanden.length);
+    	}
+    	else {
+            var t = "clean";
+            if (this.isInternet()) {
+                t = "internet_clean";
+            }
+            this.setType(t);
+    	    var node = fd.graph.getNode(this.id);
+    	    node.setData("type",t,"current");
+    	    fd.plot();
+    	}
     },
 
     "wipe" : function() {
@@ -282,12 +290,12 @@ var Computer = Class.extend({
     	}
 
     },
-
+    "getBestanden" : function() {
+      return this.bestanden;  
+    },
     "addBestand" : function(bestand) {
-	this.verhoogInfectiegraad(bestand.getInfectieFactor());
-	this.bestanden.push(bestand);
-
-	
+	   this.verhoogInfectiegraad(bestand.getInfectieFactor());
+	   this.bestanden.push(bestand);
     }
 });
 
@@ -450,6 +458,10 @@ var Config = Class.extend({
 
 var BeheerSysteem = Class.extend({
 
+    "init" : function() {
+	this.gemaakteComputers = 0;
+    },
+
     /**
      * Sets the drawer mechanisme that can be used to draw.
      * @param {Object} fd
@@ -478,11 +490,16 @@ var BeheerSysteem = Class.extend({
     "wipeComputer": function(){
 	
         if (!this.isAnimerend) {
-            this.isAnimerend = true;
-            // Model part
-            var Computer = config.getRandomComputer();
-	    Computer.wipe();
-            this.isAnimerend = false;
+            try {
+                this.isAnimerend = true;
+                // Model part
+                var computer = config.getRandomComputer();
+                if (!computer.isInternet()) {
+                    computer.wipe();
+                }
+            } finally {
+                this.isAnimerend = false;
+            }
 
         }
     },
@@ -492,99 +509,110 @@ var BeheerSysteem = Class.extend({
 
         // Als we geen animatie aan het doen zijn of berichten aan het sturen zijn..
         if (!this.isAnimerend) {
-            this.isAnimerend = true;
-
-
-            // Zoek een random computer.
-            //  TODO
-            //      Geen computer selecteren dat aan het internet hangt!
-            //      WHILE (c == null || c.isInternet) { .. }
-            var c = config.getRandomComputer();
-            var id = c.getId();
-
-            // Get the node
-            var node = this.fd.graph.nodes[id];
-            // TODO
-            //  Verwijder deze check, dit levert soms null.
-            //  Lijkt mij maar voos.
-            if (typeof node !== "undefined") {
-                // Kijk of we verbindingen hebben met deze node.
-                var verbindingen = [];
-                $jit.Graph.Util.eachAdjacency(node, function(adj){
-                    verbindingen.push(adj);
-                });
-
-                // Herpositioneer de verbindingen.
-                if (verbindingen.length > 0) {
-                    // Kies een willekeurige node.
-                    //  Met deze node zullen we al de adjacencies verbinden.
-                    //  Verwijder eerst deze verbinding.
-                    var naar = (verbindingen[0].nodeFrom.id == id) ? verbindingen[0].nodeTo : verbindingen[0].nodeFrom;
-                    for (var i = 1; i < verbindingen.length; i++) {
-                        var adj = verbindingen[i];
-                        // Dit is een verbinding tussen de te verwijderen computer en een andere computer.
-                        // Maak een nieuwe zodat deze naar ons wijst.
-                        var van = (adj.nodeFrom.id === id) ? adj.nodeTo : adj.nodeFrom;
-                        fd.graph.addAdjacence(van, naar);
+            try {
+                this.isAnimerend = true;
+                
+                
+                // Zoek een random computer.
+                //  TODO
+                //      Geen computer selecteren dat aan het internet hangt!
+                //      WHILE (c == null || c.isInternet) { .. }
+                var c = config.getRandomComputer();
+                var id = c.getId();
+                
+                // We verwijderen het internet niet.
+                if (!c.isInternet() && id !== "id0") {
+                
+                    // Get the node
+                    var node = this.fd.graph.nodes[id];
+                    // TODO
+                    //  Verwijder deze check, dit levert soms null.
+                    //  Lijkt mij maar voos.
+                    if (typeof node !== "undefined") {
+                        // Kijk of we verbindingen hebben met deze node.
+                        var verbindingen = [];
+                        $jit.Graph.Util.eachAdjacency(node, function(adj){
+                            verbindingen.push(adj);
+                        });
+                        
+                        // Herpositioneer de verbindingen.
+                        if (verbindingen.length > 0) {
+                            // Kies een willekeurige node.
+                            //  Met deze node zullen we al de adjacencies verbinden.
+                            //  Verwijder eerst deze verbinding.
+                            var naar = (verbindingen[0].nodeFrom.id == id) ? verbindingen[0].nodeTo : verbindingen[0].nodeFrom;
+                            for (var i = 1; i < verbindingen.length; i++) {
+                                var adj = verbindingen[i];
+                                // Dit is een verbinding tussen de te verwijderen computer en een andere computer.
+                                // Maak een nieuwe zodat deze naar ons wijst.
+                                var van = (adj.nodeFrom.id === id) ? adj.nodeTo : adj.nodeFrom;
+                                fd.graph.addAdjacence(van, naar);
+                            }
+                        }
+                        
+                        
+                        // Verwijder de computer uit onze lijst.
+                        config.verwijderComputer(id);
+                        
+                        // Delete de node uit de graaf.
+                        fd.graph.removeNode(id, {
+                            "type": "nothing"
+                        });
+                        fd.plot();
                     }
                 }
-
-
-                // Verwijder de computer uit onze lijst.
-                config.verwijderComputer(id);
-
-                // Delete de node uit de graaf.
-                fd.graph.removeNode(id, {
-                    "type": "nothing"
-                });
-                fd.plot();
+            } finally {
+                this.isAnimerend = false;
             }
-
-            this.isAnimerend = false;
         }
     },
 
     "addComputer": function(){
         if (!this.isAnimerend) {
-            this.isAnimerend = true;
-            //Nieuwe computer
-            var m = new Computer("id" + (config.getRunningComputers()), "zever", "clean", false, [], []);
-
-            // Create the node.
-            fd.graph.addNode(m.getJITRepresentation());
-            // Get the newly created node.
-            var newNode = fd.graph.getNode(m.getId());
-
-            var adj = [];
-
-            //adjacencies maken wel nog adjacencies toevoegen aan de klasse Computer zelf
-            var aantal = beheerSysteem.getRunningComputers();
-            //voorlopig 3 nieuwe verbindingen
-            for (var i = 0; i < 3; i++) {
-                var c = config.getRandomComputer();
-                var target = fd.graph.getNode(c.getId());
-                adj.push({
-                    "nodeTo": target.id,
-                    "nodeFrom": m.getId(),
-                    "data": {}
-                });
-                fd.graph.addAdjacence(newNode, target, {});
+            try {
+                this.isAnimerend = true;
+                //Nieuwe computer
+                this.gemaakteComputers++;
+                var m = new Computer("id" + (config.getRunningComputers() + this.gemaakteComputers), "", "clean", false, [], []);
+                
+                // Create the node.
+                fd.graph.addNode(m.getJITRepresentation());
+                // Get the newly created node.
+                var newNode = fd.graph.getNode(m.getId());
+                
+                var adj = [];
+                
+                //adjacencies maken wel nog adjacencies toevoegen aan de klasse Computer zelf
+                var aantal = beheerSysteem.getRunningComputers();
+                //voorlopig 3 nieuwe verbindingen
+                var aantalverbindingen = 1 + Math.floor(Math.random() * 2);
+                for (var i = 0; i < aantalverbindingen; i++) {
+                    var c = config.getRandomComputer();
+                    var target = fd.graph.getNode(c.getId());
+                    adj.push({
+                        "nodeTo": target.id,
+                        "nodeFrom": m.getId(),
+                        "data": {}
+                    });
+                    fd.graph.addAdjacence(newNode, target, {});
+                }
+                
+                m.setAdjacencies(adj);
+                
+                //Add it to our config.
+                config.addComputer(m);
+                
+                // Compute and plot the graph.
+                var x = Math.floor(Math.random() * ((jQuery("#network_graph-canvas").attr("width") - 100) / 2));
+                var y = Math.floor(Math.random() * ((jQuery("#network_graph-canvas").attr("height") - 100) / 2));
+                newNode.endPos.x = x;
+                newNode.endPos.y = y;
+                newNode.pos.x = x;
+                newNode.pos.y = y;
+                fd.plot();
+            } finally {
+                this.isAnimerend = false;
             }
-
-            m.setAdjacencies(adj);
-
-            //Add it to our config.
-            config.addComputer(m);
-
-            // Compute and plot the graph.
-            var x = Math.floor(Math.random() * ((jQuery("#network_graph-canvas").attr("width") - 100) /2));
-            var y = Math.floor(Math.random() * ((jQuery("#network_graph-canvas").attr("height") - 100) /2));
-            newNode.endPos.x = x;
-            newNode.endPos.y = y;
-            newNode.pos.x = x;
-            newNode.pos.y = y;
-            fd.plot();
-            this.isAnimerend = false;
         }
 
     },
@@ -666,8 +694,6 @@ var BeheerSysteem = Class.extend({
                 }
 
                 // Teken een cirkel
-                //fd.canvas.getCtx().fillStyle = "rgb(255,0,0)";
-                //fd.fx.nodeHelper.circle.render('fill', pos, 5, fd.canvas)
                 fd.canvas.getCtx().drawImage(file.getIcon(), pos.x - 15, pos.y - 30);
             };
 

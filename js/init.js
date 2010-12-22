@@ -137,7 +137,21 @@ function loadNetwork(success){
                         });
                         //append connections information
                         $('#inner-details-connections').html(list);
-                        $('#inner-details').height(80 + $("#inner-details-connections").height());
+                        
+                        // Virus informatie
+                        var computer = beheerSysteem.getComputer(node.id);
+                        var virussen = "";
+                        console.log(computer.getBestanden().length);
+                        if (computer.getBestanden().length === 0) {
+                            virussen = "<li>Virus vrij!</li>";
+                        }
+                        else {
+                            for (var i = 0; i < computer.getBestanden().length; i++) {
+                                virussen += "<li>" + computer.getBestanden()[i].getNaam() + "</li>";
+                            }
+                        }
+                        $('#inner-details-virussen').html(virussen);
+                        $('#inner-details').height(120 + $("#inner-details-connections").height() + $("#inner-details-virussen").height());
                         $('#inner-details').fadeTo(250, 0.5);
                     });
                 };
@@ -175,14 +189,22 @@ function loadNetwork(success){
         // Dit wordt iedere 5 seconden opgeroepen.
         // TODO verzet naar iets langer voor demo.
         setInterval(function() { beheerSysteem.stuurBericht(); }, 5000);
-	// Slechte bestanden op een computer wissen
-	setInterval(function() { beheerSysteem.wipeComputer(); }, 10000);
+	    // Slechte bestanden op een computer wissen
+	    setInterval(function() { beheerSysteem.wipeComputer(); }, 10000);
         // Voeg iedere 15 seconden een computer toe.
-        setInterval(function() { beheerSysteem.addComputer(); }, 15000);
+        setInterval(function() {
+            try {
+                beheerSysteem.addComputer();
+            } catch (x) {
+                console.log(x);
+            } 
+        }, 3000);
 
         // Verwijder iedere 15 seconden een computer (maar wacht eerst 1x 6 seconden zodat we niet tegelijk
         // een toevoegen en dan een verwijderen.)
-	setTimeout(function() { setInterval(function() { beheerSysteem.deleteComputer(); }, 15000); }, 6000 );
+	setTimeout(function() { setInterval(function() { 
+        try {  beheerSysteem.deleteComputer(); } catch (x) { console.log(x); } 
+     }, 3000); }, 2000 );
     }
     else {
         alert("Failed to load the config file. (" + status + ")");
@@ -206,40 +228,4 @@ function init(){
     // ###############
     // The UI events #
     // ###############
-
-    // Fancy slider things
-    $(".menu_bar").bind("click", function(){
-        // FIXME
-        $(".panel", $(this).parents(".subcontainer")).slideToggle();
-    });
-
-    // Add a Computer.
-    $("#Computer_add").live("click", function(){
-        //var $selectbox = $("#Computer_connected_0");
-        // Create a new Computer.
-
-
-        // Update the list of available Computers.
-        //updatecombobox();
-    });
-
-
-    // Delete a Computer
-    $("#inner-details-wipe").live("click", function(){
-        // Get the id we've stuck in the hidden span
-        var id = $("#inner-details-id").text();
-
-        // Wipe it.
-        beheerSysteem.wipeComputer(id);
-    });
-
-
-    // Delete a Computer
-    $("#inner-details-delete").live("click", function(){
-        // Get the id we've stuck in the hidden span
-        var id = $("#inner-details-id").text();
-
-        // Delete it.
-        beheerSysteem.deleteComputer(id);
-    });
 }

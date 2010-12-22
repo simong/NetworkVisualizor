@@ -38,10 +38,6 @@ $(document).ready(function(){
 function createRandomComputer(config){
     var r = Math.floor(Math.random() * 100);
     
-    var m = new Computer();
-    m.setNaam("random" + r);
-    m.setId(m.name + config.getRunningComputers() + 1);
-    m.setType("circle");
-    m.setAdjacencies([]);
+    var m = new Computer( m.name + config.getRunningComputers() + 1, "random" + r, "clean", false, [], [] );
     return m;
 }
