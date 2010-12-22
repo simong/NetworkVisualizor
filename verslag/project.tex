@@ -67,11 +67,17 @@ We beschrijven voor iedere klasse wat hij precies doet.
 \newpage
 \section{Dynamisch model}
 We geven hieronder een lijst van alle taken.
-%
-\diagram{taken_diagram2}{Takendiagram}
-%
 
-\newpage
+\begin{figure}[h!]
+\begin{center}
+
+\includegraphics[scale=0.75]{taken_diagram2}
+
+\caption{Takendiagram}
+\end{center}
+\end{figure}
+
+
 \subsection{Start simulatie}
 \lemma{Actor}
 deGebruiker.
@@ -168,19 +174,26 @@ De klok stuurt een bericht naar het beheersysteem dat er bestanden mogen doorges
 
 \newpage
 \section{Aanvullingen}
-Deze paragraaf is optioneel, en kan gebruikt worden om elementen van het model in
-onder te brengen die niet bij elk project voorkomen, zoals
+%Deze paragraaf is optioneel, en kan gebruikt worden om elementen van het model in
+%onder te brengen die niet bij elk project voorkomen, zoals
 \begin{itemize}
-\item Functioneel model, met eventuele gegevensstroomdiagrammen en formules/algoritmes.
-\item Statendiagrammen.
-\item Databankontwerp in de vorm van EPR-diagrammen, tabeldefinities en dergelijke.
+\item Functioneel model
+Ons functioneel model omschrijft de manier waarop een computer een bestand verstuurd. In eerste instantie wordt er gekozen of 
+er een goed of een slecht bericht gestuurd wordt (Besmette computers kunnen nog steeds goede bestanden doorsturen). Als een goed
+bestand wordt gekozen dan zal dit direct teruggegeven worden. Als er echter een slecht bestand gekozen wordt zal de computer aan de 
+hand van het slechte bestand zijn verspreidingssnelheid bepalen welk slecht bestand doorgestuurd wordt. De kans om een bestand met 
+lage verspreidingssnelheid door te sturen is lager dan de kans om een bestand met hoge verspreidingssnelheid door te sturen.
+
+\includegraphics{funcmodel}
+%\item Statendiagrammen.
+%\item Databankontwerp in de vorm van EPR-diagrammen, tabeldefinities en dergelijke.
 \end{itemize}
-In deze paragraaf worden ook bijkomende technische elementen vermeld. Zo dient
-bijvoorbeeld, bij het gebruik van het MVC-paradigma, hier vermeld worden welke elementen
-de view en de controller uitmaken.
+% In deze paragraaf worden ook bijkomende technische elementen vermeld. Zo dient
+% bijvoorbeeld, bij het gebruik van het MVC-paradigma, hier vermeld worden welke elementen
+% de view en de controller uitmaken.
 
 
-chapter{Realisatie}
+\chapter{Realisatie}
 \section{Hergebruik}
 Er wordt veelvuldig gebruik gemaakt van een aantal publieke bibliotheken die op het eerste
 zicht niet zo gemakkelijk zijn. Hieronder vind u een overzicht van deze bibliotheken en nog
@@ -224,14 +237,22 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 {Tweede bijeenkomst - sequentiediagrammen aanmaken, takendiagram aanpassen en overlopen van geschikte software}
 \logingang{03/12/10}{15}{45}{17}{15}
 {Tweede labo}
+\logingang{05/12/10}{10}{30}{12}{00}
+{Aanleren javascript dmv naar het prototype te kijken , aanleren van git, functioneel model voor berichten kiezen in xfig}
 \logingang{08/12/10}{08}{15}{10}{15}
 {Derde bijeenkomst - CRC kaarten, verdeling van het werk}
 \logingang{10/12/10}{15}{45}{17}{45}
 {Vierde bijeenkomst}
+\logingang{14/12/10}{10}{20}{12}{30}
+{Computers kunnen zowel goede als slechte bestanden doorsturen, ook git \& javascript nog wat bijgeleerd}
+\logingang{16/12/10}{16}{30}{18}{00}
+{Computers kunnen toegevoegd worden}
 \logingang{17/12/10}{15}{45}{17}{45}
 {Vijfde bijeenkomst}
+\logingang{19/12/10}{11}{00}{12}{30}
+{Computers kunnen besmet worden en sturen dan slechte bestanden door, wipen werkt}
 \logingang{22/12/10}{15}{45}{17}{45}
-{Finale bijeenkomst}
+{Finale bijeenkomst + logboek aanpassen \& functioneel model in latex}
 \end{studentlog}
 
 \begin{studentlog}{Davy Loose}
