@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.11.30)  22 DEC 2010 18:13
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.11.30)  22 DEC 2010 18:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -659,94 +659,94 @@ Overfull \hbox (24.0pt too wide) in alignment at lines 228--228
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 228--241
+Overfull \hbox (24.0pt too wide) in alignment at lines 228--243
  [] [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--243
+Underfull \hbox (badness 10000) in paragraph at lines 245--245
 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 243--243
+Overfull \hbox (24.0pt too wide) in alignment at lines 245--245
  [] [] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 243--243
+Overfull \hbox (24.0pt too wide) in alignment at lines 245--245
  [] [] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 243--243
+Overfull \hbox (24.0pt too wide) in alignment at lines 245--245
  [] [] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 243--243
+Overfull \hbox (24.0pt too wide) in alignment at lines 245--245
  [] [] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 243--252
- [] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 254--254
-
- []
-
-
-Overfull \hbox (24.0pt too wide) in alignment at lines 254--254
- [] [] 
- []
-
-
-Overfull \hbox (24.0pt too wide) in alignment at lines 254--254
- [] [] 
- []
-
-
-Overfull \hbox (24.0pt too wide) in alignment at lines 254--254
- [] [] 
- []
-
-
-Overfull \hbox (24.0pt too wide) in alignment at lines 254--254
- [] [] 
- []
-
-
-Overfull \hbox (24.0pt too wide) in alignment at lines 254--261
+Overfull \hbox (24.0pt too wide) in alignment at lines 245--256
  [] [] 
  []
 
 [17
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 263--263
+Underfull \hbox (badness 10000) in paragraph at lines 258--258
 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 263--263
+Overfull \hbox (24.0pt too wide) in alignment at lines 258--258
  [] [] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 263--263
+Overfull \hbox (24.0pt too wide) in alignment at lines 258--258
  [] [] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 263--263
+Overfull \hbox (24.0pt too wide) in alignment at lines 258--258
  [] [] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 263--263
+Overfull \hbox (24.0pt too wide) in alignment at lines 258--258
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 258--281
+ [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 283--283
+
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 283--283
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 283--283
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 283--283
+ [] [] 
+ []
+
+
+Overfull \hbox (24.0pt too wide) in alignment at lines 283--283
  [] [] 
  []
 
@@ -755,11 +755,11 @@ Missing character: There is no « in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no « in font cmr10!
 
-Overfull \hbox (24.0pt too wide) in alignment at lines 263--279
+Overfull \hbox (24.0pt too wide) in alignment at lines 283--314
  [] [] 
  []
 
-[18] (./project.aux)
+[18] [19] (./project.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -767,7 +767,7 @@ LaTeX Warning: There were undefined references.
 Here is how much of TeX's memory you used:
  2028 strings out of 493747
  28377 string characters out of 3143545
- 97157 words of memory out of 3000000
+ 99157 words of memory out of 3000000
  5278 multiletter control sequences out of 15000+200000
  11169 words of font info for 39 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
@@ -783,10 +783,10 @@ cal/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/loc
 al/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/loca
 l/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
 /texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on project.pdf (19 pages, 192246 bytes).
+Output written on project.pdf (20 pages, 193848 bytes).
 PDF statistics:
- 162 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
+ 165 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
