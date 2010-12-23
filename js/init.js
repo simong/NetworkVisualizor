@@ -11,31 +11,8 @@ var labelType, useGradients, nativeTextSupport, animate, nrOfNodes, fd, beheerSy
     animate = !(iStuff || !nativeCanvasSupport);
 })();
 
-
-/**
- * Update the combobox with the current computers
- * @returns {void}
- * @type String|Object|Array|Boolean|Number
- */
-var updatecombobox = function(){
-
-    // jQuery selector for the select box
-    var $selectbox = $("#Computer_connected_0");
-    $selectbox.html("");
-
-    for (var i = 0; i < config.getRunningComputers(); i++) {
-        var configelement = config.getData()[i];
-
-        $selectbox.append("<option value='" + configelement.id + "'>" + configelement.name + "</option>")
-    }
-}
-
-
 function loadNetwork(success){
     if (success) {
-        // Fill the combo boxes with all the Computers.
-        updatecombobox();
-
 
         // init ForceDirected
         fd = new $jit.ForceDirected({
@@ -142,7 +119,7 @@ function loadNetwork(success){
                         var computer = beheerSysteem.getComputer(node.id);
                         var virussen = "";
                         if (computer.getBestanden().length === 0) {
-                            virussen = "<li>Virus vrij!</li>";
+                            virussen = "<li>Virus vrij</li>";
                         }
                         else {
                             for (var i = 0; i < computer.getBestanden().length; i++) {
