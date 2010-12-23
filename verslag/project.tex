@@ -220,6 +220,56 @@ Echter, voor een vlotte gebruikerservaring raden we aan om een van de volgende b
 \item Chrome 8.0 of later. Er is een installer bijgevoegd op de CD-ROM.
 \item Firefox 4 beta of later.
 \end{itemize}
+\pagebreak
+\section{Configuratie}
+Als u van een andere begingraaf wil vertrekken dan kan dit vrij eenvoudig door het configuratiebestand ```config.js'' aan te passen.
+De configuratie gebeurt door gebruik te maken van JSON \cite{JSON}. Dit is een licht en zeer gemakkelijk leesbaar data formaat.
+We kunnen 2 grote deelconfiguraties onderscheiden.
+\begin{itemize}
+    \item De graaf
+    \item De virussen en hun eigenschappen
+\end{itemize}
+\subsection{De graaf}
+We hebben er voor gekozen om dezelfde configuratie aan te houden als de JIT bibliotheek.
+Deze ziet er op het eerste zich misschien ietwat indrukwekkend uit, maar is eigenlijk vrij eenvoudig aan te passen.
+Voor iedere computer (Node in het JIT-jargon) wordt een object bijgehouden. De configuratie bestaat een een lijst van objecten.
+Ieder object heeft (minstens) de volgende eigenschappen:
+\begin{itemize}
+    \item id: Iedere computer moet een uniek id hebben. We hebben er voor gekozen om enkel alfanumerieke karakters te gebruiken. Dit is echter niet verplicht.
+    \item naam: De naam de computer, dit mag verschillen van het id en mag alle UTF-8 karakters bevatten.
+    \item data: Een subobject dat twee eigenschappen heeft.
+    	\begin{itemize}
+	    \item virussen: Een lijst van virussen. Dit is een array van strings, waarbij iedere string het id van een SlechtBestand is.
+	    \item \$type: Dit stelt de toestand van de computer voor. De \$ is iets dat eigen is aan de JIT bibliotheek. 
+	    		Er zijn 4 mogelijke waarden: 
+			\begin{itemize}
+			    \item clean: De computer is nog niet besmet.
+			    \item infected De computer is besmet.
+			    \item internet\_clean Een niet besmette computer die verbonden is met het internet.
+			    \item internet\_infected Een besmette computer die verbonden is het met het internet.
+			\end{itemize}
+	\end{itemize}
+    \item adjacencies: De verbindingen die deze computer maakt. Dit moet een lijst van objecten zijn, waarbij ieder object een verbinding voorstelt.
+    	\begin{itemize}
+	    \item nodeFrom: Het id van deze computer. Ook al ruikt dit naar data duplicatie, dit is verplicht door de JIT bibliotheek.
+	    \item nodeTo: Het id van de computer naar waar de verbinding moet.
+	\end{itemize}
+\end{itemize}
+\pagebreak
+\subsection{De virussen}
+Simpelweg een lijst (technisch gezien een array) met objecten. Elk object stelt een ```SlechtBestand'' voor.
+Ieder object heeft dezelfde eigenschappen met waardes typisch voor dat soort ```SlechtBestand''.
+Deze zijn:
+\begin{itemize}
+    \item id: Ieder ```SlechtBestand'' moet een uniek id hebben. Wederom, we hebben er voor gekozen om enkel alfanumerieke karakters te gebruiken. Dit is echter niet verplicht.
+    \item naam: De naam van het ```SlechtBestand''. Ook hier, dit mag verschillen van het id en mag alle UTF-8 karakters bevatten.
+    \item verspreidingssnelheid: Wanneer er een ```Bestand'' moet gekozen worden tijdens de simulatie, zal dit getal een grote rol spelen.
+    		Hoe groter dit getal, hoe groter de kans dat dit bestand gekozen wordt.
+    \item infectiefactor: Wanneer het virus arriveert bij een computer wordt dit getal gechecked om te kijken of de computer naar de ```besmet'' toestand moet overgaan.
+    		Wederom, hoe groter dit getal, hoe groter de kans dat de computer besmet wordt.
+    \item image: Een relatief pad naar een icoon voor dit type van bestand.
+\end{itemize}
+
 
 
 \chapter{Logboek}
@@ -349,9 +399,9 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 % Standaard laat de bookstijl \chapter* uit de inhoudsopgave
 %
 \addcontentsline{toc}{chapter}{\bibname}
-\bibitem{ForceBasedGraph} \emph{Force-based algorithms (graph drawing)},
-\url{http://en.wikipedia.org/wiki/Force-based_algorithms_(graph_drawing)}.
+\bibitem{ForceBasedGraph} \emph{Force-Directed Drawing Algorithms}, (Stephen G.  Kobourov), \url{http://www.cs.brown.edu/~rt/gdhandbook/chapters/force-directed.pdf}
 \bibitem{InfoVis} \emph{JavaScript InfoVis Toolkit}, \url{http://thejit.org/static/v20/Jit/Examples/ForceDirected/example2.code.html}.
+\bibitem{JSON} \emph{JavaScript Object Notation}, \url{http://www.json.org/js.html}
 \end{thebibliography}
 
 \end{document}
