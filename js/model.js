@@ -73,7 +73,6 @@ var Bestand = Class.extend({
         this.setImage(this.image);
     },
 
-
     "setId" : function(id) {
       this.id = id;
     },
@@ -90,7 +89,7 @@ var Bestand = Class.extend({
         return this.image;
     },
     "getIcon" : function() {
-      return this.icon;
+        return this.icon;
     }
 
 });
@@ -112,7 +111,6 @@ var SlechtBestand = Bestand.extend({
         this.setImage(image);
     },
 
-
     "invade": function(){
         var rand = Math.floor(Math.random() * 101);
         return rand > this.successrate;
@@ -132,14 +130,12 @@ var SlechtBestand = Bestand.extend({
         return this.naam;
     },
 
-
     "setVerspreidingSnelheid": function(verspreidingSnelheid){
         this.verspreidingSnelheid = verspreidingSnelheid;
     },
     "getVerspreidingSnelheid": function(){
         return this.verspreidingSnelheid;
     },
-
 
     "setInfectieFactor": function(infectieFactor){
         this.infectieFactor = infectieFactor;
@@ -279,7 +275,6 @@ var Computer = Class.extend({
 	    var max = 0;
 	    var indexMax = 0;
 	    for ( var i = 0; i<this.bestanden.length;i++){
-		//nogal een dwaas algoritme
 		var tmpmax = (Math.random() * this.bestanden[i].getVerspreidingSnelheid());
 		if (tmpmax > max) {
 		    max = tmpmax;

@@ -175,7 +175,6 @@ function loadNetwork(success){
 function init(){
     // Load all the data.
     config = new Config();
-    //config.loadJSON("config.js", loadNetwork);
     config.setVirussen(virussen);
     config.setData(c);
 
@@ -183,9 +182,4 @@ function init(){
     beheerSysteem.setConfig(config);
 
     loadNetwork(true);
-
-
-    // ###############
-    // The UI events #
-    // ###############
 }
