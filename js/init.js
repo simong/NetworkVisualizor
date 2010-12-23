@@ -55,14 +55,12 @@ function loadNetwork(success){
             onCreateLabel: function(domElement, node){
                 // Create a 'name' and 'close' buttons and add them
                 // to the main node label
-                var nameContainer = document.createElement('a'), style = nameContainer.style;
+                var nameContainer = document.createElement('a');
 
                 nameContainer.className = 'name';
                 nameContainer.innerHTML = node.name;
                 nameContainer.style.display = "none";
                 domElement.appendChild(nameContainer);
-                style.fontSize = "0.8em";
-                style.color = "#ddd";
 
                 //Toggle a node selection when clicking
                 //its name. This is done by animating some
@@ -127,21 +125,11 @@ function loadNetwork(success){
                             }
                         }
                         $('#inner-details-virussen').html(virussen);
+                        // Dynamische hoogte voor random info
                         $('#inner-details').height(120 + $("#inner-details-connections").height() + $("#inner-details-virussen").height());
                         $('#inner-details').fadeTo(250, 0.5);
                     });
                 };
-            },
-            // Change node styles when DOM labels are placed
-            // or moved.
-            onPlaceLabel: function(domElement, node){
-                var style = domElement.style;
-                var left = parseInt(style.left);
-                var top = parseInt(style.top);
-                var w = domElement.offsetWidth;
-                style.left = (left - w / 2) + 'px';
-                style.top = (top + 10) + 'px';
-                style.display = '';
             }
         });
         // load JSON data.
