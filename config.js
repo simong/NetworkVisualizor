@@ -248,7 +248,7 @@ var virussen = [
 },
 {
   "id" : "spyware",
-  "naam" : "Sppyware",
+  "naam" : "Spyware",
   "verspreidingssnelheid" : 20,
   "infectiefactor" : 30,
   "image" : "images/icons/virus/rood.png"
