@@ -30,14 +30,6 @@ h1
   padding:0;
 }
 
-#inner-details #inner-details-name {
-    font-size:1.2em;
-}
-#inner-details a {
-    color:#efefef;
-    text-decoration:none;
-}
-
 #network_graph
 {
     position: relative;
@@ -46,12 +38,6 @@ h1
     height:90%; /* voor IE */
     width:90%;
     margin:0 auto;
-}
-
-a.name
-{
-  cursor:pointer;
-  font-family:Arial;
 }
 
 #inner-details {
@@ -67,4 +53,7 @@ a.name
     opacity: 0.5;
     padding: 10px;
     font-size: 12px;
+}
+#inner-details #inner-details-name {
+    font-size:1.2em;
 }
