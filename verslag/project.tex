@@ -38,19 +38,19 @@ Groep 6 & Jan Acke\\
 \pagenumbering{arabic}
 \chapter{Inleiding}
 Het netwerkvisualisatieproject is een project van 4 studenten voor het vak systeemanalyse en ontwerp. De bedoeling van het project is om een simulatie van een computernetwerk na te bootsen. Elke computer in het netwerk kan bestanden versturen naar zijn direct verbonden buren want het netwerk is opgebouwd als een p2p netwerk. Zo een bestand kan zowel goedaardig als kwaadaardig zijn. De goedaardige bestanden, aangeduid in de simulatie als groene sterren, doen niets met de computer. Men kan dit zien als gewoon mailverkeer. De slechte bestanden kunnen we zien als mailverkeer met een virus attachment. Hierdoor kan de computer besmet worden met een virus, trojan of worm. Hierna zal de besmette pc ook dit virus beginnen doorsturen naar zijn directe buren. Zo kan men via de simulatie zien hoe een virus zich kan verspreiden in een computernetwerk.\\*
-Het belangrijkste onderdeel van dit project was het opbouwen van een deftig ontwerp voor het cre�ren van de software. Hierdoor moesten we gebruik maken van technieken die we gezien hebben in de les. Eenmaal het ontwerp klaar was konden we beginnen aan het programmeren van de simulatie. Natuurlijk moest het vooraf opgemaakte ontwerp gevolgd worden. De keuze van programmeertaal mochten we zelf kiezen. Wij kozen voor een combinatie van HTML5 en Javascript. Dit komt ons goed uit omdat het project moet kunnen draaien op een standaard pc van school, hierdoor waren we besturingssysteem onafhankelijk.
+Het belangrijkste onderdeel van dit project was het opbouwen van een deftig ontwerp voor het cre"eren van de software. Hierdoor moesten we gebruik maken van technieken die we gezien hebben in de les. Eenmaal het ontwerp klaar was konden we beginnen aan het programmeren van de simulatie. Natuurlijk moest het vooraf opgemaakte ontwerp gevolgd worden. De keuze van programmeertaal mochten we zelf kiezen. Wij kozen voor een combinatie van HTML5 en JavaScript. Dit komt ons goed uit omdat het project moet kunnen draaien op een standaard pc van school, hierdoor waren we besturingssysteem onafhankelijk.
 
 
 \chapter{Model}
 \section{Statisch model}
 \subsection{Klassenmodel}
 We beschrijven voor iedere klasse wat hij precies doet.
-\lemma{Bestand}: Dit is het object die wordt doorgestuurd tussen de verschillende computers. Het bestand kan opgesplitst worden in 2 sub onderverdelingen.
-\lemma{GoedBestand}: Dit is een bestand die geef nare gevolgen heeft voor de computer die het ontvangt, men kan dit vergelijken met een email met alleen tekst.
+\lemma{Bestand}: Dit is het object dat wordt doorgestuurd tussen de verschillende computers. Het bestand kan opgesplitst worden in 2 sub onderverdelingen.
+\lemma{GoedBestand}: Dit is een bestand die geen nare gevolgen heeft voor de computer die het ontvangt, men kan dit vergelijken met een email met alleen tekst.
 \lemma{SlechtBestand}: Dit is een bestand die een virus, trojan of worm bevat. Via de gegevens  van het bestand kunnen we zo het risico berekenen dat de computer besmet wordt.
-\lemma{Computer}: Zoals men kan verwachten is dit een object die bestanden kan ontvangen en versturen. Het is altijd verbonden met tenminste één andere computer. Aan de hand van een lijst van virussen dat de computer bevat kan hij virussen doorsturen naar buurcomputers.
-\lemma{Beheersysteem}: Dit is het object die het scherm beïnvloed. Deze zorgt voor de demo modus van het systeem. Het beheersysteem zal de keuze maken welke computers er nieuwe buren krijgen, welke computers bestanden versturen en gekuist worden van virussen, en welke computers verwijderd zullen worden.
-\lemma{VisualisatieBibliotheek}: Dit is een bibliotheek dat we gebruiken voor het tekenen van de graaf. Via deze bibliotheek kunnen we gemakkelijk zien welke computers er met elkaar verbonden zijn en kunnen we dit ook tekenen.
+\lemma{Computer}: Zoals men kan verwachten is dit een object die bestanden kan ontvangen en versturen. Het is altijd verbonden met tenminste 1 andere computer. Aan de hand van een lijst van virussen dat de computer bevat kan hij virussen doorsturen naar buurcomputers.
+\lemma{Beheersysteem}: Dit is het object dat het scherm be"invloed. Deze zorgt voor de demo modus van het systeem. Het beheersysteem zal de keuze maken welke computers er nieuwe buren krijgen, welke computers bestanden versturen en gekuist worden van virussen, en welke computers verwijderd zullen worden.
+\lemma{VisualisatieBibliotheek}: Dit is een bibliotheek die we gebruiken voor het tekenen van de graaf. Via deze bibliotheek kunnen we gemakkelijk zien welke computers er met elkaar verbonden zijn en kunnen we dit ook tekenen.
 
 \eindlemma
 \diagram{klassen_diagram}{Het klassendiagram}
@@ -69,6 +69,7 @@ We geven hieronder een lijst van alle taken.
 \end{center}
 \end{figure}
 
+\newpage
 
 \subsection{Start simulatie}
 \lemma{Actor}
@@ -106,7 +107,7 @@ De klok stuurt een signaal naar het BeheerSysteem dat er een computer verwijderd
 deKlok.
 
 \lemma{Beschrijving}
-De klok stuurt een bericht naar het BeheerSysteem dat er computer mag gekuist worden, dit wil zeggen alle virussen verwijderen. Het beheersysteem zal dan willekeurig een computer kiezen, die hij kan kiezen uit de visualisatiebibliotheek, en een bericht sturen naar deze computer dat de virussen mogen verwijderd worden en zijn status van ‘IsBesmet’ op false mag zetten.
+De klok stuurt een bericht naar het BeheerSysteem dat er computer mag gekuist worden, dit wil zeggen alle virussen verwijderen. Het beheersysteem zal dan willekeurig een computer kiezen, die hij kan kiezen uit de visualisatiebibliotheek, en een bericht sturen naar deze computer dat de virussen mogen verwijderd worden en zijn status van IsBesmet op false mag zetten.
 
 \lemma{Sequentiediagram}
 \diagram{seq_kuis_computer}{Kuis computer}
@@ -125,8 +126,9 @@ De klok stuurt een bericht naar het beheersysteem dat er bestanden mogen doorges
 \newpage
 \section{Woordenboek}
 \subsection{Beheersysteem}
-\lemma{leesConfig()} Leest het config bestand, config.js in en construeert de nodige objecten.
-\lemma{startDemo()} De demo mode van het programma wordt nu gestart. Dit wil zeggen dat vanaf nu er automatisch computers aangemaakt zullen worden, virussen verspreid zullen worden, computers schoongemaakt kunnen worden en ook computers kunnen verwijderd worden.
+Wanneer we het beheersysteem aanspreken in onze sequentiediagrammen, wordt ook de plot functie van de VisualisatieBibliotheek aangesproken.
+\lemma{leesConfig()} Leest het config bestand in en construeert de nodige objecten.
+\lemma{startDemo()} De demo mode van het programma wordt nu gestart. Dit wil zeggen dat vanaf nu er automatisch computers aangemaakt zullen worden, virussen verspreid zullen worden, computers schoongemaakt kunnen worden en ook computers verwijderd kunnen worden.
 \lemma{kuisComputer()} Het beheersysteem zal willekeurig een computer kiezen uit de lijst van aangemaakte computers en zal er 1 van verwijderen. Bij het verwijderen legt het beheersysteem de verbindingen tussen de buurcomputers. Om dit te realiseren zal het beheersysteem gebruik maken van de volgende lidfuncties:
 \begin{itemize}
     \item Computer:verwijderVirussen()
@@ -142,7 +144,7 @@ De klok stuurt een bericht naar het beheersysteem dat er bestanden mogen doorges
     \item Computer:kanVerwijderdworden()
 \end{itemize}
 \subsection{Computer}
-\lemma{kanVerwijderdWorden()} Deze methode geeft terug of de computer kan verwijderd worden. Dit wordt bepaald door zijn staat ‘isInternet’. Dit wil zeggen dat deze computer een lijst bevat met alle virussen en zodoende niet kan verwijderd worden indien we willen dat alle virussen nog doorgegeven kunnen worden.
+\lemma{kanVerwijderdWorden()} Deze methode geeft terug of de computer kan verwijderd worden. Dit wordt bepaald door zijn staat isInternet. Dit wil zeggen dat deze computer een lijst bevat met alle virussen en zodoende niet kan verwijderd worden indien we willen dat alle virussen nog doorgegeven kunnen worden.
 \lemma{ontvangBestand(Bestand)} Het beheersysteem zal willekeurig een computer kiezen uit de lijst welke computer er verwijderd zal worden. Hiervoor maakt hij gebruik van de volgende lidfuncties:
 \begin{itemize}
     \item Bestand:geefVerspreidingssnelheid()
@@ -150,40 +152,33 @@ De klok stuurt een bericht naar het beheersysteem dat er bestanden mogen doorges
     \item Bestand:geefNaam()
 \end{itemize}
 \lemma{stuurBestand(Computer)} Via deze methode wordt een buur gekozen uit de lijst van verbonden computers. Naar deze computer zullen we dan een bestand sturen die bijvoorbeeld een virus kan bevatten.
-\lemma{verwijderBestanden()} Hierin wordt de computer gekuist van alle virussen die hij heeft en wordt de staat ‘isBesmet’ op false gezet.
+\lemma{verwijderBestanden()} Hierin wordt de computer gekuist van alle virussen die hij heeft en wordt de staat isBesmet op false gezet.
 \lemma{geefVerbondenComputers()} Via deze methode kunnen we een lijst verbonden buren van de computer terugkrijgen.
 \subsection{Bestand}
 \lemma{geefVerspreidingsSnelheid()} Hierin kunnen we de verspreidingssnelheid van een virus terugkrijgen.
 \lemma{geefType()} Via deze methode krijgen we het type bestand terug.
 \lemma{geefNaam()} Zoals de methode al zegt krijgen we hier de naam van het bestand terug.
 \subsection{VisualisatieBibliotheek}
-\lemma{forceDirected()} De Visualisatie bibliotheek ondersteunt meerdere types van grafieken. Degene die hier gebruikt moet worden is het “ForceDirected” type.
+\lemma{forceDirected()} De VisualisatieBibliotheek ondersteunt meerdere types van grafieken. Degene die hier gebruikt moet worden is het ForceDirected type.
 \lemma{loadJSON()} Laad de config in met de data van het netwerk. Dit moet in het correcte formaat zijn.
 \lemma{compute()} Zal de posities van de computers berekenen en de verbindingen ertussen. Dit levert telkens andere posities op. Dit mag enkel in het begin van de simulatie gebruikt worden.
 \lemma{computeIncremental()} Voert de bovenstaande functie uit, maar in zo een manier dat de resources optimaal gebruikt worden.
 \lemma{plot()} Tekent de berekende posities van de computers. Als er iets hertekent moet worden, zal deze functie gebruikt moeten worden.
-\eindlemma
 
 \newpage
 \section{Aanvullingen}
 %Deze paragraaf is optioneel, en kan gebruikt worden om elementen van het model in
 %onder te brengen die niet bij elk project voorkomen, zoals
-\begin{itemize}
-\item Functioneel model
+\lemma{Functioneel model}
 Ons functioneel model omschrijft de manier waarop een computer een bestand verstuurd. In eerste instantie wordt er gekozen of 
 er een goed of een slecht bericht gestuurd wordt (Besmette computers kunnen nog steeds goede bestanden doorsturen). Als een goed
 bestand wordt gekozen dan zal dit direct teruggegeven worden. Als er echter een slecht bestand gekozen wordt zal de computer aan de 
 hand van het slechte bestand zijn verspreidingssnelheid bepalen welk slecht bestand doorgestuurd wordt. De kans om een bestand met 
 lage verspreidingssnelheid door te sturen is lager dan de kans om een bestand met hoge verspreidingssnelheid door te sturen.
+\eindlemma
 
-\includegraphics{funcmodel}
-%\item Statendiagrammen.
-%\item Databankontwerp in de vorm van EPR-diagrammen, tabeldefinities en dergelijke.
-\end{itemize}
-% In deze paragraaf worden ook bijkomende technische elementen vermeld. Zo dient
-% bijvoorbeeld, bij het gebruik van het MVC-paradigma, hier vermeld worden welke elementen
-% de view en de controller uitmaken.
-
+%\includegraphics{funcmodel}
+\diagram{funcmodel}{Functioneel model: bestanden versturen}
 
 \chapter{Realisatie}
 \section{Hergebruik}
@@ -195,10 +190,10 @@ Het network dat moet opgebouwd worden is eigenlijk een graaf. Meer specifiek het
 ``Force-Directed'' of ``Force-Based'' graph \cite{ForceBasedGraph}.
 Dit houdt in dat al de ``edges'', verbindingen tussen de computers, van min of meer gelijke afstand zijn.
 \subsection{JavaScript InfoVis Toolkit}
-De JavaScript InfoVis Toolkit \cite{InfoVis}, kortweg JIT, is een bibliotheek dat geschreven is voor interactieve
+De JavaScript InfoVis Toolkit \cite{InfoVis}, kortweg JIT, is een bibliotheek die geschreven is voor interactieve
 data visualizaties. Deze is in staat om een heel arsenaal grafen en grafieken te renderen, waaronder
 de Force-Directed graaf.
-De naam geeft het al weg, deze is geschreven in JavaScript en werkt met het html5 canvas object.
+De naam geeft het al weg, deze is geschreven in JavaScript en werkt met het HTML5 canvas object.
 Het staat iedereen vrij deze bibliotheek te gebruiken aangezien ze beschikbaar gemaakt wordt onder
 de Berkeley Software Distribution licensie.
 Hoewel er onder veel developers smalend wordt gepraat over JavaScript, is de taal uitermate geschikt voor visualisaties
@@ -206,13 +201,13 @@ en laat ze perfect toe om ``object georienteerd'' te werken.
 \subsection{GIT}
 Om een optimale collaboratie te verkrijgen, gebruiken we GIT.
 GIT laat toe om meerdere mensen samen op dezelfde source code te werken.
-Op deze manier beschikt iedereen altijd over de laatste versies.
+Op deze manier beschikt iedereen altijd over de laatste versie.
 
 \section{Gebruik}
 Het volstaat om het index.html bestand te openen in een moderne browser. De simulatie start van zodra de pagina is ingeladen.
-Mocht de simulatie om één of andere reden falen, kan deze opnieuw gestart worden door de pagina te herladen.
-\section{installatie}
-Als u over een moderne browser beschikt hoeft er eigenlijk niets extra geinstalleerd worden.
+Mocht de simulatie om \'{e}\'{e}n of andere reden falen, kan deze opnieuw gestart worden door de pagina te herladen.
+\section{Installatie}
+Als u over een moderne browser beschikt hoeft er eigenlijk niets extra ge"installeerd worden.
 Echter, voor een vlotte gebruikerservaring raden we aan om een van de volgende browsers te gebruiken.
 \begin{itemize}
 \item Chrome 8.0 of later. Er is een installer bijgevoegd op de CD-ROM.
@@ -244,7 +239,7 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 \logingang{19/12/10}{11}{00}{12}{30}
 {Computers kunnen besmet worden en sturen dan slechte bestanden door, wipen werkt}
 \logingang{22/12/10}{15}{45}{17}{45}
-{Finale bijeenkomst + logboek aanpassen \& functioneel model in latex}
+{Finale bijeenkomst + logboek aanpassen \& functioneel model in \latex}
 \end{studentlog}
 
 \begin{studentlog}{Davy Loose}
@@ -270,7 +265,7 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 \logingang{26/11/10}{16}{45}{17}{45}
 {Eerste labo}
 \logingang{27/11/10}{10}{00}{12}{30}
-{Zoeken naar mogelijkheden voor hergebruik \& prototype in Javascript}
+{Zoeken naar mogelijkheden voor hergebruik \& prototype in JavaScript}
 \logingang{01/12/10}{08}{15}{10}{15}
 {Tweede bijeenkomst - sequentiediagrammen aanmaken, takendiagram aanpassen en overlopen van geschikte software}
 \logingang{01/12/10}{20}{00}{21}{00}
@@ -290,9 +285,9 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 \logingang{18/12/10}{22}{15}{23}{55}
 {Verwijderen van computers}
 \logingang{21/12/10}{15}{45}{17}{45}
-{Bugfixes aan verwijderen + Toevoegen internettype.}
+{Bugfixes aan verwijderen + Toevoegen internettype}
 \logingang{22/12/10}{15}{45}{19}{00}
-{Finale bijeenkomst + uitschrijven in latex}
+{Finale bijeenkomst + uitschrijven in \latex}
 \end{studentlog}
 
 \begin{studentlog}{Christian Vuerings}
@@ -303,7 +298,7 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 \logingang{28/11/10}{18}{00}{18}{45}
 {Eerste versies maken van het taken -en klassendiagram}
 \logingang{28/11/10}{18}{45}{19}{15}
-{Initiële versie aanmaken van het latex document}
+{Initi"ele versie aanmaken van het latex document}
 \logingang{01/12/10}{08}{15}{10}{15}
 {Tweede bijeenkomst - sequentiediagrammen aanmaken, takendiagram aanpassen en overlopen van geschikte software}
 \logingang{02/12/10}{18}{00}{19}{00}
@@ -324,8 +319,14 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 {Vijfde bijeenkomst}
 \logingang{17/12/10}{17}{15}{17}{30}
 {Update van bepaalde sequentiediagrammen en van het klassendiagram}
+\logingang{18/12/10}{18}{15}{19}{00}
+{Maak de overlay voor het tonen van random info dynamisch groot en voeg een kleine animatie toe}
 \logingang{22/12/10}{15}{45}{17}{45}
 {Finale bijeenkomst}
+\logingang{22/12/10}{17}{45}{18}{30}
+{Google docs document omzetten in \latex}
+\logingang{22/12/10}{17}{10}{18}{00}
+{\latex -document controleren op fouten \& aanpassen waar nodig}
 \end{studentlog}
 
 \noindent
@@ -343,7 +344,7 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 \addcontentsline{toc}{chapter}{\bibname}
 \bibitem{ForceBasedGraph} \emph{Force-based algorithms (graph drawing)},
 \url{http://en.wikipedia.org/wiki/Force-based_algorithms_(graph_drawing)}.
-\bibitem{InfoVis} \emph{Javascript InfoVis Toolkit}, \url{http://thejit.org/static/v20/Jit/Examples/ForceDirected/example2.code.html}.
+\bibitem{InfoVis} \emph{JavaScript InfoVis Toolkit}, \url{http://thejit.org/static/v20/Jit/Examples/ForceDirected/example2.code.html}.
 \end{thebibliography}
 
 \end{document}
