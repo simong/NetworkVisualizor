@@ -19,9 +19,9 @@ X}$}
 \deptadres{Schoonmeersstraat 52 - 9000 Gent}
 \studiejaar{3e Bachelor Informatica}
 \soortrapport{
-Visualisatie van xkcd
+Verslag labo Systeemanalyse
 }
-\title{Richtlijnen voor projectverslagen}
+\title{Visualisatie van xkcd}
 \author{
 \begin{tabular}{ll}
 Groep 6 & Jan Acke\\
@@ -44,27 +44,35 @@ Het belangrijkste onderdeel van dit project was het opbouwen van een deftig ontw
 \chapter{Model}
 \section{Statisch model}
 \subsection{Klassenmodel}
-We beschrijven voor iedere klasse wat hij precies doet.
+We beschrijven voor iedere klasse wat hij precies doet. We hebben gebruik gemaakt van CRC kaarten zodat het klassendiagram overzichtelijk blijft.
 \lemma{Bestand}: Dit is het object dat wordt doorgestuurd tussen de verschillende computers. Het bestand kan opgesplitst worden in 2 sub onderverdelingen.
 \lemma{GoedBestand}: Dit is een bestand die geen nare gevolgen heeft voor de computer die het ontvangt, men kan dit vergelijken met een email met alleen tekst.
 \lemma{SlechtBestand}: Dit is een bestand die een virus, trojan of worm bevat. Via de gegevens  van het bestand kunnen we zo het risico berekenen dat de computer besmet wordt.
 \lemma{Computer}: Zoals men kan verwachten is dit een object die bestanden kan ontvangen en versturen. Het is altijd verbonden met tenminste 1 andere computer. Aan de hand van een lijst van virussen dat de computer bevat kan hij virussen doorsturen naar buurcomputers.
-\lemma{Beheersysteem}: Dit is het object dat het scherm be"invloed. Deze zorgt voor de demo modus van het systeem. Het beheersysteem zal de keuze maken welke computers er nieuwe buren krijgen, welke computers bestanden versturen en gekuist worden van virussen, en welke computers verwijderd zullen worden.
-\lemma{VisualisatieBibliotheek}: Dit is een bibliotheek die we gebruiken voor het tekenen van de graaf. Via deze bibliotheek kunnen we gemakkelijk zien welke computers er met elkaar verbonden zijn en kunnen we dit ook tekenen.
-
+\lemma{Beheersysteem}: Dit is het object dat het scherm be"invloed. Deze zorgt voor de demo modus van het systeem. Het Beheersysteem zal de keuze maken welke computers er nieuwe buren krijgen, welke computers bestanden versturen en gekuist worden van virussen, en welke computers verwijderd zullen worden.
+\lemma{Visualisatiebibliotheek}: Dit is een bibliotheek die we gebruiken voor het tekenen van de graaf. Via deze bibliotheek kunnen we gemakkelijk zien welke computers er met elkaar verbonden zijn en kunnen we dit ook tekenen.
 \eindlemma
-\diagram{klassen_diagram}{Het klassendiagram}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.75]{klassen_diagram}
+\caption{Klassendiagram}
+\end{center}
+\end{figure}
 \newpage
-\diagram{crc_kaarten}{De CRC kaarten}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.75]{crc_kaarten}
+\caption{CRC kaarten}
+\end{center}
+\end{figure}
 \newpage
 \section{Dynamisch model}
 We geven hieronder een lijst van alle taken.
 
 \begin{figure}[h!]
 \begin{center}
-
-\includegraphics[scale=0.75]{taken_diagram2}
-
+\includegraphics{taken_diagram2}
 \caption{Takendiagram}
 \end{center}
 \end{figure}
@@ -76,30 +84,45 @@ We geven hieronder een lijst van alle taken.
 deGebruiker.
 
 \lemma{Beschrijving}
-Via deze taak kan de gebruiker de demo mode activeren en zal het beheersysteem op basis van de klok de verschillende taken automatisch uitvoeren.
+Via deze taak kan de gebruiker de demo mode activeren en zal het Beheersysteem op basis van de klok de verschillende taken automatisch uitvoeren.
 
 \lemma{Sequentiediagram}
-\diagram{seq_start_simulatie}{Start simulatie}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics{seq_start_simulatie}
+\caption{Start simulatie}
+\end{center}
+\end{figure}
 
 \newpage
 \subsection{Maak computer aan}
 \lemma{Actor}deKlok.
 
 \lemma{Beschrijving}
-De klok stuurt een bericht naar het BeheerSysteem dat er een computer mag aangemaakt worden. Er moet niet gewacht worden op een antwoord van de computer om verder te doen met het systeem. De computer zal wel een asynchroon antwoord sturen indien hij aangemaakt is.
+De klok stuurt een bericht naar het Beheersysteem dat er een computer mag aangemaakt worden. Er moet niet gewacht worden op een antwoord van de computer om verder te doen met het systeem. De computer zal wel een asynchroon antwoord sturen indien hij aangemaakt is.
 
 \lemma{Sequentiediagram}
-\diagram{seq_maak_computer_aan}{Maak computer aan}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics{seq_maak_computer_aan}
+\caption{Maak computer aan}
+\end{center}
+\end{figure}
 
 \newpage
 \subsection{Verwijder computer}
-\lemma{Actor}deKlok.
+\lemma{Actor} deKlok.
 
 \lemma{Beschrijving}
-De klok stuurt een signaal naar het BeheerSysteem dat er een computer verwijderd mag worden. Het beheersysteem maakt dan een keuze uit alle computers en beslist welke computer er verwijderd mag worden. Hij stuurt dan een bericht naar deze computer, deze computer zal dan een antwoord terugsturen naar het beheersysteem dat deze verwijderd zal worden, zodat we deze ook uit de lijst van computers kunnen halen.
+De klok stuurt een signaal naar het Beheersysteem dat er een computer verwijderd mag worden. Het Beheersysteem maakt dan een keuze uit alle computers en beslist welke computer er verwijderd mag worden. Hij stuurt dan een bericht naar deze computer, deze computer zal dan een antwoord terugsturen naar het Beheersysteem dat deze verwijderd zal worden, zodat we deze ook uit de lijst van computers kunnen halen.
 
 \lemma{Sequentiediagram}
-\diagram{seq_verwijder_computer}{Verwijder computer}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics{seq_verwijder_computer}
+\caption{Verwijder computer}
+\end{center}
+\end{figure}
 
 \newpage
 \subsection{Kuis computer}
@@ -107,10 +130,15 @@ De klok stuurt een signaal naar het BeheerSysteem dat er een computer verwijderd
 deKlok.
 
 \lemma{Beschrijving}
-De klok stuurt een bericht naar het BeheerSysteem dat er computer mag gekuist worden, dit wil zeggen alle virussen verwijderen. Het beheersysteem zal dan willekeurig een computer kiezen, die hij kan kiezen uit de visualisatiebibliotheek, en een bericht sturen naar deze computer dat de virussen mogen verwijderd worden en zijn status van IsBesmet op false mag zetten.
+De klok stuurt een bericht naar het Beheersysteem dat er computer mag gekuist worden, dit wil zeggen alle virussen verwijderen. Het Beheersysteem zal dan willekeurig een computer kiezen, die hij kan kiezen uit de Visualisatiebibliotheek, en een bericht sturen naar deze computer dat de virussen mogen verwijderd worden en zijn status van IsBesmet op false mag zetten.
 
 \lemma{Sequentiediagram}
-\diagram{seq_kuis_computer}{Kuis computer}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics{seq_kuis_computer}
+\caption{Kuis computer}
+\end{center}
+\end{figure}
 
 \newpage
 \subsection{Stuur bericht}
@@ -118,34 +146,39 @@ De klok stuurt een bericht naar het BeheerSysteem dat er computer mag gekuist wo
 deKlok.
 
 \lemma{Beschrijving}
-De klok stuurt een bericht naar het beheersysteem dat er bestanden mogen doorgestuurd worden van een computer naar andere computers. Het beheersysteem roept de methode stuurBestand op van een willekeurig geselecteerde computer, deze zal dan een keuze maken welk soort bestand er verstuurd zal worden, dit kan een goed bestand zijn of een slecht bestand. Hierna roept de computer van al zijn buren de methode ontvangbestand op en stuurt dit bestand dan door. Dit alles gebeurt asynchroon zodat de computer niet hoeft te wachten op een antwoord van de te ontvangen computer.
+De klok stuurt een bericht naar het Beheersysteem dat er bestanden mogen doorgestuurd worden van een computer naar andere computers. Het Beheersysteem roept de methode stuurBestand op van een willekeurig geselecteerde computer, deze zal dan een keuze maken welk soort bestand er verstuurd zal worden, dit kan een goed bestand zijn of een slecht bestand. Hierna roept de computer van al zijn buren de methode ontvangbestand op en stuurt dit bestand dan door. Dit alles gebeurt asynchroon zodat de computer niet hoeft te wachten op een antwoord van de te ontvangen computer.
 
 \lemma{Sequentiediagram}
-\diagram{seq_stuur_bericht}{Stuur bericht}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.9]{seq_stuur_bericht}
+\caption{Stuur bericht}
+\end{center}
+\end{figure}
 
 \newpage
 \section{Woordenboek}
 \subsection{Beheersysteem}
-Wanneer we het beheersysteem aanspreken in onze sequentiediagrammen, wordt ook de plot functie van de VisualisatieBibliotheek aangesproken.
+Wanneer we het Beheersysteem aanspreken in onze sequentiediagrammen, wordt ook de plot functie van de Visualisatiebibliotheek aangesproken.
 \lemma{leesConfig()} Leest het config bestand in en construeert de nodige objecten.
 \lemma{startDemo()} De demo mode van het programma wordt nu gestart. Dit wil zeggen dat vanaf nu er automatisch computers aangemaakt zullen worden, virussen verspreid zullen worden, computers schoongemaakt kunnen worden en ook computers verwijderd kunnen worden.
-\lemma{kuisComputer()} Het beheersysteem zal willekeurig een computer kiezen uit de lijst van aangemaakte computers en zal er 1 van verwijderen. Bij het verwijderen legt het beheersysteem de verbindingen tussen de buurcomputers. Om dit te realiseren zal het beheersysteem gebruik maken van de volgende lidfuncties:
+\lemma{kuisComputer()} Het Beheersysteem zal willekeurig een computer kiezen uit de lijst van aangemaakte computers en zal er 1 van verwijderen. Bij het verwijderen legt het Beheersysteem de verbindingen tussen de buurcomputers. Om dit te realiseren zal het Beheersysteem gebruik maken van de volgende lidfuncties:
 \begin{itemize}
     \item Computer:verwijderVirussen()
 \end{itemize}
 \lemma{maakComputerAan()} Zoals gezegd zal deze functie een nieuwe computer aanmaken en zelf beslissen met wie hij verbonden zal worden.
-\lemma{stuurBericht()} Het beheersysteem zal beslissen uit de lijst van computers welke computers er een bestand mogen sturen naar hun buren. Deze functie maakt gebruik van de volgende lidfuncties:
+\lemma{stuurBericht()} Het Beheersysteem zal beslissen uit de lijst van computers welke computers er een bestand mogen sturen naar hun buren. Deze functie maakt gebruik van de volgende lidfuncties:
 \begin{itemize}
     \item Computer:stuurBestand()
 \end{itemize}
-\lemma{verwijderComputer()} Het beheersysteem zal willekeurig een computer kiezen uit de lijst welke computer er verwijderd zal worden. Hiervoor maakt hij gebruik van de volgende lidfuncties:
+\lemma{verwijderComputer()} Het Beheersysteem zal willekeurig een computer kiezen uit de lijst welke computer er verwijderd zal worden. Hiervoor maakt hij gebruik van de volgende lidfuncties:
 \begin{itemize}
     \item Computer:geefVerbondenComputers()
     \item Computer:kanVerwijderdworden()
 \end{itemize}
 \subsection{Computer}
 \lemma{kanVerwijderdWorden()} Deze methode geeft terug of de computer kan verwijderd worden. Dit wordt bepaald door zijn staat isInternet. Dit wil zeggen dat deze computer een lijst bevat met alle virussen en zodoende niet kan verwijderd worden indien we willen dat alle virussen nog doorgegeven kunnen worden.
-\lemma{ontvangBestand(Bestand)} Het beheersysteem zal willekeurig een computer kiezen uit de lijst welke computer er verwijderd zal worden. Hiervoor maakt hij gebruik van de volgende lidfuncties:
+\lemma{ontvangBestand(Bestand)} Het Beheersysteem zal willekeurig een computer kiezen uit de lijst welke computer er verwijderd zal worden. Hiervoor maakt hij gebruik van de volgende lidfuncties:
 \begin{itemize}
     \item Bestand:geefVerspreidingssnelheid()
     \item Bestand:geefType()
@@ -158,8 +191,8 @@ Wanneer we het beheersysteem aanspreken in onze sequentiediagrammen, wordt ook d
 \lemma{geefVerspreidingsSnelheid()} Hierin kunnen we de verspreidingssnelheid van een virus terugkrijgen.
 \lemma{geefType()} Via deze methode krijgen we het type bestand terug.
 \lemma{geefNaam()} Zoals de methode al zegt krijgen we hier de naam van het bestand terug.
-\subsection{VisualisatieBibliotheek}
-\lemma{forceDirected()} De VisualisatieBibliotheek ondersteunt meerdere types van grafieken. Degene die hier gebruikt moet worden is het ForceDirected type.
+\subsection{Visualisatiebibliotheek}
+\lemma{forceDirected()} De Visualisatiebibliotheek ondersteunt meerdere types van grafieken. Degene die hier gebruikt moet worden is het ForceDirected type.
 \lemma{loadJSON()} Laad de config in met de data van het netwerk. Dit moet in het correcte formaat zijn.
 \lemma{compute()} Zal de posities van de computers berekenen en de verbindingen ertussen. Dit levert telkens andere posities op. Dit mag enkel in het begin van de simulatie gebruikt worden.
 \lemma{computeIncremental()} Voert de bovenstaande functie uit, maar in zo een manier dat de resources optimaal gebruikt worden.
@@ -169,7 +202,7 @@ Wanneer we het beheersysteem aanspreken in onze sequentiediagrammen, wordt ook d
 \section{Aanvullingen}
 %Deze paragraaf is optioneel, en kan gebruikt worden om elementen van het model in
 %onder te brengen die niet bij elk project voorkomen, zoals
-\lemma{Functioneel model}
+\subsection{Functioneel model}
 Ons functioneel model omschrijft de manier waarop een computer een bestand verstuurd. In eerste instantie wordt er gekozen of 
 er een goed of een slecht bericht gestuurd wordt (Besmette computers kunnen nog steeds goede bestanden doorsturen). Als een goed
 bestand wordt gekozen dan zal dit direct teruggegeven worden. Als er echter een slecht bestand gekozen wordt zal de computer aan de 
@@ -177,8 +210,12 @@ hand van het slechte bestand zijn verspreidingssnelheid bepalen welk slecht best
 lage verspreidingssnelheid door te sturen is lager dan de kans om een bestand met hoge verspreidingssnelheid door te sturen.
 \eindlemma
 
-%\includegraphics{funcmodel}
-\diagram{funcmodel}{Functioneel model: bestanden versturen}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.80]{funcmodel}
+\caption{Functioneel model - bestanden versturen}
+\end{center}
+\end{figure}
 
 \chapter{Realisatie}
 \section{Hergebruik}
@@ -235,24 +272,24 @@ Deze ziet er op het eerste zich misschien ietwat indrukwekkend uit, maar is eige
 Voor iedere computer (Node in het JIT-jargon) wordt een object bijgehouden. De configuratie bestaat een een lijst van objecten.
 Ieder object heeft (minstens) de volgende eigenschappen:
 \begin{itemize}
-    \item id: Iedere computer moet een uniek id hebben. We hebben er voor gekozen om enkel alfanumerieke karakters te gebruiken. Dit is echter niet verplicht.
-    \item naam: De naam de computer, dit mag verschillen van het id en mag alle UTF-8 karakters bevatten.
-    \item data: Een subobject dat twee eigenschappen heeft.
+    \item \textbf{id}: Iedere computer moet een uniek id hebben. We hebben er voor gekozen om enkel alfanumerieke karakters te gebruiken. Dit is echter niet verplicht.
+    \item \textbf{naam}: De naam de computer, dit mag verschillen van het id en mag alle UTF-8 karakters bevatten.
+    \item \textbf{data}: Een subobject dat twee eigenschappen heeft.
     	\begin{itemize}
-	    \item virussen: Een lijst van virussen. Dit is een array van strings, waarbij iedere string het id van een SlechtBestand is.
-	    \item \$type: Dit stelt de toestand van de computer voor. De \$ is iets dat eigen is aan de JIT bibliotheek. 
+	    \item \textbf{virussen}: Een lijst van virussen. Dit is een array van strings, waarbij iedere string het id van een SlechtBestand is.
+	    \item \textbf{\$type}: Dit stelt de toestand van de computer voor. De \$ is iets dat eigen is aan de JIT bibliotheek. 
 	    		Er zijn 4 mogelijke waarden: 
 			\begin{itemize}
-			    \item clean: De computer is nog niet besmet.
-			    \item infected De computer is besmet.
-			    \item internet\_clean Een niet besmette computer die verbonden is met het internet.
-			    \item internet\_infected Een besmette computer die verbonden is het met het internet.
+			    \item \textbf{clean}: De computer is nog niet besmet.
+			    \item \textbf{infected}: De computer is besmet.
+			    \item \textbf{internet\_clean}: Een niet besmette computer die verbonden is met het internet.
+			    \item \textbf{internet\_infected:} Een besmette computer die verbonden is het met het internet.
 			\end{itemize}
 	\end{itemize}
-    \item adjacencies: De verbindingen die deze computer maakt. Dit moet een lijst van objecten zijn, waarbij ieder object een verbinding voorstelt.
+    \item \textbf{adjacencies}: De verbindingen die deze computer maakt. Dit moet een lijst van objecten zijn, waarbij ieder object een verbinding voorstelt.
     	\begin{itemize}
-	    \item nodeFrom: Het id van deze computer. Ook al ruikt dit naar data duplicatie, dit is verplicht door de JIT bibliotheek.
-	    \item nodeTo: Het id van de computer naar waar de verbinding moet.
+	    \item \textbf{nodeFrom}: Het id van deze computer. Ook al ruikt dit naar data duplicatie, dit is verplicht door de JIT bibliotheek.
+	    \item \textbf{nodeTo}: Het id van de computer naar waar de verbinding moet.
 	\end{itemize}
 \end{itemize}
 \pagebreak
@@ -261,13 +298,13 @@ Simpelweg een lijst (technisch gezien een array) met objecten. Elk object stelt 
 Ieder object heeft dezelfde eigenschappen met waardes typisch voor dat soort ```SlechtBestand''.
 Deze zijn:
 \begin{itemize}
-    \item id: Ieder ```SlechtBestand'' moet een uniek id hebben. Wederom, we hebben er voor gekozen om enkel alfanumerieke karakters te gebruiken. Dit is echter niet verplicht.
-    \item naam: De naam van het ```SlechtBestand''. Ook hier, dit mag verschillen van het id en mag alle UTF-8 karakters bevatten.
-    \item verspreidingssnelheid: Wanneer er een ```Bestand'' moet gekozen worden tijdens de simulatie, zal dit getal een grote rol spelen.
+    \item \textbf{id}: Ieder ```SlechtBestand'' moet een uniek id hebben. Wederom, we hebben er voor gekozen om enkel alfanumerieke karakters te gebruiken. Dit is echter niet verplicht.
+    \item \textbf{naam}: De naam van het ```SlechtBestand''. Ook hier mag het verschillen van het id en mag alle UTF-8 karakters bevatten.
+    \item \textbf{verspreidingssnelheid}: Wanneer er een ```Bestand'' moet gekozen worden tijdens de simulatie, zal dit getal een grote rol spelen.
     		Hoe groter dit getal, hoe groter de kans dat dit bestand gekozen wordt.
-    \item infectiefactor: Wanneer het virus arriveert bij een computer wordt dit getal gechecked om te kijken of de computer naar de ```besmet'' toestand moet overgaan.
+    \item \textbf{infectiefactor}: Wanneer het virus arriveert bij een computer wordt dit getal gechecked om te kijken of de computer naar de ```besmet'' toestand moet overgaan.
     		Wederom, hoe groter dit getal, hoe groter de kans dat de computer besmet wordt.
-    \item image: Een relatief pad naar een icoon voor dit type van bestand.
+    \item \textbf{image}: Een relatief pad naar een icoon voor dit type van bestand.
 \end{itemize}
 
 
@@ -405,5 +442,4 @@ Hieronder vind je een lijst met wie wat juist gedaan heeft op welk moment.
 \bibitem{InfoVis} \emph{JavaScript InfoVis Toolkit}, \url{http://thejit.org/static/v20/Jit/Examples/ForceDirected/example2.code.html}.
 \bibitem{JSON} \emph{JavaScript Object Notation}, \url{http://www.json.org/js.html}
 \end{thebibliography}
-
 \end{document}
