@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+    position: relative;
+}
 body
 {
   background-color:#434343;
@@ -157,9 +161,12 @@ label
 
 #network_graph
 {
-  width:90%;
-  height:400px;
-  margin:0 auto;
+    position: relative;
+    min-height: 90%;
+    height:auto !important; /* voor moderne browsers */
+    height:90%; /* voor IE */
+    width:90%;
+    margin:0 auto;
 }
 
 a.name
