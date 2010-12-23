@@ -120,7 +120,7 @@ label
   top:1px;
 }
 
-#inner-details acronym { font-size:1.2em;}
+#inner-details #inner-details-name { font-size:1.2em;}
 #inner-details img {
     border:0px;
     width:16px;
