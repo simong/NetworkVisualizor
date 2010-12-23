@@ -664,12 +664,8 @@ var BeheerSysteem = Class.extend({
 
                 // TODO kies een bestand
                 //var teverzendenBestand = computer.stuurBestand();
-		var computer = this.getComputer(fromNode.id);
+		        var computer = this.getComputer(fromNode.id);
                 var teverzendenBestand = computer.getBestand();
-		if (teverzendenBestand instanceof SlechtBestand){
-		    var tocomputer = this.getComputer(toNode.id);
-		    tocomputer.addBestand(teverzendenBestand);
-		}
 
                 var data = {
                     "from": {
@@ -723,7 +719,13 @@ var BeheerSysteem = Class.extend({
 
                     // TODO
                     // Check virusen en verander computer
-
+                    for (var i = 0; i < data.length; i++) {
+                        var teverzendenBestand = data[i].bestand;
+                        if (teverzendenBestand instanceof SlechtBestand) {
+                            var tocomputer = beheerSysteem.getComputer(toNode.id);
+                            tocomputer.addBestand(teverzendenBestand);
+                        }
+                    }
                     fd.plot();
                 }
             };
