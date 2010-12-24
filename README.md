@@ -15,7 +15,7 @@ The following people worked on the project:
 
 How to run this project
 -----------------------
-Simply open the fullscreen.html page in one of the following browsers:
+Simply open the index.html page in one of the following browsers:
 
 * [Google Chrome](http://www.google.com/chrome) 8+
 * [Mozilla Firefox](http://www.mozilla.com/firefox) 3.6+
